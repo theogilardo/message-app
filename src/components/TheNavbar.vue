@@ -1,9 +1,11 @@
 <template>
   <div class="navbar">
-    <img class="navbar__img" src="../assets/logo.png" alt="logo-icon" />
+    <router-link to="/">
+      <img class="navbar__img" src="../assets/logo.png" alt="logo-icon" />
+    </router-link>
     <div>
-      <p>Login</p>
-      <p>Signup</p>
+      <router-link class="link" to="/login">Login</router-link>
+      <router-link class="link" to="/Signup">Signup</router-link>
     </div>
   </div>
 </template>
@@ -15,7 +17,7 @@ export default {};
 <style lang="stylus" scoped>
 
 .navbar
-  border 1px solid red
+  // border 1px solid red
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -23,6 +25,7 @@ export default {};
   height 5rem
   max-width: 1366px;
   position: fixed;
+  z-index: 1000;
   top: 5%;
   left: 50%;
   transform: translateX(-50%);
@@ -36,4 +39,32 @@ export default {};
 
     & > *
       margin: 0 1rem;
+      font-size 1.6rem
+      text-decoration none
+      color white
+      padding: .8rem 1.8rem;
+      border: none;
+      background-image: linear-gradient(to right, #4c7de0, #e69cc0);
+      border-radius: 15px;
+      font-weight: 600;
+      box-shadow: 0 3px 2px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      transition: all 0.5s;
+
+      &:hover
+        transform: translateY(-2px);
+
+// .link
+//   padding: 12px 22px;
+//   border: none;
+//   color: white !important;
+//   background-image: linear-gradient(to right, #4c7de0, #e69cc0);
+//   border-radius: 15px;
+//   font-weight: 700;
+//   box-shadow: 0 3px 2px rgba(0, 0, 0, 0.2);
+//   cursor: pointer;
+//   transition: all 0.5s;
+
+//   &:hover
+//     transform: translateY(-2px);
 </style>

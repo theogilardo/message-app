@@ -12,7 +12,9 @@
           tempore! Voluptate sunt temporibus atque debitis fugit amet optio
           eligendi libero ullam est? Mollitia, adipisci laudantium.
         </p>
-        <button @click="test" class="btn">Get Started</button>
+        <router-link to="/signup">
+          <button class="btn">Get Started</button>
+        </router-link>
       </div>
       <img src="../assets/cloud-girl.png" alt="cloud girl" class="hero__img" />
     </main>

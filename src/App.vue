@@ -1,9 +1,7 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <the-navbar />
-      <router-view />
-    </div>
+    <the-navbar></the-navbar>
+    <router-view />
   </div>
 </template>
 
@@ -18,7 +16,6 @@ export default {
 </script>
 
 <style lang="stylus">
-
 
 html
   font-size: 62.5%; // 1rem = 10px
@@ -46,7 +43,8 @@ html
   color #2c3e50
   min-height 100vh
   width 100%
-  background-image linear-gradient(to right, #def2ec, #e69cc0)
+  background-color #DEF2EC
+  // background-image linear-gradient(to right, #def2ec, #e69cc0)
   // background-image linear-gradient(to right, #4c7de0, #e69cc0)
   position relative
 
