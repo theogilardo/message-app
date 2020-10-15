@@ -26,11 +26,11 @@
       </div>
       <div class="container__form__field">
         <input
-          :class="{ error: errors.has('email') }"
+          :class="{ error: emailError }"
           v-model="userData.email"
           v-validate="'required|email'"
           name="email"
-          type="email"
+          type="text"
           placeholder="Enter email..."
         />
         <label> {{ errors.first("email") }} </label>
@@ -48,7 +48,7 @@
       </div>
       <div class="container__form__field">
         <input
-          :class="{ error: errors.has('phone') }"
+          :class="{ error: phoneError }"
           v-model="userData.phone"
           v-validate="'required|regex:^([0-9]+)$'"
           name="phone"
@@ -75,24 +75,32 @@ export default {
         email: "",
         phone: "",
       },
+      formSent: false,
     };
+  },
+  computed: {
+    emailError() {
+      return this.$validator.errors.items.some(
+        (error) => error.field === "email" && error.rule === "required"
+      );
+    },
+    phoneError() {
+      return this.$validator.errors.items.some(
+        (error) => error.field === "phone" && error.rule === "required"
+      );
+    },
   },
   methods: {
     formSubmitted() {
-      console.log(this.$validator);
-
-      this.$validator
-        .validateAll()
-        .then((res) => {
-          console.log(res);
-          // this.$store.dispatch("signup", this.userData);
-          // this.clearFields();
-          // this.redirectUser();
-        })
-        .catch((err) => {
-          console.log(err);
-          alert("Invalid fields");
-        });
+      this.$validator.validateAll().then((isValid) => {
+        if (isValid) {
+          this.$store.dispatch("signup", this.userData);
+          this.clearFields();
+          this.redirectUser();
+        } else {
+          return;
+        }
+      });
     },
     clearFields() {
       this.userData = {

@@ -59,6 +59,9 @@ html
   box-sizing: border-box;
   text-decoration none
 
+button:focus
+  outline 0
+
 input:focus
-  outline: 0;
+  outline 0
 </style>

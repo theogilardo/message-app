@@ -92,7 +92,9 @@ const actions = {
 
         commit("storeUser", authData);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error);
+      });
   },
 
   autoLogin({ commit }) {
