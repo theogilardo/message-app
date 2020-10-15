@@ -22,10 +22,6 @@ const mutations = {
     state.user = userData;
   },
 
-  storeTokenId(state, tokenId) {
-    state.tokenId = tokenId;
-  },
-
   storeLocalStorageAuthUser(_, authData) {
     const now = new Date();
     const expirationDate = new Date(now.getTime() + authData.expiresIn * 1000);
