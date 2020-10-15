@@ -26,6 +26,17 @@
       </div>
       <div class="container__form__field">
         <input
+          :class="{ error: phoneError }"
+          v-model="userData.phone"
+          v-validate="'required|regex:^([0-9]+)$'"
+          name="phone"
+          type="text"
+          placeholder="Enter phone..."
+        />
+        <label> {{ errors.first("phone") }} </label>
+      </div>
+      <div class="container__form__field">
+        <input
           :class="{ error: emailError }"
           v-model="userData.email"
           v-validate="'required|email'"
@@ -37,7 +48,7 @@
       </div>
       <div class="container__form__field">
         <input
-          :class="{ error: errors.has('password') }"
+          :class="{ error: passwordError }"
           v-model="userData.password"
           v-validate="'required|min:6'"
           name="password"
@@ -45,17 +56,6 @@
           placeholder="Enter password..."
         />
         <label> {{ errors.first("password") }} </label>
-      </div>
-      <div class="container__form__field">
-        <input
-          :class="{ error: phoneError }"
-          v-model="userData.phone"
-          v-validate="'required|regex:^([0-9]+)$'"
-          name="phone"
-          type="text"
-          placeholder="Enter phone..."
-        />
-        <label> {{ errors.first("phone") }} </label>
       </div>
       <button class="btn" type="submit" @click.prevent="formSubmitted">
         Signup
@@ -87,6 +87,11 @@ export default {
     phoneError() {
       return this.$validator.errors.items.some(
         (error) => error.field === "phone" && error.rule === "required"
+      );
+    },
+    passwordError() {
+      return this.$validator.errors.items.some(
+        (error) => error.field === "password" && error.rule === "required"
       );
     },
   },

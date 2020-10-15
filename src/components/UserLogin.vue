@@ -2,16 +2,28 @@
   <div class="container">
     <form class="container__form">
       <h2>Please Login</h2>
-      <input
-        v-model="userData.email"
-        type="email"
-        placeholder="Enter email.."
-      />
-      <input
-        v-model="userData.password"
-        type="text"
-        placeholder="Enter password.."
-      />
+      <div class="container__form__field">
+        <input
+          :class="{ error: emailError }"
+          v-model="userData.email"
+          v-validate="'required|email'"
+          name="email"
+          type="text"
+          placeholder="Enter email..."
+        />
+        <label> {{ errors.first("email") }} </label>
+      </div>
+      <div class="container__form__field">
+        <input
+          :class="{ error: passwordError }"
+          v-model="userData.password"
+          v-validate="'required|min:6'"
+          name="password"
+          type="text"
+          placeholder="Enter password..."
+        />
+        <label> {{ errors.first("password") }} </label>
+      </div>
       <!-- <input type="email" placeholder="Enter phone.." /> -->
       <button class="btn" @click.prevent="formSubmitted">Login</button>
     </form>
@@ -30,11 +42,39 @@ export default {
       },
     };
   },
+  computed: {
+    emailError() {
+      return this.$validator.errors.items.some(
+        (error) => error.field === "email" && error.rule === "required"
+      );
+    },
+    phoneError() {
+      return this.$validator.errors.items.some(
+        (error) => error.field === "phone" && error.rule === "required"
+      );
+    },
+    passwordError() {
+      return this.$validator.errors.items.some(
+        (error) => error.field === "password" && error.rule === "required"
+      );
+    },
+  },
   methods: {
+    // formSubmitted() {
+    //   this.$store.dispatch("login", this.userData);
+    //   this.clearFields();
+    //   this.redirectUser();
+    // },
     formSubmitted() {
-      this.$store.dispatch("login", this.userData);
-      this.clearFields();
-      this.redirectUser();
+      this.$validator.validateAll().then((isValid) => {
+        if (isValid) {
+          this.$store.dispatch("login", this.userData);
+          this.clearFields();
+          this.redirectUser();
+        } else {
+          return;
+        }
+      });
     },
     clearFields() {
       this.userData = {
@@ -68,27 +108,43 @@ export default {
     width 70%
     max-width 55rem
     border-radius 20px
-    background-image linear-gradient(to right, #4c7de0, #e69cc0)
+    background #ececec
+    border 1px solid #adadad
+    // background-image linear-gradient(to right, #4c7de0, #e69cc0)
     display flex
     align-items center
     justify-content center
     flex-direction column
 
     h2
-      margin 1.5rem
-      color white
+      margin-bottom 2.5rem
+      // color white
+      color #333
 
-    input
-      padding 1.5rem
-      border none
-      border-radius 5px
-      width 55%
+    &__field
+      width 100%
+      position relative
 
       &:not(:first-child)
-        margin-top 2rem
+        margin-bottom 3.5rem
+
+      input
+        padding 1.5rem
+        width 55%
+        border none
+        border-radius 5px
+
+      label
+        position absolute
+        color red
+        font-size 1.1rem
+        width 100%
+        // top 120%
+        top 5.5rem
+        left 0
 
     .btn
-      margin-top: 3.5rem;
+      margin-top 1rem
       font-size 1.6rem
       padding: 1.5rem 2.5rem;
       border: none;
