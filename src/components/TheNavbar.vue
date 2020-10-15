@@ -4,14 +4,30 @@
       <img class="navbar__img" src="../assets/logo.png" alt="logo-icon" />
     </router-link>
     <div>
-      <router-link class="link" to="/login">Login</router-link>
-      <router-link class="link" to="/Signup">Signup</router-link>
+      <router-link v-if="!isAuth" class="link" to="/login">Login</router-link>
+      <router-link v-if="!isAuth" class="link" to="/Signup">Signup</router-link>
+      <button v-if="isAuth" class="link" @click="logout">Logout</button>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    logout() {
+      this.redirectHome();
+      return this.$store.commit("logout");
+    },
+    redirectHome() {
+      return this.$router.push("/");
+    },
+  },
+  computed: {
+    isAuth() {
+      return this.$store.getters.isAuth;
+    },
+  },
+};
 </script>
 
 <style lang="stylus" scoped>

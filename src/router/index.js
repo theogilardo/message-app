@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import HomePage from "../components/HomePage.vue";
 import Signup from "../components/UserSignup.vue";
 import Login from "../components/UserLogin.vue";
+import Chatbox from "../components/chatbox/Chatbox.vue";
 
 Vue.use(VueRouter);
 
@@ -21,6 +22,11 @@ const routes = [
     path: "/login",
     name: "Login",
     component: Login,
+  },
+  {
+    path: "/chatbox",
+    name: "Chatbox",
+    component: Chatbox,
   },
 ];
 

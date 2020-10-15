@@ -2,18 +2,62 @@
   <div class="container">
     <form class="container__form">
       <h2>Please Signup</h2>
-      <input type="text" placeholder="Enter name.." />
-      <input type="text" placeholder="Enter surname.." />
-      <input type="email" placeholder="Enter email.." />
-      <input type="text" placeholder="phone.." />
-      <input type="file" placeholder="Enter photo.." />
-      <button class="btn">Signup</button>
+      <input v-model="userData.name" type="text" placeholder="Enter name.." />
+      <input
+        v-model="userData.surname"
+        type="text"
+        placeholder="Enter surname.."
+      />
+      <input
+        v-model="userData.email"
+        type="email"
+        placeholder="Enter email.."
+      />
+      <input
+        v-model="userData.password"
+        type="text"
+        placeholder="Enter password.."
+      />
+      <input v-model="userData.phone" type="text" placeholder="Enter phone.." />
+      <!-- <input v-model="name" type="file" placeholder="Enter photo.." /> -->
+      <button class="btn" type="submit" @click.prevent="formSubmitted">
+        Signup
+      </button>
     </form>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      userData: {
+        name: "",
+        surname: "",
+        email: "",
+        phone: "",
+      },
+    };
+  },
+  methods: {
+    formSubmitted() {
+      this.$store.dispatch("signup", this.userData);
+      this.clearFields();
+      this.redirectUser();
+    },
+    clearFields() {
+      this.userData = {
+        name: "",
+        surname: "",
+        email: "",
+        phone: "",
+      };
+    },
+    redirectUser() {
+      return this.$router.push("/chatbox");
+    },
+  },
+};
 </script>
 
 <style lang="stylus" scoped>
@@ -26,8 +70,8 @@ export default {};
   justify-content center
 
   &__form
-    height 55rem
-    width 50%
+    padding 2rem
+    width 70%
     max-width 55rem
     border-radius 20px
     background-image linear-gradient(to right, #4c7de0, #e69cc0)
@@ -49,13 +93,8 @@ export default {};
       &:not(:first-child)
         margin-top 2rem
 
-    // input[type="file"]
-    //   opacity: 0;
-    //   position: absolute;
-    //   z-index: -10;
-
     .btn
-      margin-top: 3.5rem;
+      margin: 2rem;
       font-size 1.6rem
       padding: 1.5rem 2.5rem;
       border: none;

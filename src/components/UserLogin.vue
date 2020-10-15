@@ -2,15 +2,51 @@
   <div class="container">
     <form class="container__form">
       <h2>Please Login</h2>
-      <input type="email" placeholder="Enter email.." />
-      <input type="email" placeholder="phone.." />
-      <button class="btn">Signup</button>
+      <input
+        v-model="userData.email"
+        type="email"
+        placeholder="Enter email.."
+      />
+      <input
+        v-model="userData.password"
+        type="text"
+        placeholder="Enter password.."
+      />
+      <!-- <input type="email" placeholder="Enter phone.." /> -->
+      <button class="btn" @click.prevent="formSubmitted">Login</button>
     </form>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      userData: {
+        email: "",
+        password: "",
+        // phone: "",
+      },
+    };
+  },
+  methods: {
+    formSubmitted() {
+      this.$store.dispatch("login", this.userData);
+      this.clearFields();
+      this.redirectUser();
+    },
+    clearFields() {
+      this.userData = {
+        email: "",
+        password: "",
+        // phone: "",
+      };
+    },
+    redirectUser() {
+      return this.$router.push("/chatbox");
+    },
+  },
+};
 </script>
 
 <style lang="stylus" scoped>
@@ -23,8 +59,8 @@ export default {};
   justify-content center
 
   &__form
-    height 40rem
-    width 50%
+    padding 5rem 2rem
+    width 70%
     max-width 55rem
     border-radius 20px
     background-image linear-gradient(to right, #4c7de0, #e69cc0)

@@ -1,8 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import chat from "./modules/chat";
-import login from "./modules/login";
-import signup from "./modules/signup";
+import auth from "./modules/auth";
 import users from "./modules/users";
 
 Vue.use(Vuex);
@@ -10,8 +9,7 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
   modules: {
     chat,
-    login,
-    signup,
+    auth,
     users,
   },
 });
