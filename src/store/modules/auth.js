@@ -2,26 +2,33 @@ import axios from "axios";
 
 const state = {
   user: null,
-  idToken: null,
+  userId: null,
+  tokenId: null,
 };
 
 const getters = {
   isAuth(state) {
-    return state.idToken !== null;
+    return state.tokenId !== null;
   },
 };
 
 const mutations = {
+  authUser(state, authData) {
+    state.tokenId = authData.tokenId;
+    state.userId = authData.userId;
+  },
+
   storeUser(state, userData) {
     state.user = userData;
   },
 
-  storeIdToken(state, idToken) {
-    state.idToken = idToken;
+  storeTokenId(state, tokenId) {
+    state.tokenId = tokenId;
   },
 
   logout(state) {
-    state.idToken = null;
+    state.tokenId = null;
+    localStorage.clear();
   },
 };
 
@@ -38,9 +45,20 @@ const actions = {
       )
       .then((res) => {
         console.log(res);
-        authData.userId = res.data.localId;
+
+        const now = new Date();
+        const expirationDate = new Date(
+          now.getTime() + res.data.expiresIn * 1000
+        );
+        localStorage.setItem("tokenId", res.data.idToken);
+        localStorage.setItem("userId", res.data.localId);
+        localStorage.setItem("expiresIn", expirationDate);
+
         commit("storeUser", authData);
-        commit("storeIdToken", res.data.idToken);
+        commit("authUser", {
+          tokenId: res.data.idToken,
+          userId: res.data.localId,
+        });
       })
       .catch((error) => console.log(error));
   },
@@ -57,11 +75,49 @@ const actions = {
       )
       .then((res) => {
         console.log(res);
-        authData.userId = res.data.localId;
+
+        // Expire Date
+        const now = new Date();
+        const expirationDate = new Date(
+          now.getTime() + res.data.expiresIn * 1000
+        );
+        localStorage.setItem("tokenId", res.data.idToken);
+        localStorage.setItem("userId", res.data.localId);
+        localStorage.setItem("expiresIn", expirationDate);
+
         commit("storeUser", authData);
-        commit("storeIdToken", res.data.idToken);
+        commit("authUser", {
+          tokenId: res.data.idToken,
+          userId: res.data.localId,
+        });
       })
       .catch((error) => console.log(error));
+  },
+
+  autoLogin({ commit }) {
+    const tokenId = localStorage.getItem("tokenId");
+    console.log(tokenId);
+    const userId = localStorage.getItem("userId");
+    const expirationDate = localStorage.getItem("expiresIn");
+    const now = new Date();
+    console.log("init");
+    if (!tokenId) {
+      console.log("no token");
+      return;
+    }
+
+    if (now >= expirationDate) {
+      console.log("expired");
+
+      return;
+    }
+
+    console.log("commit authUser");
+
+    commit("authUser", {
+      tokenId,
+      userId,
+    });
   },
 };
 

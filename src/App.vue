@@ -9,6 +9,9 @@
 import TheNavbar from "./components/TheNavbar";
 
 export default {
+  created() {
+    this.$store.dispatch("autoLogin");
+  },
   components: {
     "the-navbar": TheNavbar,
   },
