@@ -95,24 +95,14 @@ const actions = {
   },
 
   autoLogin({ commit }) {
-    const tokenId = localStorage.getItem("tokenId");
-    console.log(tokenId);
     const userId = localStorage.getItem("userId");
+    const tokenId = localStorage.getItem("tokenId");
     const expirationDate = localStorage.getItem("expiresIn");
     const now = new Date();
-    console.log("init");
-    if (!tokenId) {
-      console.log("no token");
+
+    if (!tokenId && now >= expirationDate) {
       return;
     }
-
-    if (now >= expirationDate) {
-      console.log("expired");
-
-      return;
-    }
-
-    console.log("commit authUser");
 
     commit("authUser", {
       tokenId,
