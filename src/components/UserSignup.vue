@@ -2,27 +2,29 @@
   <div class="container">
     <form class="container__form">
       <h2>Please Signup</h2>
-      <div class="container__form__field">
-        <input
-          :class="{ error: errors.has('name') }"
-          v-model="userData.name"
-          v-validate="'required'"
-          name="name"
-          type="text"
-          placeholder="Enter name..."
-        />
-        <label> {{ errors.first("name") }} </label>
-      </div>
-      <div class="container__form__field">
-        <input
-          :class="{ error: errors.has('surname') }"
-          v-model="userData.surname"
-          v-validate="'required'"
-          name="surname"
-          type="text"
-          placeholder="Enter surname..."
-        />
-        <label> {{ errors.first("surname") }} </label>
+      <div class="container__form__field container__form__appelation">
+        <div>
+          <input
+            :class="{ error: errors.has('name') }"
+            v-model="userData.name"
+            v-validate="'required'"
+            name="name"
+            type="text"
+            placeholder="Enter name..."
+          />
+          <label> {{ errors.first("name") }} </label>
+        </div>
+        <div>
+          <input
+            :class="{ error: errors.has('surname') }"
+            v-model="userData.surname"
+            v-validate="'required'"
+            name="surname"
+            type="text"
+            placeholder="Enter surname..."
+          />
+          <label> {{ errors.first("surname") }} </label>
+        </div>
       </div>
       <div class="container__form__field">
         <input
@@ -137,7 +139,7 @@ export default {
   &__form
     margin-top 8rem
     padding 2rem
-    width 70%
+    width 100%
     max-width 55rem
     border-radius 20px
     background #ececec
@@ -152,30 +154,27 @@ export default {
       margin 2rem 0 3rem 0
       color #333
 
-    &__field
+    &__appelation
+      display flex
+      align-items center
+      justify-content space-between
+      margin-bottom 3.5rem
+      width 100%
+
+      div
         width 100%
+
+        &:first-child
+          margin-right 2rem
+
+    &__field
+        width 70%
         position relative
 
         &:not(:first-child)
           margin-bottom 3.5rem
-
-        input
-          padding 1.5rem
-          width 55%
-          border none
-          border-radius 5px
-
-        label
-          position absolute
-          color red
-          font-size 1.1rem
-          width 100%
-          // top 120%
-          top 5.5rem
-          left 0
-
     .btn
-      margin-bottom: 1.5rem;
+      margin 1.5rem;
       font-size 1.6rem
       padding: 1.5rem 2.5rem;
       border: none;
@@ -190,4 +189,19 @@ export default {
 
       &:hover
         transform: translateY(-2px);
+
+input
+  padding 1.5rem
+  width 100%
+  border none
+  border-radius 5px
+
+label
+  position absolute
+  color red
+  font-size 1.1rem
+  width 100%
+  // top 120%
+  top 5.5rem
+  left 0
 </style>
