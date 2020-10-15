@@ -2,24 +2,61 @@
   <div class="container">
     <form class="container__form">
       <h2>Please Signup</h2>
-      <input v-model="userData.name" type="text" placeholder="Enter name.." />
-      <input
-        v-model="userData.surname"
-        type="text"
-        placeholder="Enter surname.."
-      />
-      <input
-        v-model="userData.email"
-        type="email"
-        placeholder="Enter email.."
-      />
-      <input
-        v-model="userData.password"
-        type="text"
-        placeholder="Enter password.."
-      />
-      <input v-model="userData.phone" type="text" placeholder="Enter phone.." />
-      <!-- <input v-model="name" type="file" placeholder="Enter photo.." /> -->
+      <div class="container__form__field">
+        <input
+          :class="{ error: errors.has('name') }"
+          v-model="userData.name"
+          v-validate="'required'"
+          name="name"
+          type="text"
+          placeholder="Enter name..."
+        />
+        <label> {{ errors.first("name") }} </label>
+      </div>
+      <div class="container__form__field">
+        <input
+          :class="{ error: errors.has('surname') }"
+          v-model="userData.surname"
+          v-validate="'required'"
+          name="surname"
+          type="text"
+          placeholder="Enter surname..."
+        />
+        <label> {{ errors.first("surname") }} </label>
+      </div>
+      <div class="container__form__field">
+        <input
+          :class="{ error: errors.has('email') }"
+          v-model="userData.email"
+          v-validate="'required|email'"
+          name="email"
+          type="email"
+          placeholder="Enter email..."
+        />
+        <label> {{ errors.first("email") }} </label>
+      </div>
+      <div class="container__form__field">
+        <input
+          :class="{ error: errors.has('password') }"
+          v-model="userData.password"
+          v-validate="'required'"
+          name="password"
+          type="text"
+          placeholder="Enter password..."
+        />
+        <label> {{ errors.first("password") }} </label>
+      </div>
+      <div class="container__form__field">
+        <input
+          :class="{ error: errors.has('phone') }"
+          v-model="userData.phone"
+          v-validate="'required|regex:^([0-9]+)$'"
+          name="phone"
+          type="text"
+          placeholder="Enter phone..."
+        />
+        <label> {{ errors.first("phone") }} </label>
+      </div>
       <button class="btn" type="submit" @click.prevent="formSubmitted">
         Signup
       </button>
@@ -29,6 +66,7 @@
 
 <script>
 export default {
+  name: "Signup",
   data() {
     return {
       userData: {
@@ -41,9 +79,20 @@ export default {
   },
   methods: {
     formSubmitted() {
-      this.$store.dispatch("signup", this.userData);
-      this.clearFields();
-      this.redirectUser();
+      console.log(this.$validator);
+
+      this.$validator
+        .validateAll()
+        .then((res) => {
+          console.log(res);
+          // this.$store.dispatch("signup", this.userData);
+          // this.clearFields();
+          // this.redirectUser();
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("Invalid fields");
+        });
     },
     clearFields() {
       this.userData = {
@@ -62,6 +111,9 @@ export default {
 
 <style lang="stylus" scoped>
 
+.error
+  border: 1px solid rgb(241, 87, 87) !important;
+
 .container
   width 100%
   min-height 100vh
@@ -70,31 +122,47 @@ export default {
   justify-content center
 
   &__form
+    margin-top 8rem
     padding 2rem
     width 70%
     max-width 55rem
     border-radius 20px
-    background-image linear-gradient(to right, #4c7de0, #e69cc0)
+    background #ececec
+    border 1px solid #adadad
+    // background-image linear-gradient(to right, #4c7de0, #e69cc0)
     display flex
     align-items center
     justify-content center
     flex-direction column
 
     h2
-      margin 1.5rem
-      color white
+      margin 2rem 0 3rem 0
+      color #333
 
-    input
-      padding 1.5rem
-      border none
-      border-radius 5px
-      width 55%
+    &__field
+        width 100%
+        position relative
 
-      &:not(:first-child)
-        margin-top 2rem
+        &:not(:first-child)
+          margin-bottom 3.5rem
+
+        input
+          padding 1.5rem
+          width 55%
+          border none
+          border-radius 5px
+
+        label
+          position absolute
+          color red
+          font-size 1.1rem
+          width 100%
+          // top 120%
+          top 5.5rem
+          left 0
 
     .btn
-      margin: 2rem;
+      margin-bottom: 1.5rem;
       font-size 1.6rem
       padding: 1.5rem 2.5rem;
       border: none;

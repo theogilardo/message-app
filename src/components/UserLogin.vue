@@ -20,6 +20,7 @@
 
 <script>
 export default {
+  name: "Login",
   data() {
     return {
       userData: {
@@ -51,6 +52,9 @@ export default {
 
 <style lang="stylus" scoped>
 
+.error
+  border: 1px solid rgb(241, 87, 87) !important;
+
 .container
   width 100%
   min-height 100vh
@@ -59,6 +63,7 @@ export default {
   justify-content center
 
   &__form
+    margin-top 8rem
     padding 5rem 2rem
     width 70%
     max-width 55rem

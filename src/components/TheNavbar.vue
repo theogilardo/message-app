@@ -13,6 +13,7 @@
 
 <script>
 export default {
+  name: "Navbar",
   methods: {
     logout() {
       this.redirectHome();
