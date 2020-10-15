@@ -39,7 +39,7 @@
         <input
           :class="{ error: errors.has('password') }"
           v-model="userData.password"
-          v-validate="'required'"
+          v-validate="'required|min:6'"
           name="password"
           type="text"
           placeholder="Enter password..."
