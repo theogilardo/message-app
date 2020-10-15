@@ -26,6 +26,14 @@ const mutations = {
     state.tokenId = tokenId;
   },
 
+  storeLocalStorageAuthUser(_, authData) {
+    const now = new Date();
+    const expirationDate = new Date(now.getTime() + authData.expiresIn * 1000);
+    localStorage.setItem("tokenId", authData.tokenId);
+    localStorage.setItem("userId", authData.localId);
+    localStorage.setItem("expiresIn", expirationDate);
+  },
+
   logout(state) {
     state.tokenId = null;
     localStorage.clear();
@@ -46,19 +54,18 @@ const actions = {
       .then((res) => {
         console.log(res);
 
-        const now = new Date();
-        const expirationDate = new Date(
-          now.getTime() + res.data.expiresIn * 1000
-        );
-        localStorage.setItem("tokenId", res.data.idToken);
-        localStorage.setItem("userId", res.data.localId);
-        localStorage.setItem("expiresIn", expirationDate);
+        commit("storeLocalStorageAuthUser", {
+          tokenId: res.data.idToken,
+          localId: res.data.localId,
+          expiresIn: res.data.expiresIn,
+        });
 
-        commit("storeUser", authData);
         commit("authUser", {
           tokenId: res.data.idToken,
           userId: res.data.localId,
         });
+
+        commit("storeUser", authData);
       })
       .catch((error) => console.log(error));
   },
@@ -76,20 +83,18 @@ const actions = {
       .then((res) => {
         console.log(res);
 
-        // Expire Date
-        const now = new Date();
-        const expirationDate = new Date(
-          now.getTime() + res.data.expiresIn * 1000
-        );
-        localStorage.setItem("tokenId", res.data.idToken);
-        localStorage.setItem("userId", res.data.localId);
-        localStorage.setItem("expiresIn", expirationDate);
+        commit("storeLocalStorageAuthUser", {
+          tokenId: res.data.idToken,
+          localId: res.data.localId,
+          expiresIn: res.data.expiresIn,
+        });
 
-        commit("storeUser", authData);
         commit("authUser", {
           tokenId: res.data.idToken,
           userId: res.data.localId,
         });
+
+        commit("storeUser", authData);
       })
       .catch((error) => console.log(error));
   },
