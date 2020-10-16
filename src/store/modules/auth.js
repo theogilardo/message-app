@@ -9,12 +9,6 @@ const getters = {
   isAuth(state) {
     return state.tokenId !== null;
   },
-  userId(state) {
-    return state.userId;
-  },
-  tokenId(state) {
-    return state.userId;
-  },
 };
 
 const mutations = {
