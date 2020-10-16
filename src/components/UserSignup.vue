@@ -77,7 +77,6 @@ export default {
         email: "",
         phone: "",
       },
-      formSent: false,
     };
   },
   computed: {
