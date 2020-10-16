@@ -2,6 +2,7 @@ import axios from "axios";
 
 const state = {
   user: null,
+  users: null,
   userId: null,
   tokenId: null,
 };
@@ -13,6 +14,9 @@ const getters = {
   user(state) {
     return state.user;
   },
+  users(state) {
+    return state.users;
+  },
 };
 
 const mutations = {
@@ -23,6 +27,10 @@ const mutations = {
 
   storeUser(state, userData) {
     state.user = userData;
+  },
+
+  storeUsers(state, userData) {
+    state.users = userData;
   },
 
   storeLocalStorageAuthUser(_, authData) {
@@ -52,8 +60,6 @@ const actions = {
         }
       )
       .then((res) => {
-        console.log(res);
-
         commit("storeLocalStorageAuthUser", {
           tokenId: res.data.idToken,
           localId: res.data.localId,
@@ -83,6 +89,11 @@ const actions = {
       )
       .then((res) => {
         console.log(res);
+        console.log(res.localId);
+        console.log(authData);
+
+        authData.localId = res.data.localId;
+        console.log(authData);
 
         commit("storeLocalStorageAuthUser", {
           tokenId: res.data.idToken,
@@ -120,8 +131,27 @@ const actions = {
           state.tokenId
       )
       .then((res) => {
-        console.log(res);
-        commit("storeUser", res.data);
+        const data = res.data;
+        const users = [];
+        for (let key in data) {
+          const user = data[key];
+          users.push(user);
+        }
+
+        const activeUser = users.find((user) => {
+          return user.localId === state.userId;
+        });
+
+        console.log(activeUser);
+
+        const otherUsers = users.filter((user) => {
+          return state.userId !== user.localId;
+        });
+
+        console.log(otherUsers);
+
+        commit("storeUsers", otherUsers);
+        commit("storeUser", activeUser);
       })
       .catch((err) => console.log(err));
   },
