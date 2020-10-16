@@ -1,8 +1,6 @@
 import axios from "axios";
 
 const state = {
-  user: null,
-  users: null,
   userId: null,
   tokenId: null,
 };
@@ -11,11 +9,11 @@ const getters = {
   isAuth(state) {
     return state.tokenId !== null;
   },
-  user(state) {
-    return state.user;
+  userId(state) {
+    return state.userId;
   },
-  users(state) {
-    return state.users;
+  tokenId(state) {
+    return state.userId;
   },
 };
 
@@ -23,23 +21,6 @@ const mutations = {
   authUser(state, authData) {
     state.tokenId = authData.tokenId;
     state.userId = authData.userId;
-  },
-
-  storeUser(state, userData) {
-    state.user = userData;
-  },
-
-  storeUsers(state, userData) {
-    state.users = userData;
-  },
-
-  storeLocalStorageAuthUser(_, authData) {
-    const now = new Date();
-    const expirationDate = new Date(now.getTime() + authData.expiresIn * 1000);
-    localStorage.setItem("tokenId", authData.tokenId);
-    localStorage.setItem("userId", authData.localId);
-    localStorage.setItem("userData", authData.userData);
-    localStorage.setItem("expiresIn", expirationDate);
   },
 
   logout(state) {
@@ -60,7 +41,7 @@ const actions = {
         }
       )
       .then((res) => {
-        commit("storeLocalStorageAuthUser", {
+        commit("storeLocalStorageUser", {
           tokenId: res.data.idToken,
           localId: res.data.localId,
           expiresIn: res.data.expiresIn,
@@ -71,8 +52,7 @@ const actions = {
           userId: res.data.localId,
         });
 
-        // commit("storeUser", authData);
-        dispatch("fetchUser", authData);
+        dispatch("fetchUser");
       })
       .catch((error) => console.log(error));
   },
@@ -95,7 +75,7 @@ const actions = {
         authData.localId = res.data.localId;
         console.log(authData);
 
-        commit("storeLocalStorageAuthUser", {
+        commit("storeLocalStorageUser", {
           tokenId: res.data.idToken,
           localId: res.data.localId,
           expiresIn: res.data.expiresIn,
@@ -114,52 +94,12 @@ const actions = {
       });
   },
 
-  storeUser({ commit }, authData) {
-    commit("storeUser", authData);
-    // Store in firebase user Data
-    axios
-      .post("https://message-app-719f5.firebaseio.com/users.json", authData)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-  },
-
-  fetchUser({ commit, state }) {
-    axios
-      .get(
-        "https://message-app-719f5.firebaseio.com/users.json" +
-          "?auth=" +
-          state.tokenId
-      )
-      .then((res) => {
-        const data = res.data;
-        const users = [];
-        for (let key in data) {
-          const user = data[key];
-          users.push(user);
-        }
-
-        const activeUser = users.find((user) => {
-          return user.localId === state.userId;
-        });
-
-        console.log(activeUser);
-
-        const otherUsers = users.filter((user) => {
-          return state.userId !== user.localId;
-        });
-
-        console.log(otherUsers);
-
-        commit("storeUsers", otherUsers);
-        commit("storeUser", activeUser);
-      })
-      .catch((err) => console.log(err));
-  },
-
   autoLogin({ commit }) {
     const userId = localStorage.getItem("userId");
     const tokenId = localStorage.getItem("tokenId");
     const expirationDate = localStorage.getItem("expiresIn");
+    const userData = localStorage.getItem("userData");
+
     const now = new Date();
 
     if (!tokenId && now >= expirationDate) {
@@ -170,6 +110,8 @@ const actions = {
       tokenId,
       userId,
     });
+
+    commit("storeUser", userData);
   },
 };
 

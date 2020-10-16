@@ -36,6 +36,11 @@ export default {
     };
   },
 
+  created() {
+    const localUserData = JSON.parse(localStorage.getItem("storeUser"));
+    this.$store.commit("storeUser", localUserData);
+  },
+
   computed: {
     user() {
       return this.$store.getters.user;
