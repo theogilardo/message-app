@@ -1,31 +1,35 @@
 <template>
   <div class="container">
     <side-bar></side-bar>
+
+    <!-- side-panel -->
     <user-profile></user-profile>
-    <div class="container__contacts-list">
-      <h3>contacts-list here</h3>
-    </div>
-    <div class="container__contact-info">
-      <h3>contact-info here</h3>
-    </div>
-    <div class="container__messages">
-      <h3>Messages here</h3>
-    </div>
-    <div class="container__typing">
-      <h3>Typing here</h3>
-    </div>
+    <chat-list></chat-list>
+
+    <!-- chat-panel -->
+    <contact-info></contact-info>
+    <user-messages></user-messages>
+    <input-messaging></input-messaging>
   </div>
 </template>
 
 <script>
-import sideBar from "./side-panel/SideBar";
-import userProfile from "./side-panel/UserProfile";
+import SideBar from "./side-panel/SideBar";
+import UserProfile from "./side-panel/UserProfile";
+import InputMessaging from "./chat-panel/InputMessaging";
+import ContactInfo from "./chat-panel/ContactInfo";
+import UserMessages from "./chat-panel/UserMessages";
+import ChatList from "./side-panel/ChatList";
 
 export default {
   name: "Chatbox",
   components: {
-    sideBar,
-    userProfile,
+    SideBar,
+    UserProfile,
+    InputMessaging,
+    ContactInfo,
+    UserMessages,
+    ChatList,
   },
   data() {
     return {
@@ -51,27 +55,7 @@ export default {
 .container
   width 100%
   min-height 100vh
-  display: grid;
-  grid-template-columns: 10% 25% 1fr;
-  grid-template-rows: 120px 1fr 100px;
-
-  &__contacts-list
-    border 1px solid blue
-    grid-row 2/4
-    grid-column 2/3
-
-  &__contact-info
-    border 1px solid green
-    grid-row 1/2
-    grid-column 3/4
-
-  &__messages
-    border 1px solid purple
-    grid-row 2/3
-    grid-column 3/4
-
-  &__typing
-    border 1px solid yellow
-    grid-row 3/4
-    grid-column 3/4
+  display grid
+  grid-template-columns: 5% 20% 1fr;
+  grid-template-rows: 125px 150px 1fr 100px;
 </style>

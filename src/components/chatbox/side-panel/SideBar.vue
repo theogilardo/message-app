@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar">
-    <h1>Test</h1>
+    <h1></h1>
   </div>
 </template>
 
@@ -11,13 +11,8 @@ export default {};
 <style lang="stylus" scoped>
 
 .sidebar
-  border 1px solid pink
-  background blue
-  grid-row 1/4
+  background #258c61
+  grid-row 1/5
   grid-column 1/2
   width 100%
-  // padding 3rem
-  // display flex
-  // align-items center
-  // justify-content space-between
 </style>

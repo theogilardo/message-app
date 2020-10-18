@@ -14,9 +14,10 @@
     <input type="file" id="file" ref="myFiles" @change="onFileSelected" />
 
     <div class="user-profile__name">
-      <p>{{ user.name }}</p>
-      <p>{{ user.surname }}</p>
+      <h2>{{ user.name }}</h2>
+      <h2>{{ user.surname }}</h2>
     </div>
+    <p>My account</p>
   </div>
 </template>
 
@@ -58,24 +59,25 @@ export default {
 
 <style lang="stylus" scoped>
 .user-profile
-  border 1px solid red
-  grid-row 1/2
-  grid-column 1/2
+  background #fdfdfd
+  grid-row 1/3
+  grid-column 2/3
   width 100%
   padding 3rem
   display flex
   align-items center
-  justify-content space-between
+  // justify-content space-between
+  flex-direction column
 
   &__box
-    width: 80px;
-    height: 80px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
     position relative
 
     &__photo
-      width: 80px;
-      height: 80px;
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
       object-fit cover
 
@@ -102,10 +104,12 @@ export default {
     z-index: -10;
 
   &__name
+    margin-top 3rem
     display flex
     align-items center
     justify-content center
 
-    p
+    h2
+      font-weight 700
       padding .5rem
 </style>
