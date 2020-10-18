@@ -60,7 +60,6 @@ const actions = {
         const otherUsers = users.filter((user) => {
           return rootState.auth.userId !== user.localId;
         });
-        console.log(activeUser);
         localStorage.setItem("storeUser", JSON.stringify(activeUser));
         commit("storeUsers", otherUsers);
         commit("storeUser", activeUser);

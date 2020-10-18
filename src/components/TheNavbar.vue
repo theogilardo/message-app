@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar">
+  <div v-show="false" class="navbar">
     <router-link to="/">
       <img class="navbar__img" src="../assets/logo.png" alt="logo-icon" />
     </router-link>

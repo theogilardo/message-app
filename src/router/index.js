@@ -4,6 +4,7 @@ import HomePage from "../components/HomePage.vue";
 import Signup from "../components/UserSignup.vue";
 import Login from "../components/UserLogin.vue";
 import Chatbox from "../components/chatbox/Chatbox.vue";
+// import store from "../store";
 
 Vue.use(VueRouter);
 
@@ -27,6 +28,14 @@ const routes = [
     path: "/chatbox",
     name: "Chatbox",
     component: Chatbox,
+    // beforeEnter(to, from, next) {
+    //   console.log(store.state.auth);
+    //   if (localStorage.getItem("tokenId")) {
+    //     next();
+    //   } else {
+    //     next("/login");
+    //   }
+    // },
   },
 ];
 

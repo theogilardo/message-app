@@ -13,7 +13,7 @@ export default {
     this.$store.dispatch("autoLogin");
   },
   components: {
-    "the-navbar": TheNavbar,
+    TheNavbar,
   },
 };
 </script>
