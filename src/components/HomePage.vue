@@ -80,7 +80,8 @@ export default {
   padding: 12px 22px;
   border: none;
   color: white;
-  background-image: linear-gradient(to right, #4c7de0, #e69cc0);
+  background: linear-gradient(to right, rgba(74,210,149,1), rgba(77,125,225,1));
+  // background-image: linear-gradient(to right, #4c7de0, #e69cc0);
   border-radius: 15px;
   text-transform: uppercase;
   font-weight: 700;

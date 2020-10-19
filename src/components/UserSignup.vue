@@ -143,7 +143,8 @@ export default {
     border-radius 20px
     // background #ececec
     // border 1px solid #adadad
-    background-image linear-gradient(to right, #4c7de0, #e69cc0)
+    background: linear-gradient(to right, rgba(74,210,149,1), rgba(77,125,225,1));
+    // background-image linear-gradient(to right, #4c7de0, #e69cc0)
     display flex
     align-items center
     justify-content center

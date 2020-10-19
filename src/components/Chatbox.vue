@@ -1,12 +1,13 @@
 <template>
   <div class="chat">
     <div class="logo">
-      <router-link to="/Profile">
+      <router-link to="/">
         <img class="logo__img" src="../assets/logo.png" alt="logo" />
       </router-link>
     </div>
+    <div class="background"></div>
     <div class="chat__side-bar">
-      <div>
+      <div class="chat__side-bar__container">
         <router-link to="/contacts" class="chat__side-bar__link">
           <img
             class="chat__side-bar__icon"
@@ -54,12 +55,9 @@
             alt="Edit Button"
           />
         </router-link>
-        <router-link
-          to="/contacts"
-          class="chat__side-bar__link chat__side-bar__link--last"
-        >
+        <router-link to="/contacts" class="chat__side-bar__link">
           <img
-            class="chat__side-bar__icon"
+            class="chat__side-bar__icon chat__side-bar__icon__last"
             src="../assets/logout.svg"
             alt="Edit Button"
           />
@@ -72,7 +70,13 @@
     </div>
 
     <div class="chat__category">
-      <h3>{{ category }} (23)</h3>
+      <h3 class="chat__category__name">{{ category }} (23)</h3>
+      <img
+        v-if="isContactCategory"
+        class="chat__category__icon"
+        src="../assets/add-contact.svg"
+        alt="Add contact"
+      />
     </div>
 
     <div class="chat__users">
@@ -148,35 +152,18 @@ export default {
 
 <style lang="stylus">
 
-.chat__side-bar__link::before.test
-  opacity 1 !important
-  background blue !important
-
-.receiver
-  margin-left: 80% !important;
-  background-color: red !important;
-
-
-.receiver-box
-  position: relative;
-
-
 .logo
   position: absolute;
   top: 20px;
   right: 17px;
 
-
 .logo__img
   width: 60px;
 
-
-.activeChat
-  background: #f8f8f8;
-
-  div,
-  h3
-    color: #2c3e50 !important;
+.background
+  background: linear-gradient(to right, rgba(74,210,149,1), rgba(77,125,225,1));
+  grid-column: 2 / 3;
+  grid-row: 1 / 4;
 
 .chat
   position: relative;
@@ -185,11 +172,6 @@ export default {
   display: grid;
   grid-template-columns: 60px 25% 1fr;
   grid-template-rows: 100px 40px 1fr;
-  // background: linear-gradient(
-  // 85deg,
-  // rgba(230, 156, 192, 1) 0%,
-  // rgba(76, 125, 224, 1) 117%
-  // );
 
   &__side-bar
     grid-column: 1 / 2;
@@ -201,6 +183,12 @@ export default {
     align-items center
     justify-content space-between
     flex-direction column
+
+    &__container
+      display flex
+      align-items center
+      justify-content center
+      flex-direction column
 
     &__link
       width 100%
@@ -214,21 +202,15 @@ export default {
         left: 0;
         height: 100%;
         width: 5px;
-        background: #ff9346;
-
-      &--last
-        margin 0
-
-    div
-      display flex
-      align-items center
-      justify-content center
-      flex-direction column
+        background: linear-gradient(to right, rgba(74,210,149,1), rgba(77,125,225,1));
 
     &__icon
       padding 0 1.5rem
       width 100%
       filter: invert(47%) sepia(60%) saturate(640%) hue-rotate(183deg) brightness(90%) contrast(94%);
+
+      &__last
+        margin-top 2.5rem
 
     &__profile-pic
       border-radius 50%
@@ -238,12 +220,6 @@ export default {
 
   &__search
     position relative
-    background #4c7de0
-    // background: linear-gradient(
-    // 85deg,
-    // rgba(230, 156, 192, 1) 0%,
-    // rgba(76, 125, 224, 1) 117%
-    // );
     width: 100%;
     grid-column: 2 / 3;
     grid-row: 1 / 2;
@@ -263,7 +239,7 @@ export default {
       position absolute
       filter: invert(83%) sepia(37%) saturate(0%) hue-rotate(148deg) brightness(82%) contrast(95%);
       top 4rem
-      left 3.5rem
+      left 4.3rem
       transform translateY(-50%)
       width: 18px;
 
@@ -271,11 +247,18 @@ export default {
     grid-column: 2 / 3;
     grid-row: 2 / 3;
     width 100%
-    background #4c7de0
     color white
     text-align: left;
-    padding: 0 2.5rem;
+    padding: 0 2rem;
+    margin-bottom 2rem
     display: flex;
+    align-items center
+    justify-content space-between
+
+    &__icon
+      width 30px
+      height 30px
+      filter: invert(99%) sepia(54%) saturate(130%) hue-rotate(274deg) brightness(114%) contrast(87%);
 
   &__users
     display: flex;
@@ -284,13 +267,9 @@ export default {
     grid-column: 2 / 3;
     grid-row: 3 / 4;
     overflow-y: scroll;
-    background #4c7de0
-    // background: linear-gradient(
-    //   85deg,
-    //   rgba(230, 156, 192, 1) 0%,
-    //   rgba(76, 125, 224, 1) 117%
-    // );
 
+    & > *
+      width 100%
 
   &__user
     display: flex;
@@ -301,12 +280,10 @@ export default {
     width: 100%;
 
     img
-      margin-left: 25px;
       object-fit: cover;
       width: 50px;
       height: 50px;
       border-radius: 50%;
-
 
     div
       text-align: left;
@@ -318,15 +295,11 @@ export default {
       p
         font-size: 8px;
 
-
-
     h3
       margin-left: auto;
       font-size: 13px;
       opacity: 0.9;
       color: white;
-
-
 
   &__main-user
     height: 100%;
@@ -345,7 +318,6 @@ export default {
       margin-right: 15px;
       border-radius: 50%;
 
-
     &__information
       h1
         text-align: left;
@@ -354,8 +326,6 @@ export default {
       p
         text-align: left;
         font-size: 16px;
-
-
 
   &__messages
     grid-column: 3 / 4;
@@ -386,9 +356,6 @@ export default {
           width: max-content;
           max-width: 50%;
 
-
-
-
     &__write
       position: relative;
       grid-column: 1 / 2;
@@ -399,7 +366,6 @@ export default {
         border-top: 1px solid #e3e3e3;
         padding: 14px;
         width: 100%;
-
 
       img
         position: absolute;
