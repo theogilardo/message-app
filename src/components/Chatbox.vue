@@ -8,60 +8,58 @@
     <div class="background"></div>
     <div class="chat__side-bar">
       <div class="chat__side-bar__container">
-        <router-link to="/contacts" class="chat__side-bar__link">
+        <a class="chat__side-bar__link">
           <img
             class="chat__side-bar__icon"
             src="../assets/edit.svg"
             alt="Edit Button"
           />
-        </router-link>
-        <router-link to="/contacts" class="chat__side-bar__link">
+        </a>
+        <a class="chat__side-bar__link">
           <img
             class="chat__side-bar__profile-pic"
             src="../assets/theo.png"
             alt="Edit Button"
           />
-        </router-link>
-        <router-link
+        </a>
+        <a
           :class="{ 'chat__side-bar__link--active': isMessagesCategory }"
-          @click.native="switchToMessages"
+          @click="switchToMessages"
           class="chat__side-bar__link"
-          to="/messages"
         >
           <img
             class="chat__side-bar__icon"
             src="../assets/chat.svg"
             alt="Edit Button"
           />
-        </router-link>
-        <router-link
+        </a>
+        <a
           :class="{ 'chat__side-bar__link--active': isContactCategory }"
           class="chat__side-bar__link"
-          @click.native="switchToContacts"
-          to="/contacts"
+          @click="switchToContacts"
         >
           <img
             class="chat__side-bar__icon"
             src="../assets/contact-book.svg"
             alt="Edit Button"
           />
-        </router-link>
+        </a>
       </div>
       <div>
-        <router-link to="/contacts" class="chat__side-bar__link">
+        <a class="chat__side-bar__link">
           <img
             class="chat__side-bar__icon"
             src="../assets/dots.svg"
             alt="Edit Button"
           />
-        </router-link>
-        <router-link to="/contacts" class="chat__side-bar__link">
+        </a>
+        <a class="chat__side-bar__link">
           <img
             class="chat__side-bar__icon chat__side-bar__icon__last"
             src="../assets/logout.svg"
             alt="Edit Button"
           />
-        </router-link>
+        </a>
       </div>
     </div>
     <div class="chat__search">
@@ -71,14 +69,14 @@
 
     <div class="chat__category">
       <h3 class="chat__category__name">{{ category }} (23)</h3>
-      <router-link @click.native="switchToNewContact" to="/new-contact">
+      <a @click="switchToNewContact">
         <img
           v-if="isContactCategory || isNewContactCategory"
           class="chat__category__icon"
           src="../assets/add-contact.svg"
           alt="Add contact"
         />
-      </router-link>
+      </a>
     </div>
 
     <div class="chat__users">
