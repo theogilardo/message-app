@@ -7,24 +7,38 @@
     </div>
     <div class="chat__side-bar">
       <div>
-        <img
-          class="chat__side-bar__icon"
-          src="../assets/edit.svg"
-          alt="Edit Button"
-        />
-        <img
-          class="chat__side-bar__profile-pic"
-          src="../assets/theo.png"
-          alt="Edit Button"
-        />
-        <router-link @click.native="switchToMessages" to="/messages">
+        <router-link to="/contacts" class="chat__side-bar__link">
+          <img
+            class="chat__side-bar__icon"
+            src="../assets/edit.svg"
+            alt="Edit Button"
+          />
+        </router-link>
+        <router-link to="/contacts" class="chat__side-bar__link">
+          <img
+            class="chat__side-bar__profile-pic"
+            src="../assets/theo.png"
+            alt="Edit Button"
+          />
+        </router-link>
+        <router-link
+          :class="{ 'chat__side-bar__link--active': isMessagesCategory }"
+          @click.native="switchToMessages"
+          class="chat__side-bar__link"
+          to="/messages"
+        >
           <img
             class="chat__side-bar__icon"
             src="../assets/chat.svg"
             alt="Edit Button"
           />
         </router-link>
-        <router-link @click.native="switchToContacts" to="/contacts">
+        <router-link
+          :class="{ 'chat__side-bar__link--active': isContactCategory }"
+          class="chat__side-bar__link"
+          @click.native="switchToContacts"
+          to="/contacts"
+        >
           <img
             class="chat__side-bar__icon"
             src="../assets/contact-book.svg"
@@ -33,16 +47,23 @@
         </router-link>
       </div>
       <div>
-        <img
-          class="chat__side-bar__icon"
-          src="../assets/dots.svg"
-          alt="Edit Button"
-        />
-        <img
-          class="chat__side-bar__icon chat__side-bar__icon--last"
-          src="../assets/logout.svg"
-          alt="Edit Button"
-        />
+        <router-link to="/contacts" class="chat__side-bar__link">
+          <img
+            class="chat__side-bar__icon"
+            src="../assets/dots.svg"
+            alt="Edit Button"
+          />
+        </router-link>
+        <router-link
+          to="/contacts"
+          class="chat__side-bar__link chat__side-bar__link--last"
+        >
+          <img
+            class="chat__side-bar__icon"
+            src="../assets/logout.svg"
+            alt="Edit Button"
+          />
+        </router-link>
       </div>
     </div>
     <div class="chat__search">
@@ -104,6 +125,12 @@ export default {
     user() {
       return this.$store.getters.user;
     },
+    isContactCategory() {
+      return this.category === "Contacts";
+    },
+    isMessagesCategory() {
+      return this.category === "Messages";
+    },
     // users() {
     //   return this.$store.getters.users;
     // },
@@ -120,6 +147,11 @@ export default {
 </script>
 
 <style lang="stylus">
+
+.chat__side-bar__link::before.test
+  opacity 1 !important
+  background blue !important
+
 .receiver
   margin-left: 80% !important;
   background-color: red !important;
@@ -162,13 +194,30 @@ export default {
   &__side-bar
     grid-column: 1 / 2;
     grid-row: 1 / 4;
-    padding 2rem
+    padding 2rem 0
     width 100%
     background #E8E8E8
     display flex
     align-items center
     justify-content space-between
     flex-direction column
+
+    &__link
+      width 100%
+      margin-bottom 2.5rem
+      position relative
+
+      &--active::before
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 5px;
+        background: #ff9346;
+
+      &--last
+        margin 0
 
     div
       display flex
@@ -177,21 +226,15 @@ export default {
       flex-direction column
 
     &__icon
-      // width 25px
-      width 85%
-      margin-bottom 2.5rem
+      padding 0 1.5rem
+      width 100%
       filter: invert(47%) sepia(60%) saturate(640%) hue-rotate(183deg) brightness(90%) contrast(94%);
-
-      &--last
-        margin 0
 
     &__profile-pic
       border-radius 50%
-      width 35px
-      height 35px
-      border 2px solid white
+      width 40px
+      height 40px
       object-fit cover
-      margin-bottom 2.5rem
 
   &__search
     position relative
