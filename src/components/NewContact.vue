@@ -4,7 +4,6 @@
       class="new-contact__input"
       type="text"
       placeholder="Type phone number.."
-      v-model="contact"
     />
     <div class="new-contact__list-users">
       <div v-for="user in users" :key="user.id" class="new-contact__user">

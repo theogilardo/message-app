@@ -71,9 +71,9 @@
 
     <div class="chat__category">
       <h3 class="chat__category__name">{{ category }} (23)</h3>
-      <router-link to="/new-contact">
+      <router-link @click.native="switchToNewContact" to="/new-contact">
         <img
-          v-if="isContactCategory"
+          v-if="isContactCategory || isNewContactCategory"
           class="chat__category__icon"
           src="../assets/add-contact.svg"
           alt="Add contact"
@@ -82,7 +82,23 @@
     </div>
 
     <div class="chat__users">
-      <router-view></router-view>
+      <list-category
+        v-if="isContactCategory"
+        :category-list="users"
+        :listContacts="true"
+      ></list-category>
+      <list-category
+        v-if="isMessagesCategory"
+        :category-list="users"
+        :list-messages="true"
+      ></list-category>
+      <list-category
+        v-if="isNewContactCategory"
+        :category-list="users"
+        :hasSearchBar="true"
+        :listAllUsers="true"
+        :has-icon="true"
+      ></list-category>
     </div>
 
     <div v-if="user" class="chat__main-user">
@@ -118,11 +134,17 @@
 </template>
 
 <script>
+import ListCategory from "./ListCategory.vue";
+
 export default {
   name: "Chatbox",
+  components: {
+    ListCategory,
+  },
   data() {
     return {
       category: "Contacts",
+      // categoryData: null,
       message: null,
       messages: [],
     };
@@ -137,16 +159,26 @@ export default {
     isMessagesCategory() {
       return this.category === "Messages";
     },
-    // users() {
-    //   return this.$store.getters.users;
-    // },
+    isNewContactCategory() {
+      return this.category === "New Contact";
+    },
+    users() {
+      return this.$store.getters.users;
+    },
   },
   methods: {
+    //  activeCategory() {
+    // if (this.category === "Contacts") {
+    //   this.categoryData = this.$store.getters.users
+    // },
     switchToMessages() {
       this.category = "Messages";
     },
     switchToContacts() {
       this.category = "Contacts";
+    },
+    switchToNewContact() {
+      this.category = "New Contact";
     },
   },
 };
@@ -292,7 +324,7 @@ export default {
       margin-left: 15px;
       color: white;
       h2
-        font-size: 16px;
+        font-size: 17px;
 
       p
         font-size: 8px;
