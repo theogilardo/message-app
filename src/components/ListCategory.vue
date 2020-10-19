@@ -37,13 +37,15 @@
         @click="addContact"
         class="list-category__user__btn"
       >
-        Add +
+        +
       </button>
     </div>
   </div>
 </template>
 
 <script>
+import firebase from "firebase";
+
 export default {
   name: "ListType",
   props: {
@@ -78,6 +80,19 @@ export default {
   methods: {
     addContact() {
       console.log("added");
+
+      firebase
+        .database()
+        .ref("users/test")
+        .set({
+          username: "This",
+          email: "is",
+          profile_picture: "as test",
+        });
+
+      // Add user in DOM
+      // Add user in Firebase DB with post method
+      // Store new added in localStorage
     },
   },
 };
@@ -132,9 +147,11 @@ export default {
 
     &__btn
       margin-left: auto;
-      border none
-      border-radius 5px
-      background #E8E8E8
-      color #333
-      padding .5rem .8rem
+      border 2px solid #E8E8E8
+      background transparent
+      border-radius 50%
+      color #E8E8E8
+      font-weight bold
+      cursor pointer
+      padding .4rem .7rem
 </style>

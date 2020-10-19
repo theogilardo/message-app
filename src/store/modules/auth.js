@@ -35,6 +35,7 @@ const actions = {
         }
       )
       .then((res) => {
+        console.log(res);
         commit("storeLocalStorageUser", {
           tokenId: res.data.idToken,
           localId: res.data.localId,

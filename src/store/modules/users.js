@@ -42,6 +42,11 @@ const actions = {
       .catch((err) => console.log(err));
   },
 
+  // addContact({ commit }, contactData) {
+  //   commit("storeNewContact", contactData)
+  //   axios.post("https://message-app-719f5.firebaseio.com/contacts.json", authData)
+  // },
+
   fetchUser({ commit, rootState }) {
     axios
       .get("https://message-app-719f5.firebaseio.com/users.json")
