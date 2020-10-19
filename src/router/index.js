@@ -6,6 +6,7 @@ import Login from "../components/UserLogin.vue";
 import Chatbox from "../components/Chatbox.vue";
 import ListMessages from "../components/ListMessages.vue";
 import ListContacts from "../components/ListContacts.vue";
+import NewContact from "../components/NewContact.vue";
 // import store from "../store";
 
 Vue.use(VueRouter);
@@ -34,6 +35,7 @@ const routes = [
     children: [
       { path: "/messages", component: ListMessages },
       { path: "/contacts", component: ListContacts },
+      { path: "/new-contact", component: NewContact },
     ],
     // beforeEnter(to, from, next) {
     //   console.log(store.state.auth);

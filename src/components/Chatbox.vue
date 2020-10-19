@@ -71,12 +71,14 @@
 
     <div class="chat__category">
       <h3 class="chat__category__name">{{ category }} (23)</h3>
-      <img
-        v-if="isContactCategory"
-        class="chat__category__icon"
-        src="../assets/add-contact.svg"
-        alt="Add contact"
-      />
+      <router-link to="/new-contact">
+        <img
+          v-if="isContactCategory"
+          class="chat__category__icon"
+          src="../assets/add-contact.svg"
+          alt="Add contact"
+        />
+      </router-link>
     </div>
 
     <div class="chat__users">
@@ -332,7 +334,7 @@ export default {
     grid-row: 2 / 4;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 60px;
+    grid-template-rows: 1fr 80px;
     height: 100%;
     width: 100%;
     background: white;
@@ -364,7 +366,7 @@ export default {
       input
         border: none;
         border-top: 1px solid #e3e3e3;
-        padding: 14px;
+        padding: 2rem;
         width: 100%;
 
       img
