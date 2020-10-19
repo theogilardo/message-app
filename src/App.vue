@@ -24,19 +24,19 @@ html
   font-size: 62.5%; // 1rem = 10px
 
   h1
-    font-size: 4.8rem;
+    font-size: 4.6rem;
 
   h2
-    font-size: 2.4rem;
+    font-size: 2.2rem;
 
   h3
-    font-size: 1.8rem;
+    font-size: 1.6rem;
 
   h4
-    font-size: 1.4rem;
+    font-size: 1rem;
 
   p
-    font-size: 1.6rem;
+    font-size: 1.4rem;
 
 #app
   font-family Avenir, Helvetica, Arial, sans-serif

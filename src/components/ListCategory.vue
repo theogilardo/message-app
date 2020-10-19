@@ -32,6 +32,13 @@
         </p>
       </div>
       <h3 v-if="listMessages" class="list-category__user__time">14:56</h3>
+      <button
+        v-if="listAllUsers"
+        @click="addContact"
+        class="list-category__user__btn"
+      >
+        Add +
+      </button>
     </div>
   </div>
 </template>
@@ -51,6 +58,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    hasButton: {
+      type: Boolean,
+      default: false,
+    },
     listContacts: {
       type: Boolean,
       default: false,
@@ -64,6 +75,11 @@ export default {
       default: false,
     },
   },
+  methods: {
+    addContact() {
+      console.log("added");
+    },
+  },
 };
 </script>
 
@@ -75,8 +91,9 @@ export default {
   &__search-bar
     border none
     width 85%
+    opacity .65
     margin 2rem
-    padding 1rem
+    padding .8rem
     border-radius 5px
 
   &__user
@@ -84,13 +101,13 @@ export default {
     align-items: center;
     border-bottom: 1px solid #ebebeb50;
     padding: 20px;
-    height: 80px;
+    height: 70px;
     width: 100%;
 
     &__img
       object-fit: cover;
-      width: 50px;
-      height: 50px;
+      width: 45px;
+      height: 45px;
       border-radius: 50%;
 
     &__info
@@ -99,10 +116,10 @@ export default {
       color: white;
 
       &__name
-        font-size: 17px;
+        font-size: 1.4rem;
 
       &__message
-        font-size: 12px;
+        font-size: 1.1rem;
 
       &__phone
         font-size 14px
@@ -112,4 +129,12 @@ export default {
       font-size: 13px;
       opacity: 0.9;
       color: white;
+
+    &__btn
+      margin-left: auto;
+      border none
+      border-radius 5px
+      background #E8E8E8
+      color #333
+      padding .5rem .8rem
 </style>

@@ -64,10 +64,10 @@
     </div>
     <div class="chat__search">
       <input type="text" placeholder="Search here .." />
-      <img src="../assets/search.svg" alt="Edit Button" />
+      <!-- <img src="../assets/search.svg" alt="Edit Button" /> -->
     </div>
 
-    <div class="chat__category">
+    <div v-if="users" class="chat__category">
       <h3 class="chat__category__name">{{ category }} ({{ users.length }})</h3>
       <a @click="switchToNewContact">
         <img
@@ -94,6 +94,7 @@
         v-if="isNewContactCategory"
         :category-list="users"
         :hasSearchBar="true"
+        :has-button="true"
         :listAllUsers="true"
         :has-icon="true"
       ></list-category>
@@ -186,11 +187,11 @@ export default {
 
 .logo
   position: absolute;
-  top: 20px;
+  top: 18px;
   right: 17px;
 
 .logo__img
-  width: 60px;
+  width: 45px;
 
 .background
   background: linear-gradient(to right, rgba(74,210,149,1), rgba(77,125,225,1));
@@ -203,7 +204,7 @@ export default {
   width: 100%;
   display: grid;
   grid-template-columns: 60px 25% 1fr;
-  grid-template-rows: 100px 40px 1fr;
+  grid-template-rows: 80px 40px 1fr;
 
   &__side-bar
     grid-column: 1 / 2;
@@ -238,7 +239,7 @@ export default {
 
     &__icon
       padding 0 1.5rem
-      width 100%
+      width 90%
       filter: invert(47%) sepia(60%) saturate(640%) hue-rotate(183deg) brightness(90%) contrast(94%);
 
       &__last
@@ -261,8 +262,7 @@ export default {
       background: white;
       border none
       width: 100%;
-      padding: 2rem 4rem;
-      height: 30px;
+      padding: .8rem;
       width: 85%;
       margin: 2rem auto;
       border-radius: 5px;
@@ -289,8 +289,8 @@ export default {
     justify-content space-between
 
     &__icon
-      width 30px
-      height 30px
+      width 25px
+      height 25px
       filter: invert(99%) sepia(54%) saturate(130%) hue-rotate(274deg) brightness(114%) contrast(87%);
 
   &__users
@@ -313,19 +313,19 @@ export default {
 
     img
       object-fit: cover;
-      width: 70px;
-      height: 70px;
+      width: 55px;
+      height: 55px;
       margin-right: 15px;
       border-radius: 50%;
 
     &__information
       h1
         text-align: left;
-        font-size: 24px;
+        font-size: 2rem;
 
       p
         text-align: left;
-        font-size: 16px;
+        font-size: 1.2rem;
 
   &__messages
     grid-column: 3 / 4;
