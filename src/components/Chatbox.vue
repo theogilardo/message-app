@@ -302,39 +302,6 @@ export default {
     grid-row: 3 / 4;
     overflow-y: scroll;
 
-    & > *
-      width 100%
-
-  &__user
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid #ebebeb50;
-    padding: 20px;
-    height: 80px;
-    width: 100%;
-
-    img
-      object-fit: cover;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-
-    div
-      text-align: left;
-      margin-left: 15px;
-      color: white;
-      h2
-        font-size: 17px;
-
-      p
-        font-size: 8px;
-
-    h3
-      margin-left: auto;
-      font-size: 13px;
-      opacity: 0.9;
-      color: white;
-
   &__main-user
     height: 100%;
     width: 100%;
