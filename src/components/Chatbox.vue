@@ -68,7 +68,7 @@
     </div>
 
     <div class="chat__category">
-      <h3 class="chat__category__name">{{ category }} (23)</h3>
+      <h3 class="chat__category__name">{{ category }} ({{ users.length }})</h3>
       <a @click="switchToNewContact">
         <img
           v-if="isContactCategory || isNewContactCategory"
@@ -246,6 +246,7 @@ export default {
 
     &__profile-pic
       border-radius 50%
+      border 2px solid white
       width 40px
       height 40px
       object-fit cover
@@ -362,7 +363,8 @@ export default {
 
       input
         border: none;
-        border-top: 1px solid #e3e3e3;
+        // border-top: 1px solid #e3e3e3;
+        border-top: 1px solid #4c7de050;
         padding: 2rem;
         width: 100%;
 
