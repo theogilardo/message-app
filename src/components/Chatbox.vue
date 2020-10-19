@@ -1,7 +1,7 @@
 <template>
   <div class="chat">
     <div class="logo">
-      <router-link to="/">
+      <router-link to="/signup">
         <img class="logo__img" src="../assets/logo.png" alt="logo" />
       </router-link>
     </div>

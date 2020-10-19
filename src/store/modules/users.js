@@ -35,10 +35,13 @@ const mutations = {
 
 const actions = {
   storeUser({ commit }, authData) {
-    commit("storeUser", authData);
     axios
       .post("https://message-app-719f5.firebaseio.com/users.json", authData)
-      .then((res) => console.log(res))
+      .then((res) => {
+        const key = res.data.name;
+        authData.key = key;
+        commit("storeUser", authData);
+      })
       .catch((err) => console.log(err));
   },
 
@@ -51,10 +54,12 @@ const actions = {
     axios
       .get("https://message-app-719f5.firebaseio.com/users.json")
       .then((res) => {
+        console.log(res);
         const data = res.data;
         const users = [];
         for (let key in data) {
           const user = data[key];
+          user.key = key;
           users.push(user);
         }
 
@@ -65,6 +70,7 @@ const actions = {
         const otherUsers = users.filter((user) => {
           return rootState.auth.userId !== user.localId;
         });
+
         localStorage.setItem("storeUser", JSON.stringify(activeUser));
         commit("storeUsers", otherUsers);
         commit("storeUser", activeUser);
