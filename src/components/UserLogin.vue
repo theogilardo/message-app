@@ -108,9 +108,9 @@ export default {
     width 70%
     max-width 55rem
     border-radius 20px
-    background #ececec
-    border 1px solid #adadad
-    // background-image linear-gradient(to right, #4c7de0, #e69cc0)
+    // background #ececec
+    // border 1px solid #adadad
+    background-image linear-gradient(to right, #4c7de0, #e69cc0)
     display flex
     align-items center
     justify-content center
@@ -118,8 +118,8 @@ export default {
 
     h2
       margin-bottom 2.5rem
-      // color white
-      color #333
+      color white
+      // color #333
 
     &__field
       width 100%
