@@ -79,15 +79,7 @@ export default {
     addContact(newContact) {
       console.log("added");
       console.log(newContact);
-      const keyCurrentUSer = this.$store.getters.user.key;
-      return this.$store.dispatch("addContact", {
-        keyCurrentUSer,
-        newContact,
-      });
-
-      // Add user in Firebase DB with post method
-      // Add user in DOM
-      // Store new added in localStorage
+      return this.$store.dispatch("addContact", newContact);
     },
   },
 };

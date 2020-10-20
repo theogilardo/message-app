@@ -75,21 +75,23 @@ const actions = {
         });
 
         localStorage.setItem("storeUser", JSON.stringify(activeUser));
-        commit("storeUsers", otherUsers);
         commit("storeUser", activeUser);
+        commit("storeUsers", otherUsers);
       })
       .catch((err) => console.log(err));
   },
 
-  addContact({ commit }, Obj) {
+  addContact({ commit, rootState }, newContact) {
+    const keyCurrentUSer = rootState.users.user.key;
+
     firebase
       .database()
-      .ref(`users/${Obj.keyCurrentUSer}/contacts`)
-      .push(Obj.newContact)
+      .ref(`users/${keyCurrentUSer}/contacts`)
+      .push(newContact)
       .then((res) => {
-        const newContact = {};
-        newContact[res.key] = Obj.newContact;
-        commit("addUserContact", newContact);
+        const newContactObj = {};
+        newContactObj[res.key] = newContact;
+        commit("addUserContact", newContactObj);
       })
       .catch((err) => console.log(err));
   },
