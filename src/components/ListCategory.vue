@@ -77,8 +77,6 @@ export default {
   },
   methods: {
     addContact(newContact) {
-      console.log("added");
-      console.log(newContact);
       return this.$store.dispatch("addContact", newContact);
     },
   },

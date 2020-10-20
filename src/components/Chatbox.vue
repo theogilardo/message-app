@@ -68,7 +68,7 @@
     </div>
 
     <div v-if="users" class="chat__category">
-      <h3 class="chat__category__name">{{ category }} ({{ users.length }})</h3>
+      <h3 class="chat__category__name">{{ category }} ({{ listAmount }})</h3>
       <a @click="switchToNewContact">
         <img
           v-if="isContactCategory || isNewContactCategory"
@@ -148,6 +148,9 @@ export default {
     };
   },
   computed: {
+    users() {
+      return this.$store.getters.users;
+    },
     user() {
       return this.$store.getters.user;
     },
@@ -163,8 +166,11 @@ export default {
     isNewContactCategory() {
       return this.category === "New Contact";
     },
-    users() {
-      return this.$store.getters.users;
+    listAmount() {
+      if (this.category === "Contacts") {
+        return Object.keys(this.user.contacts).length;
+      }
+      return this.users.length;
     },
   },
   methods: {
