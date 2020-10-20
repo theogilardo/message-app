@@ -37,15 +37,15 @@ const mutations = {
   },
 
   addUserContact(state, newContact) {
-    // state.user.contacts = Object.assign(state.user.contacts, newContact);
+    state.user.contacts = Object.assign(state.user.contacts, newContact);
     console.log(newContact);
-    console.log(newContact.localId);
-    const arrIds = state.users.map((user) => user.localId);
-    console.log(arrIds);
-    const test = state.users.find(
-      (user) => user.localId === newContact.localId
-    );
-    console.log(test);
+    // console.log(newContact.localId);
+    // const arrIds = state.users.map((user) => user.localId);
+    // console.log(arrIds);
+    // const test = state.users.find(
+    //   (user) => user.localId === newContact.localId
+    // );
+    // console.log(test);
   },
   // removeContactFromUsers(state, newContact) {
   //   state.users = state.users.filter((user) => {
@@ -83,12 +83,22 @@ const actions = {
           return user.localId === rootState.auth.userId;
         });
 
+        // const formatContacts = activeUser.contacts;
+
+        // const test = []
+        // for (let key in formatContacts) {
+        //   const contact.key
+        // }
+
         const activeUserContacts = [];
         for (let key in activeUser.contacts) {
           const contact = activeUser.contacts[key];
+          contact.contactKey = key;
           activeUserContacts.push(contact);
         }
         console.log(activeUserContacts);
+
+        activeUser.contacts = activeUserContacts;
 
         const otherUsers = users.filter(
           (user) => rootState.auth.userId !== user.localId
@@ -124,7 +134,7 @@ const actions = {
 
   addContact({ commit, rootState }, newContact) {
     const keyCurrentUSer = rootState.users.user.key;
-
+    console.log(newContact);
     firebase
       .database()
       .ref(`users/${keyCurrentUSer}/contacts`)
@@ -132,6 +142,8 @@ const actions = {
       .then((res) => {
         const newContactObj = {};
         newContactObj[res.key] = newContact;
+        console.log(newContactObj);
+
         commit("addUserContact", newContactObj);
         // commit("removeContactFromUsers", newContact);
       })
