@@ -37,7 +37,15 @@ const mutations = {
   },
 
   addUserContact(state, newContact) {
-    state.user.contacts = Object.assign(state.user.contacts, newContact);
+    // state.user.contacts = Object.assign(state.user.contacts, newContact);
+    console.log(newContact);
+    console.log(newContact.localId);
+    const arrIds = state.users.map((user) => user.localId);
+    console.log(arrIds);
+    const test = state.users.find(
+      (user) => user.localId === newContact.localId
+    );
+    console.log(test);
   },
   // removeContactFromUsers(state, newContact) {
   //   state.users = state.users.filter((user) => {
@@ -74,15 +82,27 @@ const actions = {
         const activeUser = users.find((user) => {
           return user.localId === rootState.auth.userId;
         });
-        console.log(activeUser);
 
         const activeUserContacts = [];
-
         for (let key in activeUser.contacts) {
           const contact = activeUser.contacts[key];
           activeUserContacts.push(contact);
         }
         console.log(activeUserContacts);
+
+        const otherUsers = users.filter(
+          (user) => rootState.auth.userId !== user.localId
+        );
+        console.log(otherUsers);
+
+        const otherUsersNotInUserContacts = otherUsers.filter(
+          (user) =>
+            !activeUserContacts.some(
+              (contact) => user.localId === contact.localId
+            )
+        );
+
+        console.log(otherUsersNotInUserContacts);
 
         /*
 
@@ -97,7 +117,7 @@ const actions = {
 
         localStorage.setItem("storeUser", JSON.stringify(activeUser));
         commit("storeUser", activeUser);
-        commit("storeUsers", activeUserContacts);
+        commit("storeUsers", otherUsersNotInUserContacts);
       })
       .catch((err) => console.log(err));
   },

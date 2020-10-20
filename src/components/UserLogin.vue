@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <form class="container__form">
-      <h2>Please Login</h2>
+      <h2>nomis@gmail.com</h2>
       <div class="container__form__field">
         <input
           :class="{ error: emailError }"
