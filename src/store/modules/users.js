@@ -1,13 +1,18 @@
 import axios from "axios";
+import firebase from "firebase";
 
 const state = {
   user: null,
-  users: null,
+  userContacts: [],
+  users: [],
 };
 
 const getters = {
   user(state) {
     return state.user;
+  },
+  userContacts(state) {
+    return state.userContacts;
   },
   users(state) {
     return state.users;
@@ -31,6 +36,10 @@ const mutations = {
     localStorage.setItem("userData", authData.userData);
     localStorage.setItem("expiresIn", expirationDate);
   },
+
+  storeUserContacts(state, newContact) {
+    state.userContacts.push(newContact);
+  },
 };
 
 const actions = {
@@ -44,11 +53,6 @@ const actions = {
       })
       .catch((err) => console.log(err));
   },
-
-  // addContact({ commit }, contactData) {
-  //   commit("storeNewContact", contactData)
-  //   axios.post("https://message-app-719f5.firebaseio.com/contacts.json", authData)
-  // },
 
   fetchUser({ commit, rootState }) {
     axios
@@ -74,6 +78,18 @@ const actions = {
         localStorage.setItem("storeUser", JSON.stringify(activeUser));
         commit("storeUsers", otherUsers);
         commit("storeUser", activeUser);
+      })
+      .catch((err) => console.log(err));
+  },
+
+  addContact({ commit }, Obj) {
+    firebase
+      .database()
+      .ref(`users/${Obj.keyCurrentUSer}/contact`)
+      .push(Obj.newContact)
+      .then((res) => {
+        console.log(res);
+        commit("storeUserContacts", Obj.newContact);
       })
       .catch((err) => console.log(err));
   },

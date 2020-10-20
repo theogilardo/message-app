@@ -34,7 +34,7 @@
       <h3 v-if="listMessages" class="list-category__user__time">14:56</h3>
       <button
         v-if="listAllUsers"
-        @click="addContact"
+        @click="addContact(user)"
         class="list-category__user__btn"
       >
         +
@@ -44,8 +44,6 @@
 </template>
 
 <script>
-import firebase from "firebase";
-
 export default {
   name: "ListType",
   props: {
@@ -78,20 +76,16 @@ export default {
     },
   },
   methods: {
-    addContact() {
+    addContact(newContact) {
       console.log("added");
+      const keyCurrentUSer = this.$store.getters.user.key;
+      return this.$store.dispatch("addContact", {
+        keyCurrentUSer,
+        newContact,
+      });
 
-      firebase
-        .database()
-        .ref("users/test")
-        .set({
-          username: "This",
-          email: "is",
-          profile_picture: "as test",
-        });
-
-      // Add user in DOM
       // Add user in Firebase DB with post method
+      // Add user in DOM
       // Store new added in localStorage
     },
   },

@@ -1,7 +1,7 @@
 <template>
   <div class="chat">
     <div class="logo">
-      <router-link to="/signup">
+      <router-link to="/login">
         <img class="logo__img" src="../assets/logo.png" alt="logo" />
       </router-link>
     </div>
@@ -82,8 +82,8 @@
     <div class="chat__users">
       <list-category
         v-if="isContactCategory"
-        :category-list="users"
-        :listContacts="true"
+        :category-list="userContacts"
+        :list-contacts="true"
       ></list-category>
       <list-category
         v-if="isMessagesCategory"
@@ -93,9 +93,9 @@
       <list-category
         v-if="isNewContactCategory"
         :category-list="users"
-        :hasSearchBar="true"
+        :list-all-users="true"
+        :has-search-bar="true"
         :has-button="true"
-        :listAllUsers="true"
         :has-icon="true"
       ></list-category>
     </div>
@@ -163,6 +163,9 @@ export default {
     },
     users() {
       return this.$store.getters.users;
+    },
+    userContacts() {
+      return this.$store.getters.userContacts;
     },
   },
   methods: {
