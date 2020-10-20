@@ -37,21 +37,11 @@ const mutations = {
   },
 
   addUserContact(state, newContact) {
-    state.user.contacts = Object.assign(state.user.contacts, newContact);
-    console.log(newContact);
-    // console.log(newContact.localId);
-    // const arrIds = state.users.map((user) => user.localId);
-    // console.log(arrIds);
-    // const test = state.users.find(
-    //   (user) => user.localId === newContact.localId
-    // );
-    // console.log(test);
+    state.user.contacts.push(newContact);
+    state.users = state.users.filter(
+      (user) => user.localId !== newContact.localId
+    );
   },
-  // removeContactFromUsers(state, newContact) {
-  //   state.users = state.users.filter((user) => {
-  //     user.localId !== newContact.localId;
-  //   });
-  // },
 };
 
 const actions = {
@@ -83,27 +73,18 @@ const actions = {
           return user.localId === rootState.auth.userId;
         });
 
-        // const formatContacts = activeUser.contacts;
-
-        // const test = []
-        // for (let key in formatContacts) {
-        //   const contact.key
-        // }
-
         const activeUserContacts = [];
         for (let key in activeUser.contacts) {
           const contact = activeUser.contacts[key];
           contact.contactKey = key;
           activeUserContacts.push(contact);
         }
-        console.log(activeUserContacts);
 
         activeUser.contacts = activeUserContacts;
 
         const otherUsers = users.filter(
           (user) => rootState.auth.userId !== user.localId
         );
-        console.log(otherUsers);
 
         const otherUsersNotInUserContacts = otherUsers.filter(
           (user) =>
@@ -111,19 +92,6 @@ const actions = {
               (contact) => user.localId === contact.localId
             )
         );
-
-        console.log(otherUsersNotInUserContacts);
-
-        /*
-
-        - Fetch all the right users for the current user
-          cad not the main nor the ones that are in his contacts
-
-        - When adding a new contact
-          Add it to current user contacts in FB
-          Remove from the DOM the contact
-
-        */
 
         localStorage.setItem("storeUser", JSON.stringify(activeUser));
         commit("storeUser", activeUser);
@@ -140,12 +108,8 @@ const actions = {
       .ref(`users/${keyCurrentUSer}/contacts`)
       .push(newContact)
       .then((res) => {
-        const newContactObj = {};
-        newContactObj[res.key] = newContact;
-        console.log(newContactObj);
-
-        commit("addUserContact", newContactObj);
-        // commit("removeContactFromUsers", newContact);
+        newContact.key = res.key;
+        commit("addUserContact", newContact);
       })
       .catch((err) => console.log(err));
   },
