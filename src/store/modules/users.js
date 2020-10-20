@@ -3,7 +3,6 @@ import firebase from "firebase";
 
 const state = {
   user: null,
-  userContacts: [],
   users: [],
 };
 
@@ -12,7 +11,7 @@ const getters = {
     return state.user;
   },
   userContacts(state) {
-    return state.userContacts;
+    return state.user.contacts;
   },
   users(state) {
     return state.users;
@@ -37,8 +36,8 @@ const mutations = {
     localStorage.setItem("expiresIn", expirationDate);
   },
 
-  storeUserContacts(state, newContact) {
-    state.userContacts.push(newContact);
+  addUserContact(state, newContact) {
+    state.user.contacts = Object.assign(state.user.contacts, newContact);
   },
 };
 
@@ -85,11 +84,12 @@ const actions = {
   addContact({ commit }, Obj) {
     firebase
       .database()
-      .ref(`users/${Obj.keyCurrentUSer}/contact`)
+      .ref(`users/${Obj.keyCurrentUSer}/contacts`)
       .push(Obj.newContact)
       .then((res) => {
-        console.log(res);
-        commit("storeUserContacts", Obj.newContact);
+        const newContact = {};
+        newContact[res.key] = Obj.newContact;
+        commit("addUserContact", newContact);
       })
       .catch((err) => console.log(err));
   },

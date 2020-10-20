@@ -143,7 +143,6 @@ export default {
   data() {
     return {
       category: "Contacts",
-      // categoryData: null,
       message: null,
       messages: [],
     };
@@ -151,6 +150,9 @@ export default {
   computed: {
     user() {
       return this.$store.getters.user;
+    },
+    userContacts() {
+      return this.$store.getters.userContacts;
     },
     isContactCategory() {
       return this.category === "Contacts";
@@ -164,15 +166,8 @@ export default {
     users() {
       return this.$store.getters.users;
     },
-    userContacts() {
-      return this.$store.getters.userContacts;
-    },
   },
   methods: {
-    //  activeCategory() {
-    // if (this.category === "Contacts") {
-    //   this.categoryData = this.$store.getters.users
-    // },
     switchToMessages() {
       this.category = "Messages";
     },

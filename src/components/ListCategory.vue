@@ -48,7 +48,7 @@ export default {
   name: "ListType",
   props: {
     categoryList: {
-      type: Array,
+      required: false,
     },
     hasSearchBar: {
       type: Boolean,
@@ -78,6 +78,7 @@ export default {
   methods: {
     addContact(newContact) {
       console.log("added");
+      console.log(newContact);
       const keyCurrentUSer = this.$store.getters.user.key;
       return this.$store.dispatch("addContact", {
         keyCurrentUSer,
