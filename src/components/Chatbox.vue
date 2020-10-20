@@ -68,7 +68,8 @@
     </div>
 
     <div v-if="users" class="chat__category">
-      <h3 class="chat__category__name">{{ category }} ({{ listAmount }})</h3>
+      <h3 class="chat__category__name">{{ category }}</h3>
+      <!-- <h3>({{ listAmount }})</h3> -->
       <a @click="switchToNewContact">
         <img
           v-if="isContactCategory || isNewContactCategory"

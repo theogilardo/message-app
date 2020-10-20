@@ -39,6 +39,11 @@ const mutations = {
   addUserContact(state, newContact) {
     state.user.contacts = Object.assign(state.user.contacts, newContact);
   },
+  // removeContactFromUsers(state, newContact) {
+  //   state.users = state.users.filter((user) => {
+  //     user.localId !== newContact.localId;
+  //   });
+  // },
 };
 
 const actions = {
@@ -69,14 +74,30 @@ const actions = {
         const activeUser = users.find((user) => {
           return user.localId === rootState.auth.userId;
         });
+        console.log(activeUser);
 
-        const otherUsers = users.filter((user) => {
-          return rootState.auth.userId !== user.localId;
-        });
+        const activeUserContacts = [];
+
+        for (let key in activeUser.contacts) {
+          const contact = activeUser.contacts[key];
+          activeUserContacts.push(contact);
+        }
+        console.log(activeUserContacts);
+
+        /*
+
+        - Fetch all the right users for the current user
+          cad not the main nor the ones that are in his contacts
+
+        - When adding a new contact
+          Add it to current user contacts in FB
+          Remove from the DOM the contact
+
+        */
 
         localStorage.setItem("storeUser", JSON.stringify(activeUser));
         commit("storeUser", activeUser);
-        commit("storeUsers", otherUsers);
+        commit("storeUsers", activeUserContacts);
       })
       .catch((err) => console.log(err));
   },
@@ -92,6 +113,7 @@ const actions = {
         const newContactObj = {};
         newContactObj[res.key] = newContact;
         commit("addUserContact", newContactObj);
+        // commit("removeContactFromUsers", newContact);
       })
       .catch((err) => console.log(err));
   },
