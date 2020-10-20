@@ -84,6 +84,7 @@
       <list-category
         v-if="isContactCategory"
         :category-list="userContacts"
+        :has-button="true"
         :list-contacts="true"
       ></list-category>
       <list-category

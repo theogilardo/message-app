@@ -33,11 +33,17 @@
       </div>
       <h3 v-if="listMessages" class="list-category__user__time">14:56</h3>
       <button
-        v-if="listAllUsers"
+        v-if="hasButton && listAllUsers"
         @click="addContact(user)"
-        class="list-category__user__btn"
+        class="list-category__user__btn list-category__user__btn__add-contact"
       >
         +
+      </button>
+      <button
+        v-if="hasButton && listContacts"
+        class="list-category__user__btn list-category__user__btn__chat"
+      >
+        Chat
       </button>
     </div>
   </div>
@@ -132,12 +138,20 @@ export default {
       color: white;
 
     &__btn
-      margin-left: auto;
-      border 2px solid #E8E8E8
+      margin-left auto
       background transparent
-      border-radius 50%
       color #E8E8E8
-      font-weight bold
       cursor pointer
-      padding .4rem .7rem
+
+      &__add-contact
+        font-weight bold
+        border 2px solid #E8E8E8
+        border-radius 50%
+        padding .4rem .7rem
+
+      &__chat
+        border none
+        border 1.5px solid #E8E8E8
+        border-radius 5px
+        padding .5rem
 </style>
