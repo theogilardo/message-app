@@ -184,7 +184,7 @@ export default {
     },
   },
   methods: {
-    listCategory(value) {
+    listCategory(value = 0) {
       this.listCategoryLength = value;
     },
     switchToMessages() {

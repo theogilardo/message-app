@@ -85,7 +85,6 @@ export default {
   watch: {
     categoryList() {
       return this.$emit("update", this.categoryList.length);
-      // return this.$store.commit("updateListLength", this.categoryList);
     },
   },
   methods: {
@@ -93,7 +92,6 @@ export default {
       return this.$store.dispatch("addContact", newContact);
     },
     chatWithContact(contact) {
-      // console.log(this.categoryList.length);
       return this.$store.dispatch("chatWithContact", contact);
     },
   },
