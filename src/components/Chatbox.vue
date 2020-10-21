@@ -23,7 +23,9 @@
           />
         </a>
         <a
-          :class="{ 'chat__side-bar__link--active': isMessagesCategory }"
+          :class="{
+            'chat__side-bar__link--active': listCategoryType === 'Messages',
+          }"
           @click="switchToMessages"
           class="chat__side-bar__link"
         >
@@ -34,7 +36,9 @@
           />
         </a>
         <a
-          :class="{ 'chat__side-bar__link--active': isContactCategory }"
+          :class="{
+            'chat__side-bar__link--active': listCategoryType === 'Contacts',
+          }"
           class="chat__side-bar__link"
           @click="switchToContacts"
         >
@@ -68,11 +72,14 @@
     </div>
 
     <div v-if="users" class="chat__category">
-      <h3 class="chat__category__name">{{ category }}</h3>
+      <h3 class="chat__category__name">{{ listCategoryType }}</h3>
       <!-- <h3>({{ listAmount }})</h3> -->
       <a @click="switchToNewContact">
         <img
-          v-if="isContactCategory || isNewContactCategory"
+          v-if="
+            listCategoryType === 'Messages' ||
+              listCategoryType === 'Find New Contact'
+          "
           class="chat__category__icon"
           src="../assets/add-contact.svg"
           alt="Add contact"
@@ -82,18 +89,18 @@
 
     <div class="chat__users">
       <list-category
-        v-if="isContactCategory"
+        v-if="listCategoryType === 'Contacts'"
         :category-list="userContacts"
         :has-button="true"
         :list-contacts="true"
       ></list-category>
       <list-category
-        v-if="isMessagesCategory"
-        :category-list="userMessages"
+        v-if="listCategoryType === 'Messages'"
+        :category-list="users"
         :list-messages="true"
       ></list-category>
       <list-category
-        v-if="isNewContactCategory"
+        v-if="listCategoryType === 'Find New Contact'"
         :category-list="users"
         :list-all-users="true"
         :has-search-bar="true"
@@ -156,19 +163,19 @@ export default {
     user() {
       return this.$store.getters.user;
     },
-    userMessages() {},
+    // userMessages() {},
     userContacts() {
       return this.$store.getters.userContacts;
     },
-    isContactCategory() {
-      return this.category === "Contacts";
+    listCategoryType() {
+      return this.$store.getters.listCategoryType;
     },
-    isMessagesCategory() {
-      return this.category === "Messages";
-    },
-    isNewContactCategory() {
-      return this.category === "New Contact";
-    },
+    // isMessagesCategory() {
+    //   return this.category === "Messages";
+    // },
+    // isNewContactCategory() {
+    //   return this.category === "New Contact";
+    // },
     listAmount() {
       if (this.category === "Contacts") {
         return Object.keys(this.user.contacts).length;
@@ -178,13 +185,13 @@ export default {
   },
   methods: {
     switchToMessages() {
-      this.category = "Messages";
+      return this.$store.commit("switchToMessages");
     },
     switchToContacts() {
-      this.category = "Contacts";
+      return this.$store.commit("switchToContacts");
     },
     switchToNewContact() {
-      this.category = "New Contact";
+      return this.$store.commit("switchToNewContact");
     },
   },
 };
