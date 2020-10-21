@@ -33,16 +33,16 @@
       </div>
       <h3 v-if="listMessages" class="list-category__user__time">14:56</h3>
       <button
-        v-if="hasButton && listAllUsers"
+        v-if="listAllUsers"
         @click="addContact(user)"
         class="list-category__user__btn list-category__user__btn__add-contact"
       >
         +
       </button>
       <button
-        v-if="hasButton && listContacts"
+        v-if="listContacts"
         class="list-category__user__btn list-category__user__btn__chat"
-        @click="chatWithContact(contact)"
+        @click="chatWithContact(user)"
       >
         Chat
       </button>

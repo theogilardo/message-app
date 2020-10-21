@@ -4,6 +4,7 @@ import firebase from "firebase";
 const state = {
   user: null,
   users: [],
+  messages: [],
 };
 
 const getters = {
@@ -14,7 +15,7 @@ const getters = {
     return state.user.contacts;
   },
   userMessages(state) {
-    return state.user.messages;
+    return state.messages;
   },
   users(state) {
     return state.users;
@@ -46,7 +47,7 @@ const mutations = {
     );
   },
   addChatContact(state, chatContact) {
-    state.user.messages = chatContact;
+    state.messages.push(chatContact);
   },
 };
 
@@ -121,7 +122,6 @@ const actions = {
   },
 
   chatWithContact({ commit, rootState }, contact) {
-    const keyCurrentUSer = rootState.users.user.key;
     console.log(contact);
 
     // Remove user from contacts
@@ -135,6 +135,7 @@ const actions = {
     };
 
     // Add user to user messages in DB
+    const keyCurrentUSer = rootState.users.user.key;
     firebase
       .database()
       .ref(`users/${keyCurrentUSer}/messages`)
@@ -142,9 +143,14 @@ const actions = {
       .then((res) => {
         objTest.key = res.key;
         // Add user to user messages in State
-        // const messages = [];
+        // const userChat = [];
+        // for (let key in objTest) {
+        // const user = objTest[key];
+        // user.key = key;
+        // userChat.push(user);
+        // }
 
-        commit("addChatContact", contact);
+        commit("addChatContact", objTest);
         commit("switchToMessages");
       })
       .catch((err) => console.log(err));
