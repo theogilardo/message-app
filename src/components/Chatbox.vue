@@ -72,7 +72,10 @@
     </div>
 
     <div v-if="users" class="chat__category">
-      <h3 class="chat__category__name">{{ listCategoryType }}</h3>
+      <h3 class="chat__category__name">
+        {{ listCategoryType }} ({{ listCategoryLength }})
+      </h3>
+
       <!-- <h3>({{ listAmount }})</h3> -->
       <a @click="switchToNewContact">
         <img
@@ -87,17 +90,20 @@
     <div class="chat__users">
       <list-category
         v-if="listCategoryType === 'Contacts'"
+        @update="listCategory"
         :category-list="userContacts"
         :has-button="true"
         :list-contacts="true"
       ></list-category>
       <list-category
         v-if="listCategoryType === 'Messages'"
+        @update="listCategory"
         :category-list="userMessages"
         :list-messages="true"
       ></list-category>
       <list-category
         v-if="listCategoryType === 'Find New Contact'"
+        @update="listCategory"
         :category-list="users"
         :list-all-users="true"
         :has-search-bar="true"
@@ -149,6 +155,7 @@ export default {
   data() {
     return {
       category: "Contacts",
+      listCategoryLength: null,
       message: null,
       messages: [],
     };
@@ -177,6 +184,9 @@ export default {
     },
   },
   methods: {
+    listCategory(value) {
+      this.listCategoryLength = value;
+    },
     switchToMessages() {
       return this.$store.commit("switchToMessages");
     },
