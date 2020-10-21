@@ -89,7 +89,7 @@
       ></list-category>
       <list-category
         v-if="isMessagesCategory"
-        :category-list="users"
+        :category-list="userMessages"
         :list-messages="true"
       ></list-category>
       <list-category
@@ -156,6 +156,7 @@ export default {
     user() {
       return this.$store.getters.user;
     },
+    userMessages() {},
     userContacts() {
       return this.$store.getters.userContacts;
     },
