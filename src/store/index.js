@@ -4,6 +4,7 @@ import chat from "./modules/chat";
 import auth from "./modules/auth";
 import users from "./modules/users";
 import category from "./modules/category";
+import messages from "./modules/messages";
 
 Vue.use(Vuex);
 
@@ -13,6 +14,7 @@ export const store = new Vuex.Store({
     auth,
     users,
     category,
+    messages,
   },
 });
 

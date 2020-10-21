@@ -5,7 +5,6 @@ const state = {
   user: null,
   userMessageReceiver: null,
   users: [],
-  messages: [],
 };
 
 const getters = {
@@ -17,9 +16,6 @@ const getters = {
   },
   userContacts(state) {
     return state.user.contacts;
-  },
-  userMessages(state) {
-    return state.messages;
   },
   users(state) {
     return state.users;
@@ -53,9 +49,6 @@ const mutations = {
     state.users = state.users.filter(
       (user) => user.localId !== newContact.localId
     );
-  },
-  addChatContact(state, chatContact) {
-    state.messages.push(chatContact);
   },
 };
 

@@ -56,6 +56,7 @@ export default {
   props: {
     categoryList: {
       required: false,
+      default: 0,
     },
     hasSearchBar: {
       type: Boolean,
@@ -82,11 +83,13 @@ export default {
       default: false,
     },
   },
-  watch: {
-    categoryList() {
-      return this.$emit("update", this.categoryList.length);
-    },
-  },
+  // watch: {
+  //   categoryList() {
+  //     if (this.categoryList.length) {
+  //       return this.$emit("update", this.categoryList.length);
+  //     }
+  //   },
+  // },
   methods: {
     addContact(newContact) {
       return this.$store.dispatch("addContact", newContact);

@@ -71,10 +71,11 @@
       <!-- <img src="../assets/search.svg" alt="Edit Button" /> -->
     </div>
 
-    <div v-if="users" class="chat__category">
+    <div v-if="users || userContacts || userMessages" class="chat__category">
       <h3 class="chat__category__name">
-        {{ listCategoryType }} ({{ listCategoryLength }})
+        {{ listCategoryType }}
       </h3>
+      <!-- ({{ listCategoryLength }}) -->
       <a @click="switchToNewContact">
         <img
           v-if="listCategoryType === 'Contacts'"
@@ -180,13 +181,13 @@ export default {
     listCategoryType() {
       return this.$store.getters.listCategoryType;
     },
+    hasOneMessage() {
+      return this.messages.length === 1;
+    },
   },
   methods: {
     listCategory(value) {
       this.listCategoryLength = value;
-    },
-    selectTypeInput() {
-      this.$refs.typeMessage.select();
     },
     chatWithContact(value) {
       console.log(value);
@@ -194,13 +195,27 @@ export default {
     clearTypeInput() {
       this.message = "";
     },
+    selectTypeInput() {
+      this.$refs.typeMessage.select();
+    },
     sendMessage() {
-      console.log(this.message);
+      // DOM
       this.messages.push(this.message);
-      console.log(this.messages);
+
+      // State + Firebase
+      this.$store.dispatch("storeMessage", this.message);
+
+      // UI
       this.clearTypeInput();
       this.selectTypeInput();
-      console.log(this.messages);
+
+      // Redirect from Contact List to Message List
+      this.isFirstMessage();
+    },
+    isFirstMessage() {
+      if (this.hasOneMessage && this.listCategoryType === "Contacts") {
+        this.$store.commit("switchToMessages");
+      }
     },
     switchToMessages() {
       return this.$store.commit("switchToMessages");
