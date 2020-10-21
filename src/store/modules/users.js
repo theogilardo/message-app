@@ -129,29 +129,30 @@ const actions = {
       .catch((err) => console.log(err));
   },
 
-  chatWithContact({ commit, rootState }, contact) {
+  // chatWithContact({ commit, rootState }, contact) {
+  chatWithContact({ commit }, contact) {
     commit("storeUserMessageReceiver", contact);
 
-    const objTest = {
-      senderId: rootState.users.user.localId,
-      receiverId: contact.localId,
-      name: contact.name,
-      surname: contact.name,
-      lastMessage: "Hello",
-    };
+    // const objTest = {
+    //   senderId: rootState.users.user.localId,
+    //   receiverId: contact.localId,
+    //   name: contact.name,
+    //   surname: contact.name,
+    //   lastMessage: "Hello",
+    // };
 
-    const keyCurrentUSer = rootState.users.user.key;
-    firebase
-      .database()
-      .ref(`users/${keyCurrentUSer}/messages`)
-      .push(objTest)
-      .then((res) => {
-        objTest.key = res.key;
+    // const keyCurrentUSer = rootState.users.user.key;
+    // firebase
+    //   .database()
+    //   .ref(`users/${keyCurrentUSer}/messages`)
+    //   .push(objTest)
+    //   .then((res) => {
+    //     objTest.key = res.key;
 
-        commit("addChatContact", objTest);
-        // commit("switchToMessages");
-      })
-      .catch((err) => console.log(err));
+    //     // commit("addChatContact", objTest);
+    //     // commit("switchToMessages");
+    //   })
+    //   .catch((err) => console.log(err));
   },
 };
 

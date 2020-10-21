@@ -121,15 +121,11 @@
     </div>
     <div class="chat__messages">
       <div v-if="messages" class="chat__messages__conversation">
-        <!-- <div
-          :class="{ 'receiver-box': message.type === 'receiver' }"
-          v-for="message in newMessages"
-          :key="message.id"
-        >
-          <p :class="{ receiver: message.type === 'receiver' }">
-            {{ message.message }}
-          </p>
-        </div> -->
+        <!-- :class="{ 'receiver-box': message.type === 'receiver' }" -->
+        <p v-for="message in messages" :key="message.id">
+          {{ message }}
+        </p>
+        <!-- :class="{ receiver: message.type === 'receiver' }" -->
       </div>
       <div class="chat__messages__write">
         <input
@@ -138,7 +134,12 @@
           placeholder="Type your message here.."
           ref="typeMessage"
         />
-        <img src="..//assets/send.svg" alt="Send Icon" />
+        <img
+          @keyup.enter="sendMessage"
+          @click="sendMessage"
+          src="../assets/send.svg"
+          alt="Send Icon"
+        />
       </div>
     </div>
   </div>
@@ -189,6 +190,17 @@ export default {
     },
     chatWithContact(value) {
       console.log(value);
+    },
+    clearTypeInput() {
+      this.message = "";
+    },
+    sendMessage() {
+      console.log(this.message);
+      this.messages.push(this.message);
+      console.log(this.messages);
+      this.clearTypeInput();
+      this.selectTypeInput();
+      console.log(this.messages);
     },
     switchToMessages() {
       return this.$store.commit("switchToMessages");
@@ -362,19 +374,18 @@ export default {
       grid-column: 1 / 2;
       grid-row: 1 / 2;
 
-      div
-        p
-          padding: 8px 14px;
-          background: #4c7de0;
-          color: white;
-          border-radius: 7px;
-          width: 50%;
-          margin: 15px;
-          font-size: 15px;
-          text-align: left;
-          overflow-wrap: break-word;
-          width: max-content;
-          max-width: 50%;
+      p
+        padding: 8px 14px;
+        background: #4c7de0;
+        color: white;
+        border-radius: 7px;
+        // width: 50%;
+        margin: 15px;
+        font-size: 15px;
+        text-align: left;
+        overflow-wrap: break-word;
+        width: max-content;
+        max-width: 50%;
 
     &__write
       position: relative;
