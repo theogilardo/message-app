@@ -8,13 +8,13 @@
     <div class="background"></div>
     <div class="chat__side-bar">
       <div class="chat__side-bar__container">
-        <a class="chat__side-bar__link">
+        <!-- <a class="chat__side-bar__link">
           <img
             class="chat__side-bar__icon"
             src="../assets/edit.svg"
             alt="Edit Button"
           />
-        </a>
+        </a> -->
         <a class="chat__side-bar__link">
           <img
             class="chat__side-bar__profile-pic"
@@ -50,13 +50,13 @@
         </a>
       </div>
       <div>
-        <a class="chat__side-bar__link">
+        <!-- <a class="chat__side-bar__link">
           <img
             class="chat__side-bar__icon"
             src="../assets/dots.svg"
             alt="Edit Button"
           />
-        </a>
+        </a> -->
         <a class="chat__side-bar__link">
           <img
             class="chat__side-bar__icon chat__side-bar__icon__last"
