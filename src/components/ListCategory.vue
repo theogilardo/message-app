@@ -22,7 +22,7 @@
           {{ user.name }} {{ user.surname }}
         </h2>
         <p v-if="listMessages" class="list-category__user__info__message">
-          Lorem ipsum dolor sit amet.
+          {{ user.lastMessage }}
         </p>
         <p
           v-if="listContacts || listAllUsers"

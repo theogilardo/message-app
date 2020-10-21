@@ -128,10 +128,10 @@ const actions = {
 
     const objTest = {
       senderId: rootState.users.user.localId,
-      senderName: rootState.users.user.name,
       receiverId: contact.localId,
-      receiverName: contact.name,
-      message: "Hello",
+      name: contact.name,
+      surname: contact.name,
+      lastMessage: "Hello",
     };
 
     // Add user to user messages in DB
@@ -142,13 +142,6 @@ const actions = {
       .push(objTest)
       .then((res) => {
         objTest.key = res.key;
-        // Add user to user messages in State
-        // const userChat = [];
-        // for (let key in objTest) {
-        // const user = objTest[key];
-        // user.key = key;
-        // userChat.push(user);
-        // }
 
         commit("addChatContact", objTest);
         commit("switchToMessages");
