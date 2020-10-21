@@ -131,8 +131,6 @@ const actions = {
 
   chatWithContact({ commit, rootState }, contact) {
     commit("storeUserMessageReceiver", contact);
-    // this.$refs.typeMessage.select();
-    console.log(this.$refs);
 
     const objTest = {
       senderId: rootState.users.user.localId,

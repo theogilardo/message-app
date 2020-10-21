@@ -92,7 +92,7 @@ export default {
       return this.$store.dispatch("addContact", newContact);
     },
     chatWithContact(contact) {
-      this.$emit("chatWithContact", contact);
+      this.$emit("chatWithContact");
       return this.$store.dispatch("chatWithContact", contact);
     },
   },

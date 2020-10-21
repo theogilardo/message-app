@@ -88,7 +88,7 @@
       <list-category
         v-if="listCategoryType === 'Contacts'"
         @update="listCategory"
-        @chatWithContact="contactTest"
+        @chatWithContact="selectTypeInput"
         :category-list="userContacts"
         :has-button="true"
         :list-contacts="true"
@@ -179,20 +179,12 @@ export default {
     listCategoryType() {
       return this.$store.getters.listCategoryType;
     },
-    listAmount() {
-      if (this.category === "Contacts") {
-        return Object.keys(this.user.contacts).length;
-      }
-      return this.users.length;
-    },
   },
   methods: {
-    listCategory(value = 0) {
+    listCategory(value) {
       this.listCategoryLength = value;
     },
-    contactTest(contact) {
-      console.log(contact);
-      console.log(this.$refs);
+    selectTypeInput() {
       this.$refs.typeMessage.select();
     },
     chatWithContact(value) {
