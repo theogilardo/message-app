@@ -75,8 +75,6 @@
       <h3 class="chat__category__name">
         {{ listCategoryType }} ({{ listCategoryLength }})
       </h3>
-
-      <!-- <h3>({{ listAmount }})</h3> -->
       <a @click="switchToNewContact">
         <img
           v-if="listCategoryType === 'Contacts'"
@@ -86,11 +84,11 @@
         />
       </a>
     </div>
-
     <div class="chat__users">
       <list-category
         v-if="listCategoryType === 'Contacts'"
         @update="listCategory"
+        @chatWithContact="contactTest"
         :category-list="userContacts"
         :has-button="true"
         :list-contacts="true"
@@ -111,12 +109,13 @@
         :has-icon="true"
       ></list-category>
     </div>
-
-    <div v-if="user" class="chat__main-user">
+    <div v-if="userMessageReceiver" class="chat__main-user">
       <!-- <img :src="user.profilePic" alt="Main Profile Photo" /> -->
       <img src="../assets/theo.png" alt="Main Profile Photo" />
       <div class="chat__main-user__information">
-        <h1>{{ user.name }} {{ user.surname }}</h1>
+        <h1>
+          {{ userMessageReceiver.name }} {{ userMessageReceiver.surname }}
+        </h1>
         <p>1890 messages</p>
       </div>
     </div>
@@ -137,6 +136,7 @@
           v-model="message"
           type="text"
           placeholder="Type your message here.."
+          ref="typeMessage"
         />
         <img src="..//assets/send.svg" alt="Send Icon" />
       </div>
@@ -167,6 +167,9 @@ export default {
     user() {
       return this.$store.getters.user;
     },
+    userMessageReceiver() {
+      return this.$store.getters.userMessageReceiver;
+    },
     userContacts() {
       return this.$store.getters.userContacts;
     },
@@ -186,6 +189,14 @@ export default {
   methods: {
     listCategory(value = 0) {
       this.listCategoryLength = value;
+    },
+    contactTest(contact) {
+      console.log(contact);
+      console.log(this.$refs);
+      this.$refs.typeMessage.select();
+    },
+    chatWithContact(value) {
+      console.log(value);
     },
     switchToMessages() {
       return this.$store.commit("switchToMessages");

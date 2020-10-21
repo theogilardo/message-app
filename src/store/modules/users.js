@@ -3,6 +3,7 @@ import firebase from "firebase";
 
 const state = {
   user: null,
+  userMessageReceiver: null,
   users: [],
   messages: [],
 };
@@ -10,6 +11,9 @@ const state = {
 const getters = {
   user(state) {
     return state.user;
+  },
+  userMessageReceiver(state) {
+    return state.userMessageReceiver;
   },
   userContacts(state) {
     return state.user.contacts;
@@ -25,6 +29,10 @@ const getters = {
 const mutations = {
   storeUser(state, userData) {
     state.user = userData;
+  },
+
+  storeUserMessageReceiver(state, receiver) {
+    state.userMessageReceiver = receiver;
   },
 
   storeUsers(state, userData) {
@@ -122,9 +130,9 @@ const actions = {
   },
 
   chatWithContact({ commit, rootState }, contact) {
-    console.log(contact);
-
-    // Remove user from contacts
+    commit("storeUserMessageReceiver", contact);
+    // this.$refs.typeMessage.select();
+    console.log(this.$refs);
 
     const objTest = {
       senderId: rootState.users.user.localId,
@@ -134,7 +142,6 @@ const actions = {
       lastMessage: "Hello",
     };
 
-    // Add user to user messages in DB
     const keyCurrentUSer = rootState.users.user.key;
     firebase
       .database()
@@ -144,7 +151,7 @@ const actions = {
         objTest.key = res.key;
 
         commit("addChatContact", objTest);
-        commit("switchToMessages");
+        // commit("switchToMessages");
       })
       .catch((err) => console.log(err));
   },
