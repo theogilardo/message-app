@@ -76,10 +76,7 @@
       <!-- <h3>({{ listAmount }})</h3> -->
       <a @click="switchToNewContact">
         <img
-          v-if="
-            listCategoryType === 'Messages' ||
-              listCategoryType === 'Find New Contact'
-          "
+          v-if="listCategoryType === 'Contacts'"
           class="chat__category__icon"
           src="../assets/add-contact.svg"
           alt="Add contact"
@@ -96,7 +93,7 @@
       ></list-category>
       <list-category
         v-if="listCategoryType === 'Messages'"
-        :category-list="users"
+        :category-list="userMessages"
         :list-messages="true"
       ></list-category>
       <list-category
@@ -163,19 +160,15 @@ export default {
     user() {
       return this.$store.getters.user;
     },
-    // userMessages() {},
     userContacts() {
       return this.$store.getters.userContacts;
+    },
+    userMessages() {
+      return this.$store.getters.userMessages;
     },
     listCategoryType() {
       return this.$store.getters.listCategoryType;
     },
-    // isMessagesCategory() {
-    //   return this.category === "Messages";
-    // },
-    // isNewContactCategory() {
-    //   return this.category === "New Contact";
-    // },
     listAmount() {
       if (this.category === "Contacts") {
         return Object.keys(this.user.contacts).length;

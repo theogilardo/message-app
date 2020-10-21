@@ -13,6 +13,9 @@ const getters = {
   userContacts(state) {
     return state.user.contacts;
   },
+  userMessages(state) {
+    return state.user.messages;
+  },
   users(state) {
     return state.users;
   },
@@ -41,6 +44,9 @@ const mutations = {
     state.users = state.users.filter(
       (user) => user.localId !== newContact.localId
     );
+  },
+  addChatContact(state, chatContact) {
+    state.user.messages = chatContact;
   },
 };
 
@@ -110,6 +116,36 @@ const actions = {
       .then((res) => {
         newContact.key = res.key;
         commit("addUserContact", newContact);
+      })
+      .catch((err) => console.log(err));
+  },
+
+  chatWithContact({ commit, rootState }, contact) {
+    const keyCurrentUSer = rootState.users.user.key;
+    console.log(contact);
+
+    // Remove user from contacts
+
+    const objTest = {
+      senderId: rootState.users.user.localId,
+      senderName: rootState.users.user.name,
+      receiverId: contact.localId,
+      receiverName: contact.name,
+      message: "Hello",
+    };
+
+    // Add user to user messages in DB
+    firebase
+      .database()
+      .ref(`users/${keyCurrentUSer}/messages`)
+      .push(objTest)
+      .then((res) => {
+        objTest.key = res.key;
+        // Add user to user messages in State
+        // const messages = [];
+
+        commit("addChatContact", contact);
+        commit("switchToMessages");
       })
       .catch((err) => console.log(err));
   },

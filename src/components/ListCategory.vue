@@ -42,7 +42,7 @@
       <button
         v-if="hasButton && listContacts"
         class="list-category__user__btn list-category__user__btn__chat"
-        @click="chatWithContact(user)"
+        @click="chatWithContact(contact)"
       >
         Chat
       </button>
@@ -87,8 +87,7 @@ export default {
       return this.$store.dispatch("addContact", newContact);
     },
     chatWithContact(contact) {
-      console.log(contact);
-      this.$store.commit("switchToMessages");
+      return this.$store.dispatch("chatWithContact", contact);
     },
   },
 };
