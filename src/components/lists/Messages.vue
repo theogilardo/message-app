@@ -1,9 +1,10 @@
 <template>
-  <div class="list-category" v-if="userContacts.some((el) => el.lastMessage)">
+  <div class="list-category" v-if="userContacts">
     <div
-      v-for="user in userContacts.filter((el) => el.lastMessage)"
+      v-for="user in userContacts"
       :key="user.id"
       class="list-category__user"
+      @click="fetchMessages(user)"
     >
       <img
         class="list-category__user__img"
@@ -17,7 +18,7 @@
         </h2>
 
         <p class="list-category__user__info__message">
-          {{ user.lastMessage }}
+          <!-- {{ user.lastMessage }} -->
         </p>
       </div>
 
@@ -35,6 +36,12 @@ export default {
     },
     userContacts() {
       return this.$store.getters.userContacts;
+    },
+  },
+  methods: {
+    fetchMessages(user) {
+      this.$store.dispatch("chatWithContact", user);
+      this.$store.dispatch("fetchMessages");
     },
   },
 };

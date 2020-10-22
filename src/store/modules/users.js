@@ -8,6 +8,17 @@ const state = {
   messages: null,
 };
 
+/*
+
+Messages for left and right panel:
+
+- Left panel:
+Take all the messages
+
+
+
+*/
+
 const getters = {
   user(state) {
     return state.user;
@@ -54,20 +65,20 @@ const mutations = {
       (user) => user.localId !== newContact.localId
     );
   },
-  storeMessage(state, message) {
-    // Refactor with mixin
-    const date = new Date();
-    const hour = date.getHours();
-    const minutes = date.getMinutes();
-    const time = `${hour}:${minutes}`;
+  // storeMessage(state, message) {
+  //   // Refactor with mixin
+  //   const date = new Date();
+  //   const hour = date.getHours();
+  //   const minutes = date.getMinutes();
+  //   const time = `${hour}:${minutes}`;
 
-    state.user.contacts.forEach((contact) => {
-      if (contact.localId === state.userMessageReceiver.localId) {
-        contact.lastMessage = message;
-        contact.lastMessageTimeSent = time;
-      }
-    });
-  },
+  //   state.user.contacts.forEach((contact) => {
+  //     if (contact.localId === state.userMessageReceiver.localId) {
+  //       contact.lastMessage = message;
+  //       contact.lastMessageTimeSent = time;
+  //     }
+  //   });
+  // },
 
   storeMessages(state, messageObj) {
     state.messages = messageObj;
@@ -144,9 +155,9 @@ const actions = {
       .catch((err) => console.log(err));
   },
 
-  storeMessage({ state, commit }, message) {
-    commit("switchToMessages");
-    commit("storeMessage", message);
+  storeMessage({ state }, message) {
+    // commit("switchToMessages");
+    // commit("storeMessage", message);
 
     const timestamp = new Date().getTime();
 
@@ -170,18 +181,39 @@ const actions = {
       .catch((err) => console.log(err));
   },
 
-  fetchMessages({ commit }) {
+  fetchMessages({ state, commit }) {
     axios
       .get("https://message-app-719f5.firebaseio.com/messages.json")
       .then((res) => {
-        console.log(res);
         const data = res.data;
         const messages = [];
         for (let key in data) {
           const message = data[key];
           messages.push(message);
         }
-        commit("storeMessages", messages);
+
+        const userId = state.user.localId;
+        const contactId = state.userMessageReceiver.localId;
+        const conversation = [];
+
+        const messageUsertoContact = messages.filter(
+          (message) =>
+            message.senderId === userId && message.receiverId === contactId
+        );
+
+        const messageContactToUser = messages.filter(
+          (message) =>
+            message.receiverId === userId && message.senderId === contactId
+        );
+
+        const concatChat = messageUsertoContact.concat(messageContactToUser);
+        conversation.push(concatChat);
+
+        const sortConversation = conversation[0].sort(
+          (a, b) => a.timestamp - b.timestamp
+        );
+
+        commit("storeMessages", sortConversation);
       })
       .catch((err) => console.log(err));
   },
