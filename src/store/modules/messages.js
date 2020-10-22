@@ -16,6 +16,11 @@ const mutations = {
       (chatUser) => chatUser.receiver.localId === messageObj.receiver.localId
     );
 
+    // user.contacts
+    // contact.messages
+    // contact.messages
+    // contact.messages
+
     if (hasChatAlready) {
       state.userMessages = [messageObj];
       state.userMessages.forEach((test) => {
