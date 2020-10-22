@@ -54,9 +54,16 @@ const mutations = {
     );
   },
   storeMessage(state, message) {
+    // Refactor with mixin
+    const date = new Date();
+    const hour = date.getHours();
+    const minutes = date.getMinutes();
+    const time = `${hour}:${minutes}`;
+
     state.user.contacts.forEach((contact) => {
       if (contact.localId === state.userMessageReceiver.localId) {
         contact.lastMessage = message;
+        contact.lastMessageTimeSent = time;
       }
     });
   },
