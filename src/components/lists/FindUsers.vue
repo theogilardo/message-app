@@ -34,13 +34,6 @@
 <script>
 export default {
   name: "FindUsers",
-  watch: {
-    listCategoryType() {
-      if (this.users.length) {
-        return this.$emit("update", this.users.length);
-      }
-    },
-  },
   computed: {
     listCategoryType() {
       return this.$store.getters.listCategoryType;
@@ -51,7 +44,6 @@ export default {
   },
   methods: {
     chatWithContact(contact) {
-      this.$emit("chatWithContact");
       return this.$store.dispatch("chatWithContact", contact);
     },
   },

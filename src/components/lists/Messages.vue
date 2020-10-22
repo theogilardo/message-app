@@ -29,15 +29,6 @@
 <script>
 export default {
   name: "Messages",
-
-  watch: {
-    listCategoryType() {
-      if (this.userContacts.length) {
-        return this.$emit("update", this.userContacts.length);
-      }
-    },
-  },
-
   computed: {
     listCategoryType() {
       return this.$store.getters.listCategoryType;

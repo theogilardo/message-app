@@ -89,7 +89,6 @@
     <div class="chat__lists">
       <component
         :is="listCategoryType"
-        @update="listLengthUpdate"
         @chatWithContact="selectTypeInput"
       ></component>
     </div>
