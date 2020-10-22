@@ -40,10 +40,10 @@ export default {
     },
   },
   methods: {
-    // chatWithContact(contact) {
-    //   this.$emit("chatWithContact");
-    //   return this.$store.dispatch("chatWithContact", contact);
-    // },
+    chatWithContact(contact) {
+      this.$emit("chatWithContact");
+      return this.$store.dispatch("chatWithContact", contact);
+    },
   },
 };
 </script>

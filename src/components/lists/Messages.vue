@@ -1,7 +1,7 @@
 <template>
   <div class="list-category">
     <div
-      v-for="user in userContacts"
+      v-for="user in userContacts.filter((el) => el.lastMessage)"
       :key="user.id"
       class="list-category__user"
     >
@@ -17,7 +17,7 @@
         </h2>
 
         <p class="list-category__user__info__message">
-          {{ user.name }}
+          {{ user.lastMessage }}
         </p>
       </div>
 
@@ -30,13 +30,13 @@
 export default {
   name: "Messages",
 
-  // watch: {
-  //   categoryList() {
-  //     if (this.categoryList.length) {
-  //       return this.$emit("update", this.categoryList.length);
-  //     }
-  //   },
-  // },
+  watch: {
+    categoryList() {
+      if (this.categoryList.length) {
+        return this.$emit("update", this.categoryList.length);
+      }
+    },
+  },
   computed: {
     userContacts() {
       return this.$store.getters.userContacts;

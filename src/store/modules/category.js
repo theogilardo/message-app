@@ -9,11 +9,9 @@ const getters = {
     if (state.category === "contacts") {
       return "Contacts";
     }
-
     if (state.category === "messages") {
       return "Messages";
     }
-
     if (state.category === "findUsers") {
       return "Find New Contact";
     }

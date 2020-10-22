@@ -59,9 +59,6 @@ const mutations = {
         contact.lastMessage = message;
       }
     });
-    console.log(state.user.contacts);
-    const test = state.user.contacts.filter((contact) => contact.lastMessage);
-    console.log(test);
   },
 };
 

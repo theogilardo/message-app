@@ -86,7 +86,10 @@
       </a>
     </div>
     <div class="chat__lists">
-      <component :is="listCategoryType"></component>
+      <component
+        :is="listCategoryType"
+        @chatWithContact="selectTypeInput"
+      ></component>
     </div>
     <div v-if="userMessageReceiver" class="chat__main-user">
       <!-- <img :src="user.profilePic" alt="Main Profile Photo" /> -->
@@ -167,9 +170,6 @@ export default {
     listCategoryTypeLabel() {
       return this.$store.getters.listCategoryTypeLabel;
     },
-    hasOneMessage() {
-      return this.messages.length === 1;
-    },
   },
   methods: {
     // listCategory(value) {
@@ -186,23 +186,11 @@ export default {
       this.$refs.typeMessage.select();
     },
     sendMessage() {
-      // DOM
       this.messages.push(this.message);
-
-      // State + Firebase
       this.$store.dispatch("storeMessage", this.message);
-
-      // UI
       this.clearTypeInput();
       this.selectTypeInput();
-
-      // Redirect from Contact List to Message List
-      this.isFirstMessage();
-    },
-    isFirstMessage() {
-      if (this.hasOneMessage && this.listCategoryType === "Contacts") {
-        this.$store.commit("switchToMessages");
-      }
+      this.$store.commit("switchToMessages");
     },
     switchToMessages() {
       return this.$store.commit("switchToMessages");
