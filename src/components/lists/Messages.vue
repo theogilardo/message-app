@@ -1,7 +1,10 @@
 <template>
-  <div class="list-category" v-if="userContacts">
+  <div
+    class="list-category"
+    v-if="userContacts.some((contact) => contact.lastMessage)"
+  >
     <div
-      v-for="user in userContacts"
+      v-for="user in userContacts.filter((contact) => contact.lastMessage)"
       :key="user.id"
       class="list-category__user"
       @click="fetchMessages(user)"
@@ -18,11 +21,11 @@
         </h2>
 
         <p class="list-category__user__info__message">
-          <!-- {{ user.lastMessage }} -->
+          {{ user.lastMessage }}
         </p>
       </div>
 
-      <h3 class="list-category__user__time">{{ user.lastMessageTimeSenta }}</h3>
+      <h3 class="list-category__user__time">{{ user.time }}</h3>
     </div>
   </div>
 </template>

@@ -66,22 +66,34 @@ const mutations = {
     );
   },
   storeMessage(state, messageObj) {
-    // Refactor with mixin
-    // const date = new Date();
-    // const hour = date.getHours();
-    // const minutes = date.getMinutes();
-    // const time = `${hour}:${minutes}`;
     state.messages.push(messageObj);
-    // state.user.contacts.forEach((contact) => {
-    //   if (contact.localId === state.userMessageReceiver.localId) {
-    //     contact.lastMessage = message;
-    //     contact.lastMessageTimeSent = time;
-    //   }
-    // });
   },
 
   storeMessages(state, messageObj) {
     state.messages = messageObj;
+  },
+  updateUserContact(state, message) {
+    const date = new Date();
+    const minutes = date.getMinutes();
+    const hours = date.getHours();
+    const time = `${hours}:${minutes}`;
+
+    state.user.contacts.forEach((contact) => {
+      if (contact.localId === state.userMessageReceiver.localId) {
+        contact.lastMessage = message;
+        contact.time = time;
+
+        /*
+        Every time you send a message go to user.contacts
+        Add to the contact hasChat: true + last msg sent
+
+        On messageList display all the user contacts with a filter with a hasChat condition
+        The users displayed will also have the msg sent
+
+        How do you send this to the DB ? Check Firebase  
+        */
+      }
+    });
   },
 };
 
@@ -158,6 +170,8 @@ const actions = {
   storeMessage({ state, commit }, message) {
     // commit("switchToMessages");
 
+    commit("updateUserContact", message);
+
     const timestamp = new Date().getTime();
 
     const messageObj = {
@@ -166,6 +180,7 @@ const actions = {
       message: message,
       timestamp: timestamp,
     };
+    console.log("Hello");
 
     commit("storeMessage", messageObj);
 
