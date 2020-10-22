@@ -57,10 +57,11 @@ const mutations = {
     state.user.contacts.forEach((contact) => {
       if (contact.localId === state.userMessageReceiver.localId) {
         contact.lastMessage = message;
-        console.log("first time");
-        console.log(state.user.contacts);
       }
     });
+    console.log(state.user.contacts);
+    const test = state.user.contacts.filter((contact) => contact.lastMessage);
+    console.log(test);
   },
 };
 

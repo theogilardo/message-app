@@ -18,25 +18,20 @@
       />
       <!-- <img :src="user.profilePic" alt="Main Profile Photo" /> -->
       <div class="list-category__user__info">
-        <h2
-          v-if="listContacts || listAllUsers"
-          class="list-category__user__info__name"
-        >
+        <h2 class="list-category__user__info__name">
           {{ user.name }} {{ user.surname }}
         </h2>
-        <h2 v-if="listMessages" class="list-category__user__info__name">
-          {{ user.name }} {{ user.surname }}
-        </h2>
-        <p v-if="listMessages" class="list-category__user__info__message">
-          {{ user.lastMessage }}
-        </p>
         <p
           v-if="listContacts || listAllUsers"
           class="list-category__user__info__phone"
         >
           {{ user.phone }}
         </p>
+        <p v-if="listMessages" class="list-category__user__info__message">
+          {{ user.lastMessage }}
+        </p>
       </div>
+
       <h3 v-if="listMessages" class="list-category__user__time">14:56</h3>
       <button
         v-if="listAllUsers"
