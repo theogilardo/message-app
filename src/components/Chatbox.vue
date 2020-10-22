@@ -149,9 +149,9 @@ export default {
       messages: [],
     };
   },
-  created() {
-    return this.$store.dispatch("switchToContacts");
-  },
+  // created() {
+  //   return this.$store.dispatch("switchToContacts");
+  // },
   computed: {
     users() {
       return this.$store.getters.users;
