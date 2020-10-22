@@ -140,6 +140,9 @@ export default {
     contacts: Contacts,
     messages: Messages,
   },
+  mounted() {
+    this.$store.dispatch("switchToContacts");
+  },
   data() {
     return {
       selectedComponent: "messages",
