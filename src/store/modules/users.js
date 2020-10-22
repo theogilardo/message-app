@@ -65,20 +65,20 @@ const mutations = {
       (user) => user.localId !== newContact.localId
     );
   },
-  // storeMessage(state, message) {
-  //   // Refactor with mixin
-  //   const date = new Date();
-  //   const hour = date.getHours();
-  //   const minutes = date.getMinutes();
-  //   const time = `${hour}:${minutes}`;
-
-  //   state.user.contacts.forEach((contact) => {
-  //     if (contact.localId === state.userMessageReceiver.localId) {
-  //       contact.lastMessage = message;
-  //       contact.lastMessageTimeSent = time;
-  //     }
-  //   });
-  // },
+  storeMessage(state, messageObj) {
+    // Refactor with mixin
+    // const date = new Date();
+    // const hour = date.getHours();
+    // const minutes = date.getMinutes();
+    // const time = `${hour}:${minutes}`;
+    state.messages.push(messageObj);
+    // state.user.contacts.forEach((contact) => {
+    //   if (contact.localId === state.userMessageReceiver.localId) {
+    //     contact.lastMessage = message;
+    //     contact.lastMessageTimeSent = time;
+    //   }
+    // });
+  },
 
   storeMessages(state, messageObj) {
     state.messages = messageObj;
@@ -155,9 +155,8 @@ const actions = {
       .catch((err) => console.log(err));
   },
 
-  storeMessage({ state }, message) {
+  storeMessage({ state, commit }, message) {
     // commit("switchToMessages");
-    // commit("storeMessage", message);
 
     const timestamp = new Date().getTime();
 
@@ -167,6 +166,8 @@ const actions = {
       message: message,
       timestamp: timestamp,
     };
+
+    commit("storeMessage", messageObj);
 
     firebase
       .database()
