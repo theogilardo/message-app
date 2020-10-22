@@ -24,7 +24,7 @@
         </a>
         <a
           :class="{
-            'chat__side-bar__link--active': listCategoryType === 'Messages',
+            'chat__side-bar__link--active': listCategoryType === 'messages',
           }"
           @click="switchToMessages"
           class="chat__side-bar__link"
@@ -37,7 +37,7 @@
         </a>
         <a
           :class="{
-            'chat__side-bar__link--active': listCategoryType === 'Contacts',
+            'chat__side-bar__link--active': listCategoryType === 'contacts',
           }"
           class="chat__side-bar__link"
           @click="switchToContacts"
@@ -78,7 +78,7 @@
       <!-- ({{ listCategoryLength }}) -->
       <a @click="switchToNewContact">
         <img
-          v-if="listCategoryType === 'Contacts'"
+          v-if="listCategoryType === 'contacts'"
           class="chat__category__icon"
           src="../assets/add-contact.svg"
           alt="Add contact"
@@ -86,29 +86,7 @@
       </a>
     </div>
     <div class="chat__users">
-      <list-category
-        v-if="listCategoryType === 'Contacts'"
-        @update="listCategory"
-        @chatWithContact="selectTypeInput"
-        :category-list="userContacts"
-        :has-button="true"
-        :list-contacts="true"
-      ></list-category>
-      <list-category
-        v-if="listCategoryType === 'Messages'"
-        @update="listCategory"
-        :category-list="userMessages"
-        :list-messages="true"
-      ></list-category>
-      <list-category
-        v-if="listCategoryType === 'Find New Contact'"
-        @update="listCategory"
-        :category-list="users"
-        :list-all-users="true"
-        :has-search-bar="true"
-        :has-button="true"
-        :has-icon="true"
-      ></list-category>
+      <component :is="listCategoryType"></component>
     </div>
     <div v-if="userMessageReceiver" class="chat__main-user">
       <!-- <img :src="user.profilePic" alt="Main Profile Photo" /> -->
@@ -147,15 +125,20 @@
 </template>
 
 <script>
-import ListCategory from "./ListCategory.vue";
+import FindUsers from "./lists/FindUsers.vue";
+import Contacts from "./lists/Contacts.vue";
+import Messages from "./lists/Messages.vue";
 
 export default {
   name: "Chatbox",
   components: {
-    ListCategory,
+    findUsers: FindUsers,
+    contacts: Contacts,
+    messages: Messages,
   },
   data() {
     return {
+      selectedComponent: "messages",
       category: "Contacts",
       listCategoryLength: null,
       message: null,
@@ -186,10 +169,10 @@ export default {
     },
   },
   methods: {
-    listCategory(value) {
-      console.log(value);
-      // this.listCategoryLength = value;
-    },
+    // listCategory(value) {
+    //   console.log(value);
+    //   // this.listCategoryLength = value;
+    // },
     chatWithContact(value) {
       console.log(value);
     },

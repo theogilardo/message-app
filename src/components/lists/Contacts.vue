@@ -1,19 +1,13 @@
 <template>
   <div class="list-category">
-    <input
-      v-if="hasSearchBar"
-      class="list-category__search-bar"
-      type="text"
-      placeholder="Type phone number.."
-    />
     <div
-      v-for="user in categoryList"
+      v-for="user in userContacts"
       :key="user.id"
       class="list-category__user"
     >
       <img
         class="list-category__user__img"
-        src="../assets/theo.png"
+        src="../../assets/theo.png"
         alt="Main Profile Photo"
       />
       <!-- <img :src="user.profilePic" alt="Main Profile Photo" /> -->
@@ -21,27 +15,11 @@
         <h2 class="list-category__user__info__name">
           {{ user.name }} {{ user.surname }}
         </h2>
-        <p
-          v-if="listContacts || listAllUsers"
-          class="list-category__user__info__phone"
-        >
+        <p class="list-category__user__info__phone">
           {{ user.phone }}
         </p>
-        <p v-if="listMessages" class="list-category__user__info__message">
-          {{ user.lastMessage }}
-        </p>
       </div>
-
-      <h3 v-if="listMessages" class="list-category__user__time">14:56</h3>
       <button
-        v-if="listAllUsers"
-        @click="addContact(user)"
-        class="list-category__user__btn list-category__user__btn__add-contact"
-      >
-        +
-      </button>
-      <button
-        v-if="listContacts"
         class="list-category__user__btn list-category__user__btn__chat"
         @click="chatWithContact(user)"
       >
@@ -53,37 +31,7 @@
 
 <script>
 export default {
-  name: "ListType",
-  props: {
-    categoryList: {
-      required: false,
-      default: 0,
-    },
-    hasSearchBar: {
-      type: Boolean,
-      default: false,
-    },
-    hasIcon: {
-      type: Boolean,
-      default: false,
-    },
-    hasButton: {
-      type: Boolean,
-      default: false,
-    },
-    listContacts: {
-      type: Boolean,
-      default: false,
-    },
-    listMessages: {
-      type: Boolean,
-      default: false,
-    },
-    listAllUsers: {
-      type: Boolean,
-      default: false,
-    },
-  },
+  name: "Contacts",
   // watch: {
   //   categoryList() {
   //     if (this.categoryList.length) {
@@ -91,10 +39,12 @@ export default {
   //     }
   //   },
   // },
-  methods: {
-    addContact(newContact) {
-      return this.$store.dispatch("addContact", newContact);
+  computed: {
+    userContacts() {
+      return this.$store.getters.userContacts;
     },
+  },
+  methods: {
     chatWithContact(contact) {
       this.$emit("chatWithContact");
       return this.$store.dispatch("chatWithContact", contact);

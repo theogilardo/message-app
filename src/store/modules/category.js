@@ -1,5 +1,5 @@
 const state = {
-  category: "Contacts",
+  category: "contacts",
 };
 const getters = {
   listCategoryType(state) {
@@ -8,13 +8,13 @@ const getters = {
 };
 const mutations = {
   switchToContacts(state) {
-    return (state.category = "Contacts");
+    return (state.category = "contacts");
   },
   switchToMessages(state) {
-    return (state.category = "Messages");
+    return (state.category = "messages");
   },
   switchToNewContact(state) {
-    return (state.category = "Find New Contact");
+    return (state.category = "findUsers");
   },
 };
 const actions = {};
