@@ -5,7 +5,7 @@ const state = {
   user: null,
   userMessageReceiver: null,
   users: [],
-  messages: null,
+  messages: [],
 };
 
 /*
@@ -153,24 +153,60 @@ const actions = {
       .catch((err) => console.log(err));
   },
 
-  addContact({ commit, rootState }, newContact) {
-    const keyCurrentUSer = rootState.users.user.key;
+  addContact({ state, commit }, newContact) {
+    const keyCurrentUSer = state.user.key;
     console.log(newContact);
     firebase
       .database()
       .ref(`users/${keyCurrentUSer}/contacts`)
       .push(newContact)
       .then((res) => {
-        newContact.key = res.key;
+        newContact.newContactKey = res.key;
+        console.log(newContact);
+        console.log(res.key);
         commit("addUserContact", newContact);
+
+        const newObj = newContact;
+
+        firebase
+          .database()
+          .ref(`users/${keyCurrentUSer}/contacts/${res.key}`)
+          .set(newObj)
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => console.log(err));
       })
       .catch((err) => console.log(err));
   },
 
-  storeMessage({ state, commit }, message) {
+  updateUserContact({ state, commit }, message) {
+    commit("updateUserContact", message);
+
+    const userKey = state.user.key;
+    const contactKey = state.userMessageReceiver.newContactKey;
+    const date = new Date();
+    const minutes = date.getMinutes();
+    const hours = date.getHours();
+    const time = `${hours}:${minutes}`;
+    const updatedUserContact = state.userMessageReceiver;
+    updatedUserContact.lastMessage = message;
+    updatedUserContact.time = time;
+
+    firebase
+      .database()
+      .ref(`users/${userKey}/contacts/${contactKey}`)
+      .set(updatedUserContact)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+  },
+
+  storeMessage({ state, commit, dispatch }, message) {
     // commit("switchToMessages");
 
-    commit("updateUserContact", message);
+    dispatch("updateUserContact", message);
 
     const timestamp = new Date().getTime();
 
