@@ -71,11 +71,11 @@
       <!-- <img src="../assets/search.svg" alt="Edit Button" /> -->
     </div>
 
-    <div v-if="users || userContacts || userMessages" class="chat__category">
+    <div class="chat__category">
       <h3 class="chat__category__name">
-        {{ listCategoryTypeLabel }}
+        {{ listCategoryTypeLabel }} ({{ listCategoryTypeLength }})
       </h3>
-      <!-- ({{ listCategoryLength }}) -->
+
       <a @click="switchToNewContact">
         <img
           v-if="listCategoryType === 'contacts'"
@@ -85,9 +85,11 @@
         />
       </a>
     </div>
+
     <div class="chat__lists">
       <component
         :is="listCategoryType"
+        @update="listLengthUpdate"
         @chatWithContact="selectTypeInput"
       ></component>
     </div>
@@ -143,10 +145,13 @@ export default {
     return {
       selectedComponent: "messages",
       category: "Contacts",
-      listCategoryLength: null,
+      listLength: 0,
       message: null,
       messages: [],
     };
+  },
+  created() {
+    return this.$store.dispatch("switchToMessages");
   },
   computed: {
     users() {
@@ -170,12 +175,14 @@ export default {
     listCategoryTypeLabel() {
       return this.$store.getters.listCategoryTypeLabel;
     },
+    listCategoryTypeLength() {
+      return this.$store.getters.listCategoryTypeLength;
+    },
   },
   methods: {
-    // listCategory(value) {
-    //   console.log(value);
-    //   // this.listCategoryLength = value;
-    // },
+    listLengthUpdate(value) {
+      this.listLength = value;
+    },
     chatWithContact(value) {
       console.log(value);
     },
@@ -193,13 +200,13 @@ export default {
       this.$store.commit("switchToMessages");
     },
     switchToMessages() {
-      return this.$store.commit("switchToMessages");
+      return this.$store.dispatch("switchToMessages");
     },
     switchToContacts() {
-      return this.$store.commit("switchToContacts");
+      return this.$store.dispatch("switchToContacts");
     },
     switchToNewContact() {
-      return this.$store.commit("switchToNewContact");
+      return this.$store.dispatch("switchToNewContact");
     },
   },
 };

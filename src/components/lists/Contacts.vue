@@ -33,13 +33,16 @@
 export default {
   name: "Contacts",
   // watch: {
-  //   categoryList() {
-  //     if (this.categoryList.length) {
-  //       return this.$emit("update", this.categoryList.length);
+  //   listCategoryType() {
+  //     if (this.userContacts.length) {
+  //       return this.$emit("update", this.userContacts.length);
   //     }
   //   },
   // },
   computed: {
+    listCategoryType() {
+      return this.$store.getters.listCategoryType;
+    },
     userContacts() {
       return this.$store.getters.userContacts;
     },

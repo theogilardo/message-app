@@ -34,7 +34,17 @@
 <script>
 export default {
   name: "FindUsers",
+  watch: {
+    listCategoryType() {
+      if (this.users.length) {
+        return this.$emit("update", this.users.length);
+      }
+    },
+  },
   computed: {
+    listCategoryType() {
+      return this.$store.getters.listCategoryType;
+    },
     users() {
       return this.$store.getters.users;
     },

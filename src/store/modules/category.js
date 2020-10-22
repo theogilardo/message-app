@@ -1,9 +1,13 @@
 const state = {
   category: "contacts",
+  categoryLength: null,
 };
 const getters = {
   listCategoryType(state) {
     return state.category;
+  },
+  listCategoryTypeLength(state) {
+    return state.categoryLength;
   },
   listCategoryTypeLabel(state) {
     if (state.category === "contacts") {
@@ -19,16 +23,32 @@ const getters = {
 };
 const mutations = {
   switchToContacts(state) {
-    return (state.category = "contacts");
+    state.category = "contacts";
   },
   switchToMessages(state) {
-    return (state.category = "messages");
+    state.category = "messages";
   },
   switchToNewContact(state) {
-    return (state.category = "findUsers");
+    state.category = "findUsers";
+  },
+  switchListLength(state, listLength) {
+    state.categoryLength = listLength;
   },
 };
-const actions = {};
+const actions = {
+  switchToContacts({ commit, rootState }) {
+    commit("switchToContacts");
+    commit("switchListLength", rootState.users.user.contacts.length);
+  },
+  switchToMessages({ commit }) {
+    commit("switchToMessages");
+    commit("switchListLength", 12);
+  },
+  switchToNewContact({ commit, rootState }) {
+    commit("switchToNewContact");
+    commit("switchListLength", rootState.users.users.length);
+  },
+};
 
 export default {
   state,
