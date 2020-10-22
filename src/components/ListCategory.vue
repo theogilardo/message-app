@@ -25,10 +25,10 @@
           {{ user.name }} {{ user.surname }}
         </h2>
         <h2 v-if="listMessages" class="list-category__user__info__name">
-          {{ user.receiver.name }} {{ user.receiver.surname }}
+          {{ user.name }} {{ user.surname }}
         </h2>
         <p v-if="listMessages" class="list-category__user__info__message">
-          {{ user.message }}
+          {{ user.lastMessage }}
         </p>
         <p
           v-if="listContacts || listAllUsers"

@@ -17,6 +17,9 @@ const getters = {
   userContacts(state) {
     return state.user.contacts;
   },
+  userMessages(state) {
+    return state.user.contacts;
+  },
   users(state) {
     return state.users;
   },
@@ -49,6 +52,15 @@ const mutations = {
     state.users = state.users.filter(
       (user) => user.localId !== newContact.localId
     );
+  },
+  storeMessage(state, message) {
+    state.user.contacts.forEach((contact) => {
+      if (contact.localId === state.userMessageReceiver.localId) {
+        contact.lastMessage = message;
+        console.log("first time");
+        console.log(state.user.contacts);
+      }
+    });
   },
 };
 
@@ -120,6 +132,10 @@ const actions = {
         commit("addUserContact", newContact);
       })
       .catch((err) => console.log(err));
+  },
+
+  storeMessage({ commit }, message) {
+    commit("storeMessage", message);
   },
 
   // chatWithContact({ commit, rootState }, contact) {

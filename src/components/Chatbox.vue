@@ -187,7 +187,8 @@ export default {
   },
   methods: {
     listCategory(value) {
-      this.listCategoryLength = value;
+      console.log(value);
+      // this.listCategoryLength = value;
     },
     chatWithContact(value) {
       console.log(value);
