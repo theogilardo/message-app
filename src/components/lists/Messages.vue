@@ -1,5 +1,5 @@
 <template>
-  <div class="list-category">
+  <div class="list-category" v-if="userContacts.some((el) => el.lastMessage)">
     <div
       v-for="user in userContacts.filter((el) => el.lastMessage)"
       :key="user.id"

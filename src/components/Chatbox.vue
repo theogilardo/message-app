@@ -150,7 +150,7 @@ export default {
     };
   },
   created() {
-    return this.$store.dispatch("switchToMessages");
+    return this.$store.dispatch("switchToContacts");
   },
   computed: {
     users() {
