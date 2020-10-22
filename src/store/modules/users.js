@@ -5,6 +5,7 @@ const state = {
   user: null,
   userMessageReceiver: null,
   users: [],
+  messages: null,
 };
 
 const getters = {
@@ -17,8 +18,8 @@ const getters = {
   userContacts(state) {
     return state.user.contacts;
   },
-  userMessages(state) {
-    return state.user.contacts;
+  messages(state) {
+    return state.messages;
   },
   users(state) {
     return state.users;
@@ -66,6 +67,10 @@ const mutations = {
         contact.lastMessageTimeSent = time;
       }
     });
+  },
+
+  storeMessages(state, messageObj) {
+    state.messages = messageObj;
   },
 };
 
@@ -139,32 +144,65 @@ const actions = {
       .catch((err) => console.log(err));
   },
 
-  storeMessage({ commit }, message) {
+  storeMessage({ state, commit }, message) {
+    commit("switchToMessages");
     commit("storeMessage", message);
+
+    const timestamp = new Date().getTime();
+
+    const messageObj = {
+      senderId: state.user.localId,
+      receiverId: state.userMessageReceiver.localId,
+      message: message,
+      timestamp: timestamp,
+    };
+
+    firebase
+      .database()
+      .ref(`messages`)
+      .push(messageObj)
+      .then((res) => {
+        console.log(res);
+        // messageObj.key = res.key;
+        // commit("addChatContact", objTest);
+        // commit("switchToMessages");
+      })
+      .catch((err) => console.log(err));
   },
 
-  // chatWithContact({ commit, rootState }, contact) {
+  fetchMessages({ commit }) {
+    axios
+      .get("https://message-app-719f5.firebaseio.com/messages.json")
+      .then((res) => {
+        console.log(res);
+        const data = res.data;
+        const messages = [];
+        for (let key in data) {
+          const message = data[key];
+          messages.push(message);
+        }
+        commit("storeMessages", messages);
+      })
+      .catch((err) => console.log(err));
+  },
+
   chatWithContact({ commit }, contact) {
     commit("storeUserMessageReceiver", contact);
 
-    // const objTest = {
-    //   senderId: rootState.users.user.localId,
-    //   receiverId: contact.localId,
-    //   name: contact.name,
-    //   surname: contact.name,
-    //   lastMessage: "Hello",
-    // };
+    // const keyCurrentUser = state.user.key;
+    // const keyChatUser = state.userMessageReceiver.key;
 
-    // const keyCurrentUSer = rootState.users.user.key;
+    // console.log(keyCurrentUser);
+    // console.log(keyChatUser);
+
+    // const hasChat = true;
+
     // firebase
     //   .database()
-    //   .ref(`users/${keyCurrentUSer}/messages`)
-    //   .push(objTest)
+    //   .ref(`users/${keyCurrentUser}/contacts/${keyChatUser}`)
+    //   .push(hasChat)
     //   .then((res) => {
-    //     objTest.key = res.key;
-
-    //     // commit("addChatContact", objTest);
-    //     // commit("switchToMessages");
+    //     console.log(res);
     //   })
     //   .catch((err) => console.log(err));
   },

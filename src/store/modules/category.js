@@ -40,7 +40,8 @@ const actions = {
     commit("switchToContacts");
     commit("switchListLength", rootState.users.user.contacts.length);
   },
-  switchToMessages({ commit }) {
+  switchToMessages({ commit, dispatch }) {
+    dispatch("fetchMessages");
     commit("switchToMessages");
     commit("switchListLength", 12);
   },

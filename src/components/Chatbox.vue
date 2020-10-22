@@ -73,8 +73,9 @@
 
     <div class="chat__category">
       <h3 class="chat__category__name">
-        {{ listCategoryTypeLabel }} ({{ listCategoryTypeLength }})
+        {{ listCategoryTypeLabel }}
       </h3>
+      <!-- ({{ listCategoryTypeLength }}) -->
 
       <a @click="switchToNewContact">
         <img
@@ -103,12 +104,10 @@
       </div>
     </div>
     <div class="chat__messages">
-      <div v-if="messages" class="chat__messages__conversation">
-        <!-- :class="{ 'receiver-box': message.type === 'receiver' }" -->
-        <p v-for="message in messages" :key="message.id">
-          {{ message }}
+      <div v-if="firebaseMessages" class="chat__messages__conversation">
+        <p v-for="message in firebaseMessages" :key="message.id">
+          {{ message.message }}
         </p>
-        <!-- :class="{ receiver: message.type === 'receiver' }" -->
       </div>
       <div class="chat__messages__write">
         <input
@@ -141,7 +140,7 @@ export default {
     messages: Messages,
   },
   mounted() {
-    this.$store.dispatch("switchToContacts");
+    this.$store.dispatch("fetchMessages");
   },
   data() {
     return {
@@ -171,6 +170,9 @@ export default {
     userMessages() {
       return this.$store.getters.userMessages;
     },
+    firebaseMessages() {
+      return this.$store.getters.messages;
+    },
     listCategoryType() {
       return this.$store.getters.listCategoryType;
     },
@@ -199,7 +201,6 @@ export default {
       this.$store.dispatch("storeMessage", this.message);
       this.clearTypeInput();
       this.selectTypeInput();
-      this.$store.commit("switchToMessages");
     },
     switchToMessages() {
       return this.$store.dispatch("switchToMessages");

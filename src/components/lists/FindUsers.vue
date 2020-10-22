@@ -20,12 +20,11 @@
           {{ user.phone }}
         </p>
       </div>
-
       <button
-        class="list-category__user__btn list-category__user__btn__chat"
-        @click="chatWithContact(user)"
+        @click="addContact(user)"
+        class="list-category__user__btn list-category__user__btn__add-contact"
       >
-        Chat
+        +
       </button>
     </div>
   </div>
@@ -43,6 +42,9 @@ export default {
     },
   },
   methods: {
+    addContact(newContact) {
+      return this.$store.dispatch("addContact", newContact);
+    },
     chatWithContact(contact) {
       return this.$store.dispatch("chatWithContact", contact);
     },

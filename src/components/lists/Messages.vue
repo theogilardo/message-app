@@ -21,7 +21,7 @@
         </p>
       </div>
 
-      <h3 class="list-category__user__time">{{ user.lastMessageTimeSent }}</h3>
+      <h3 class="list-category__user__time">{{ user.lastMessageTimeSenta }}</h3>
     </div>
   </div>
 </template>
