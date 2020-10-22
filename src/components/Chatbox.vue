@@ -1,11 +1,11 @@
 <template>
   <div class="chat">
+    <div class="background"></div>
     <div class="logo">
       <router-link to="/login">
         <img class="logo__img" src="../assets/logo.png" alt="logo" />
       </router-link>
     </div>
-    <div class="background"></div>
     <div class="chat__side-bar">
       <div class="chat__side-bar__container">
         <!-- <a class="chat__side-bar__link">
@@ -73,7 +73,7 @@
 
     <div v-if="users || userContacts || userMessages" class="chat__category">
       <h3 class="chat__category__name">
-        {{ listCategoryType }}
+        {{ listCategoryTypeLabel }}
       </h3>
       <!-- ({{ listCategoryLength }}) -->
       <a @click="switchToNewContact">
@@ -85,7 +85,7 @@
         />
       </a>
     </div>
-    <div class="chat__users">
+    <div class="chat__lists">
       <component :is="listCategoryType"></component>
     </div>
     <div v-if="userMessageReceiver" class="chat__main-user">
@@ -163,6 +163,9 @@ export default {
     },
     listCategoryType() {
       return this.$store.getters.listCategoryType;
+    },
+    listCategoryTypeLabel() {
+      return this.$store.getters.listCategoryTypeLabel;
     },
     hasOneMessage() {
       return this.messages.length === 1;
@@ -324,7 +327,7 @@ export default {
       height 25px
       filter: invert(99%) sepia(54%) saturate(130%) hue-rotate(274deg) brightness(114%) contrast(87%);
 
-  &__users
+  &__lists
     display: flex;
     align-items: center;
     flex-direction: column;

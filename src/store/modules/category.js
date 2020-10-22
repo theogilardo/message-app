@@ -5,6 +5,19 @@ const getters = {
   listCategoryType(state) {
     return state.category;
   },
+  listCategoryTypeLabel(state) {
+    if (state.category === "contacts") {
+      return "Contacts";
+    }
+
+    if (state.category === "messages") {
+      return "Messages";
+    }
+
+    if (state.category === "findUsers") {
+      return "Find New Contact";
+    }
+  },
 };
 const mutations = {
   switchToContacts(state) {
