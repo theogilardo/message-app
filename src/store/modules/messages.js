@@ -11,12 +11,18 @@ const getters = {
 };
 const mutations = {
   storeMessage(state, messageObj) {
+    console.log(state.userMessages);
     const hasChatAlready = state.userMessages.some(
       (chatUser) => chatUser.receiver.localId === messageObj.receiver.localId
     );
-    console.log(hasChatAlready);
+
     if (hasChatAlready) {
       state.userMessages = [messageObj];
+      state.userMessages.forEach((test) => {
+        if (test.receiver.localId === messageObj.receiver.localId) {
+          test.message = messageObj.message;
+        }
+      });
     } else {
       state.userMessages.push(messageObj);
     }
