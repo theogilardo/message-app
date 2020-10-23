@@ -257,8 +257,9 @@ const actions = {
       .catch((err) => console.log(err));
   },
 
-  chatWithContact({ commit }, contact) {
+  chatWithContact({ commit, dispatch }, contact) {
     commit("storeUserMessageReceiver", contact);
+    dispatch("switchToMessages");
 
     // const keyCurrentUser = state.user.key;
     // const keyChatUser = state.userMessageReceiver.key;

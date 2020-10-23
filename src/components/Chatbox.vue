@@ -186,9 +186,6 @@ export default {
     listLengthUpdate(value) {
       this.listLength = value;
     },
-    chatWithContact(value) {
-      console.log(value);
-    },
     clearTypeInput() {
       this.message = "";
     },
