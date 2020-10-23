@@ -99,7 +99,7 @@
         <h1>
           {{ userMessageReceiver.name }} {{ userMessageReceiver.surname }}
         </h1>
-        <p>1890 messages</p>
+        <p>{{ firebaseMessages.length }} messages</p>
       </div>
     </div>
     <div class="chat__messages">
