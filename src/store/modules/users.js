@@ -193,8 +193,6 @@ const actions = {
   },
 
   storeMessage({ state, commit, dispatch }, message) {
-    // commit("switchToMessages");
-
     dispatch("updateUserContact", message);
 
     const timestamp = new Date().getTime();
@@ -205,7 +203,6 @@ const actions = {
       message: message,
       timestamp: timestamp,
     };
-    console.log("Hello");
 
     commit("storeMessage", messageObj);
 
@@ -215,9 +212,7 @@ const actions = {
       .push(messageObj)
       .then((res) => {
         console.log(res);
-        // messageObj.key = res.key;
-        // commit("addChatContact", objTest);
-        // commit("switchToMessages");
+        dispatch("switchToMessages");
       })
       .catch((err) => console.log(err));
   },
@@ -262,26 +257,9 @@ const actions = {
       });
   },
 
-  chatWithContact({ commit, dispatch }, contact) {
+  chatWithContact({ commit }, contact) {
     commit("storeUserMessageReceiver", contact);
-    dispatch("switchToMessages");
-
-    // const keyCurrentUser = state.user.key;
-    // const keyChatUser = state.userMessageReceiver.key;
-
-    // console.log(keyCurrentUser);
-    // console.log(keyChatUser);
-
-    // const hasChat = true;
-
-    // firebase
-    //   .database()
-    //   .ref(`users/${keyCurrentUser}/contacts/${keyChatUser}`)
-    //   .push(hasChat)
-    //   .then((res) => {
-    //     console.log(res);
-    //   })
-    //   .catch((err) => console.log(err));
+    // dispatch("switchToMessages");
   },
 };
 
