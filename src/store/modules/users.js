@@ -256,7 +256,10 @@ const actions = {
 
         commit("storeMessages", sortConversation);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        alert("You don't have any messages yet!");
+      });
   },
 
   chatWithContact({ commit, dispatch }, contact) {

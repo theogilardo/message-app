@@ -140,6 +140,9 @@ export default {
   },
   mounted() {
     this.$store.dispatch("fetchMessages");
+    if (this.userContacts) {
+      this.$store.commit("switchListLength", this.userContacts.length);
+    }
   },
   data() {
     return {
