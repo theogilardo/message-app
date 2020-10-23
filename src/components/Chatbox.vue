@@ -73,9 +73,8 @@
 
     <div class="chat__category">
       <h3 class="chat__category__name">
-        {{ listCategoryTypeLabel }}
+        {{ listCategoryTypeLabel }} ({{ listCategoryTypeLength }})
       </h3>
-      <!-- ({{ listCategoryTypeLength }}) -->
 
       <a @click="switchToNewContact">
         <img

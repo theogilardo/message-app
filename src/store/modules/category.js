@@ -40,10 +40,13 @@ const actions = {
     commit("switchToContacts");
     commit("switchListLength", rootState.users.user.contacts.length);
   },
-  switchToMessages({ commit, dispatch }) {
+  switchToMessages({ commit, rootState, dispatch }) {
     dispatch("fetchMessages");
     commit("switchToMessages");
-    commit("switchListLength", 12);
+    const messagesLength = rootState.users.user.contacts.filter(
+      (contact) => contact.lastMessage
+    ).length;
+    commit("switchListLength", messagesLength);
   },
   switchToNewContact({ commit, rootState }) {
     commit("switchToNewContact");
