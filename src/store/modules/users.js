@@ -253,13 +253,14 @@ const actions = {
       })
       .catch((err) => {
         console.log(err);
-        alert("You don't have any messages yet!");
+        // alert("You don't have any messages yet!");
       });
   },
 
-  chatWithContact({ commit }, contact) {
+  chatWithContact({ commit, dispatch }, contact) {
     commit("storeUserMessageReceiver", contact);
-    // dispatch("switchToMessages");
+    dispatch("fetchMessages");
+    dispatch("switchToMessages");
   },
 };
 
