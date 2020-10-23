@@ -89,6 +89,7 @@
     <div class="chat__lists">
       <component
         :is="listCategoryType"
+        :key="componentKey"
         @chatWithContact="selectTypeInput"
       ></component>
     </div>
@@ -157,6 +158,9 @@ export default {
   //   return this.$store.dispatch("switchToContacts");
   // },
   computed: {
+    componentKey() {
+      return this.$store.getters.componentKey;
+    },
     users() {
       return this.$store.getters.users;
     },
@@ -200,6 +204,7 @@ export default {
       this.$store.dispatch("storeMessage", this.message);
       this.clearTypeInput();
       this.selectTypeInput();
+      this.$store.commit("forceRerender");
     },
     switchToMessages() {
       return this.$store.dispatch("switchToMessages");

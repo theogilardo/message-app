@@ -6,22 +6,15 @@ const state = {
   userMessageReceiver: null,
   users: [],
   messages: [],
+  componentKey: 0,
 };
-
-/*
-
-Messages for left and right panel:
-
-- Left panel:
-Take all the messages
-
-
-
-*/
 
 const getters = {
   user(state) {
     return state.user;
+  },
+  componentKey(state) {
+    return state.componentKey;
   },
   userMessageReceiver(state) {
     return state.userMessageReceiver;
@@ -40,6 +33,10 @@ const getters = {
 const mutations = {
   storeUser(state, userData) {
     state.user = userData;
+  },
+
+  forceRerender(state) {
+    state.componentKey += 1;
   },
 
   storeUserMessageReceiver(state, receiver) {
@@ -259,7 +256,6 @@ const actions = {
 
   chatWithContact({ commit, dispatch }, contact) {
     commit("storeUserMessageReceiver", contact);
-    dispatch("fetchMessages");
     dispatch("switchToMessages");
   },
 };
