@@ -7,6 +7,7 @@
       v-for="user in userContacts
         .filter((contact) => contact.lastMessage)
         .sort((a, b) => b.timestamp - a.timestamp)"
+      :class="{ activeChat: user.localId === userMessageReceiver.localId }"
       :key="user.id"
       class="list-category__user"
       @click="fetchMessages(user)"
@@ -37,12 +38,20 @@
 <script>
 export default {
   name: "Messages",
+  data() {
+    return {
+      test: {},
+    };
+  },
   computed: {
     listCategoryType() {
       return this.$store.getters.listCategoryType;
     },
     userContacts() {
       return this.$store.getters.userContacts;
+    },
+    userMessageReceiver() {
+      return this.$store.getters.userMessageReceiver;
     },
   },
   methods: {
@@ -56,8 +65,13 @@ export default {
 
 <style lang="stylus" scoped>
 
+.activeChat
+  background #f8f8f8
+  color #333
+
 .list-category
   width 100%
+  color white
 
   &__search-bar
     border none
@@ -84,7 +98,6 @@ export default {
     &__info
       text-align: left;
       margin-left: 15px;
-      color: white;
 
       &__name
         font-size: 1.4rem;
@@ -99,7 +112,6 @@ export default {
       margin-left: auto;
       font-size: 13px;
       opacity: 0.9;
-      color: white;
 
     &__btn
       margin-left auto
