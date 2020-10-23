@@ -73,25 +73,12 @@ const mutations = {
     state.messages = messageObj;
   },
   updateUserContact(state, message) {
-    const date = new Date();
-    const minutes = date.getMinutes();
-    const hours = date.getHours();
-    const time = `${hours}:${minutes}`;
+    const timestamp = new Date().getTime();
 
     state.user.contacts.forEach((contact) => {
       if (contact.localId === state.userMessageReceiver.localId) {
         contact.lastMessage = message;
-        contact.time = time;
-
-        /*
-        Every time you send a message go to user.contacts
-        Add to the contact hasChat: true + last msg sent
-
-        On messageList display all the user contacts with a filter with a hasChat condition
-        The users displayed will also have the msg sent
-
-        How do you send this to the DB ? Check Firebase  
-        */
+        contact.timestamp = timestamp;
       }
     });
   },

@@ -9,6 +9,14 @@ Vue.config.productionTip = false;
 
 Vue.use(VeeValidate);
 
+Vue.filter("setTimeHourMinutes", (timestamp) => {
+  const date = new Date(timestamp);
+  const hours = date.getHours();
+  const minutes = `0${date.getMinutes()}`;
+  const formattedTime = `${hours}:${minutes.substr(-2)}`;
+  return formattedTime;
+});
+
 // Your web app's Firebase configuration
 var firebaseConfig = {
   apiKey: "AIzaSyCGkv9-83v6LsQRhClROTowTL6rK5YcPI8",

@@ -4,7 +4,9 @@
     v-if="userContacts.some((contact) => contact.lastMessage)"
   >
     <div
-      v-for="user in userContacts.filter((contact) => contact.lastMessage)"
+      v-for="user in userContacts
+        .filter((contact) => contact.lastMessage)
+        .sort((a, b) => b.timestamp - a.timestamp)"
       :key="user.id"
       class="list-category__user"
       @click="fetchMessages(user)"
@@ -25,7 +27,9 @@
         </p>
       </div>
 
-      <h3 class="list-category__user__time">{{ user.time }}</h3>
+      <h3 class="list-category__user__time">
+        {{ user.timestamp | setTimeHourMinutes }}
+      </h3>
     </div>
   </div>
 </template>
