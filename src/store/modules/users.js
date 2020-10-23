@@ -143,6 +143,9 @@ const actions = {
   addContact({ state, commit }, newContact) {
     const keyCurrentUSer = state.user.key;
     console.log(newContact);
+    commit("addUserContact", newContact);
+    commit("switchListLength", state.users.length);
+
     firebase
       .database()
       .ref(`users/${keyCurrentUSer}/contacts`)
@@ -151,7 +154,6 @@ const actions = {
         newContact.newContactKey = res.key;
         console.log(newContact);
         console.log(res.key);
-        commit("addUserContact", newContact);
 
         const newObj = newContact;
 
