@@ -2,11 +2,9 @@
   <div class="chat">
     <div class="background"></div>
     <div class="logo">
-      <!-- <a href="" @click="fetchLastChat"> -->
       <router-link to="/login">
         <img class="logo__img" src="../assets/logo.png" alt="logo" />
       </router-link>
-      <!-- </a> -->
     </div>
     <div class="chat__side-bar">
       <div class="chat__side-bar__container">
@@ -141,17 +139,6 @@ export default {
     contacts: Contacts,
     messages: Messages,
   },
-  mounted() {
-    // this.$store.dispatch("fetchUser");
-    // console.log(this.userContacts);
-    // this.fetchLastChat();
-    // this.$store.dispatch("fetchLastChat");
-    // Load last userMessageReceiver that the user talk to
-    // this.$store.dispatch("fetchMessages");
-    // if (this.userContacts) {
-    //   this.$store.commit("switchListLength", this.userContacts.length);
-    // }
-  },
   data() {
     return {
       selectedComponent: "messages",
@@ -161,9 +148,6 @@ export default {
       messages: [],
     };
   },
-  // created() {
-  //   return this.$store.dispatch("switchToContacts");
-  // },
   computed: {
     componentKey() {
       return this.$store.getters.componentKey;
@@ -197,17 +181,6 @@ export default {
     },
   },
   methods: {
-    fetchLastChat() {
-      console.log(this.userContacts);
-
-      const findLastUserChat = this.userContacts
-        .filter((contact) => contact.lastMessage)
-        .sort((a, b) => b.timestamp - a.timestamp)[0];
-
-      console.log(findLastUserChat);
-
-      return this.$store.dispatch("chatWithContact", findLastUserChat);
-    },
     listLengthUpdate(value) {
       this.listLength = value;
     },
