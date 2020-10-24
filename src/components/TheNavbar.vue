@@ -1,5 +1,5 @@
 <template>
-  <div v-show="false" class="navbar">
+  <div v-if="!isPathChatbox" class="navbar">
     <router-link to="/">
       <img class="navbar__img" src="../assets/logo.png" alt="logo-icon" />
     </router-link>
@@ -24,6 +24,9 @@ export default {
     },
   },
   computed: {
+    isPathChatbox() {
+      return this.$route.name === "Chatbox";
+    },
     isAuth() {
       return this.$store.getters.isAuth;
     },

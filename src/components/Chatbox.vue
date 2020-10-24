@@ -57,7 +57,7 @@
             alt="Edit Button"
           />
         </a> -->
-        <a class="chat__side-bar__link">
+        <a class="chat__side-bar__link" @click="logout">
           <img
             class="chat__side-bar__icon chat__side-bar__icon__last"
             src="../assets/logout.svg"
@@ -214,6 +214,13 @@ export default {
     },
     switchToNewContact() {
       return this.$store.dispatch("switchToNewContact");
+    },
+    logout() {
+      this.redirectHome();
+      return this.$store.commit("logout");
+    },
+    redirectHome() {
+      return this.$router.push("/");
     },
   },
 };
