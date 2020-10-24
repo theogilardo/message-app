@@ -58,7 +58,12 @@ export default {
       text-align: left;
 
     h3
-      color: #e69cc0;
+      // color: rgba(74,210,149,1);
+      background-image: linear-gradient(to right, rgba(74,210,149,1), rgba(77,125,225,1));
+      -webkit-background-clip: text;
+      color: transparent;
+      letter-spacing: 1px;
+      // color: #e69cc0;
       font-size: 24px;
 
     h1
@@ -103,5 +108,7 @@ span::after
   transform: translateY(70px);
   width: 100%;
   height: 5px;
-  background-color: #e69cc0;
+  // background-color: rgba(74,210,149,1);
+  background: linear-gradient(to right, rgba(74,210,149,1), rgba(77,125,225,1));
+  // background-color: #e69cc0;
 </style>

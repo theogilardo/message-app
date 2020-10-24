@@ -130,7 +130,6 @@ const actions = {
             )
         );
 
-        console.log(activeUserContacts);
         const findLastUserChat = activeUserContacts
           .filter((contact) => contact.lastMessage)
           .sort((a, b) => b.timestamp - a.timestamp)[0];

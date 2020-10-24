@@ -64,7 +64,8 @@ export default {
       color white
       padding: .8rem 1.8rem;
       border: none;
-      background-image: linear-gradient(to right, #4c7de0, #e69cc0);
+      background: linear-gradient(to right, rgba(74,210,149,1), rgba(77,125,225,1));
+      // background-image: linear-gradient(to right, #4c7de0, #e69cc0);
       border-radius: 15px;
       font-weight: 600;
       box-shadow: 0 3px 2px rgba(0, 0, 0, 0.2);
