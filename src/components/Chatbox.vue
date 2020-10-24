@@ -2,7 +2,7 @@
   <div class="chat">
     <div class="background"></div>
     <div class="logo">
-      <router-link to="/login">
+      <router-link to="/">
         <img class="logo__img" src="../assets/logo.png" alt="logo" />
       </router-link>
     </div>
@@ -220,7 +220,7 @@ export default {
       return this.$store.commit("logout");
     },
     redirectHome() {
-      return this.$router.push("/");
+      return this.$router.push("/login");
     },
   },
 };
