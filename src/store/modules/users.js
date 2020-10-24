@@ -93,7 +93,7 @@ const actions = {
       .catch((err) => console.log(err));
   },
 
-  fetchUser({ commit, rootState }) {
+  fetchUser({ commit, dispatch, rootState }) {
     axios
       .get("https://message-app-719f5.firebaseio.com/users.json")
       .then((res) => {
@@ -130,9 +130,15 @@ const actions = {
             )
         );
 
+        console.log(activeUserContacts);
+        const findLastUserChat = activeUserContacts
+          .filter((contact) => contact.lastMessage)
+          .sort((a, b) => b.timestamp - a.timestamp)[0];
+
         localStorage.setItem("storeUser", JSON.stringify(activeUser));
         commit("storeUser", activeUser);
         commit("storeUsers", otherUsersNotInUserContacts);
+        dispatch("chatWithContact", findLastUserChat);
       })
       .catch((err) => console.log(err));
   },
