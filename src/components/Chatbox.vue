@@ -109,19 +109,14 @@
           {{ message.message }}
         </p>
       </div>
-      <div class="chat__messages__write">
+      <div class="chat__messages__write" @keyup.enter="sendMessage">
         <input
           v-model="message"
           type="text"
           placeholder="Type your message here.."
           ref="typeMessage"
         />
-        <img
-          @keyup.enter="sendMessage"
-          @click="sendMessage"
-          src="../assets/send.svg"
-          alt="Send Icon"
-        />
+        <img @click="sendMessage" src="../assets/send.svg" alt="Send Icon" />
       </div>
     </div>
   </div>
