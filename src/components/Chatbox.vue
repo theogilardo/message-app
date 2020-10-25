@@ -72,8 +72,16 @@
     </div>
 
     <div class="chat__category">
-      <h3 class="chat__category__name">
+      <h3
+        v-if="
+          listCategoryType === 'contacts' || listCategoryType === 'messages'
+        "
+        class="chat__category__name"
+      >
         {{ listCategoryTypeLabel }} ({{ listCategoryTypeLength }})
+      </h3>
+      <h3 v-else class="chat__category__name">
+        {{ listCategoryTypeLabel }}
       </h3>
 
       <a @click="switchToNewContact">
