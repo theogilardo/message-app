@@ -80,7 +80,6 @@ const actions = {
         authData.contacts = "";
         console.log(authData);
         dispatch("storeUser", authData);
-        dispatch("fetchUser");
       })
       .catch((error) => {
         console.log(error);

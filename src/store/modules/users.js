@@ -89,6 +89,7 @@ const actions = {
         const key = res.data.name;
         authData.key = key;
         commit("storeUser", authData);
+        dispatch("fetchUser");
       })
       .catch((err) => console.log(err));
   },
@@ -106,8 +107,6 @@ const actions = {
           users.push(user);
         }
 
-        console.log(users);
-
         const activeUser = users.find((user) => {
           return user.localId === rootState.auth.userId;
         });
@@ -116,9 +115,6 @@ const actions = {
           (user) => rootState.auth.userId !== user.localId
         );
 
-        console.log(activeUser);
-
-        // Only if the user has contacts: check for contact length
         if (activeUser.contacts) {
           const activeUserContacts = [];
           for (let key in activeUser.contacts) {
@@ -135,7 +131,6 @@ const actions = {
               )
           );
 
-          // Only if the user has messages: check for messages length
           if (state.messages.length) {
             const findLastUserChat = activeUserContacts
               .filter((contact) => contact.lastMessage)
