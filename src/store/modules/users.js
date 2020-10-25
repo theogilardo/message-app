@@ -82,7 +82,7 @@ const mutations = {
 };
 
 const actions = {
-  storeUser({ commit }, authData) {
+  storeUser({ commit, dispatch }, authData) {
     axios
       .post("https://message-app-719f5.firebaseio.com/users.json", authData)
       .then((res) => {
@@ -161,8 +161,6 @@ const actions = {
       .push(newContact)
       .then((res) => {
         newContact.newContactKey = res.key;
-        console.log(newContact);
-        console.log(res.key);
 
         const newObj = newContact;
 
@@ -246,10 +244,18 @@ const actions = {
             message.senderId === userId && message.receiverId === contactId
         );
 
+        messageUsertoContact.forEach((message) => {
+          return (message.type = "sent");
+        });
+
         const messageContactToUser = messages.filter(
           (message) =>
             message.receiverId === userId && message.senderId === contactId
         );
+
+        messageContactToUser.forEach((message) => {
+          return (message.type = "received");
+        });
 
         const concatChat = messageUsertoContact.concat(messageContactToUser);
         conversation.push(concatChat);

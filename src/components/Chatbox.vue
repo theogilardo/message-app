@@ -113,7 +113,11 @@
     </div>
     <div class="chat__messages">
       <div v-if="firebaseMessages" class="chat__messages__conversation">
-        <p v-for="message in firebaseMessages" :key="message.id">
+        <p
+          v-for="message in firebaseMessages"
+          :class="{ sent: message.type === 'sent' }"
+          :key="message.id"
+        >
           {{ message.message }}
         </p>
       </div>
@@ -221,6 +225,11 @@ export default {
 </script>
 
 <style lang="stylus">
+
+.sent
+  background: #4c7de0 !important
+  color: white !important
+  align-self flex-end
 
 .logo
   position: absolute;
@@ -378,11 +387,13 @@ export default {
       overflow-y: auto;
       grid-column: 1 / 2;
       grid-row: 1 / 2;
+      display flex
+      flex-direction column
 
       p
         padding: 8px 14px;
-        background: #4c7de0;
-        color: white;
+        color black
+        background #F1F0F0
         border-radius: 7px;
         // width: 50%;
         margin: 15px;
