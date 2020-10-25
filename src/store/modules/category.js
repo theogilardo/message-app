@@ -1,5 +1,5 @@
 const state = {
-  category: "contacts",
+  category: "findUsers",
   categoryLength: null,
 };
 const getters = {

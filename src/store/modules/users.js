@@ -93,7 +93,7 @@ const actions = {
       .catch((err) => console.log(err));
   },
 
-  fetchUser({ commit, dispatch, rootState }) {
+  fetchUser({ state, commit, dispatch, rootState }) {
     axios
       .get("https://message-app-719f5.firebaseio.com/users.json")
       .then((res) => {
@@ -106,45 +106,57 @@ const actions = {
           users.push(user);
         }
 
+        console.log(users);
+
         const activeUser = users.find((user) => {
           return user.localId === rootState.auth.userId;
         });
-
-        const activeUserContacts = [];
-        for (let key in activeUser.contacts) {
-          const contact = activeUser.contacts[key];
-          contact.contactKey = key;
-          activeUserContacts.push(contact);
-        }
-
-        activeUser.contacts = activeUserContacts;
 
         const otherUsers = users.filter(
           (user) => rootState.auth.userId !== user.localId
         );
 
-        const otherUsersNotInUserContacts = otherUsers.filter(
-          (user) =>
-            !activeUserContacts.some(
-              (contact) => user.localId === contact.localId
-            )
-        );
+        console.log(activeUser);
 
-        const findLastUserChat = activeUserContacts
-          .filter((contact) => contact.lastMessage)
-          .sort((a, b) => b.timestamp - a.timestamp)[0];
+        // Only if the user has contacts: check for contact length
+        if (activeUser.contacts) {
+          const activeUserContacts = [];
+          for (let key in activeUser.contacts) {
+            const contact = activeUser.contacts[key];
+            contact.contactKey = key;
+            activeUserContacts.push(contact);
+          }
+
+          activeUser.contacts = activeUserContacts;
+          const otherUsersNotInUserContacts = otherUsers.filter(
+            (user) =>
+              !activeUserContacts.some(
+                (contact) => user.localId === contact.localId
+              )
+          );
+
+          // Only if the user has messages: check for messages length
+          if (state.messages.length) {
+            const findLastUserChat = activeUserContacts
+              .filter((contact) => contact.lastMessage)
+              .sort((a, b) => b.timestamp - a.timestamp)[0];
+            dispatch("chatWithContact", findLastUserChat);
+          }
+
+          commit("storeUsers", otherUsersNotInUserContacts);
+        } else {
+          activeUser.contacts = [];
+          commit("storeUsers", otherUsers);
+        }
 
         localStorage.setItem("storeUser", JSON.stringify(activeUser));
         commit("storeUser", activeUser);
-        commit("storeUsers", otherUsersNotInUserContacts);
-        dispatch("chatWithContact", findLastUserChat);
       })
       .catch((err) => console.log(err));
   },
 
   addContact({ state, commit }, newContact) {
     const keyCurrentUSer = state.user.key;
-    console.log(newContact);
     commit("addUserContact", newContact);
     commit("switchListLength", state.users.length);
 

@@ -46,6 +46,7 @@ const actions = {
           tokenId: res.data.idToken,
           userId: res.data.localId,
         });
+        console.log("login");
 
         dispatch("fetchUser");
       })
@@ -75,7 +76,11 @@ const actions = {
           userId: res.data.localId,
         });
 
+        authData.localId = res.data.localId;
+        authData.contacts = "";
+        console.log(authData);
         dispatch("storeUser", authData);
+        dispatch("fetchUser");
       })
       .catch((error) => {
         console.log(error);
