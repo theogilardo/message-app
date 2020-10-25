@@ -43,6 +43,12 @@ const actions = {
   switchToMessages({ commit, rootState, dispatch }) {
     dispatch("fetchMessages");
     commit("switchToMessages");
+
+    const findLastUserChat = rootState.users.user.contacts
+      .filter((contact) => contact.lastMessage)
+      .sort((a, b) => b.timestamp - a.timestamp)[0];
+    dispatch("chatWithContact", findLastUserChat);
+
     const messagesLength = rootState.users.user.contacts.filter(
       (contact) => contact.lastMessage
     ).length;
