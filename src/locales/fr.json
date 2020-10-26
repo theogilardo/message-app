@@ -1,0 +1,12 @@
+{
+  "homepage": {
+    "header": "Communique <span>Facilement</span>",
+    "communication": "Discute. Chat. Collabore."
+  },
+  "button": {
+    "onboarding": "Essai maintenant",
+    "logout": "Déconnexion",
+    "login": "Connexion",
+    "signup": "S'inscire"
+  }
+}

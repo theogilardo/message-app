@@ -1,0 +1,12 @@
+{
+  "homepage": {
+    "header": "Communicate <span>Easily</span>",
+    "communication": "Talk. Chat. Collaborate."
+  },
+  "button": {
+    "onboarding": "Get Started",
+    "logout": "Logout",
+    "login": "Login",
+    "signup": "Signup"
+  }
+}

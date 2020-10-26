@@ -4,6 +4,7 @@ import router from "./router";
 import store from "./store";
 import VeeValidate from "vee-validate";
 import firebase from "firebase";
+import i18n from "./i18n";
 
 Vue.config.productionTip = false;
 
@@ -38,5 +39,6 @@ firebase.initializeApp(firebaseConfig);
 new Vue({
   router,
   store,
+  i18n,
   render: (h) => h(App),
 }).$mount("#app");

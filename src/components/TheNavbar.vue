@@ -4,9 +4,15 @@
       <img class="navbar__img" src="../assets/logo.png" alt="logo-icon" />
     </router-link>
     <div>
-      <router-link v-if="!isAuth" class="link" to="/login">Login</router-link>
-      <router-link v-if="!isAuth" class="link" to="/Signup">Signup</router-link>
-      <button v-if="isAuth" class="link" @click="logout">Logout</button>
+      <router-link v-if="!isAuth" class="link" to="/login">{{
+        $t("button.login")
+      }}</router-link>
+      <router-link v-if="!isAuth" class="link" to="/Signup">{{
+        $t("button.signup")
+      }}</router-link>
+      <button v-if="isAuth" class="link" @click="logout">
+        {{ $t("button.logout") }}
+      </button>
     </div>
   </div>
 </template>

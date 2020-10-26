@@ -2,18 +2,15 @@
   <div class="header">
     <main class="hero">
       <div class="hero__text">
-        <h3>Talk. Chat. Collaborate.</h3>
-        <h1>
-          Communicate
-          <span>Easily</span>
-        </h1>
+        <h3>{{ $t("homepage.communication") }}</h3>
+        <h1 v-html="$t('homepage.header')"></h1>
         <p>
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsam,
           tempore! Voluptate sunt temporibus atque debitis fugit amet optio
           eligendi libero ullam est? Mollitia, adipisci laudantium.
         </p>
         <router-link to="/signup">
-          <button class="btn">Get Started</button>
+          <button class="btn">{{ $t("button.onboarding") }}</button>
         </router-link>
       </div>
       <img src="../assets/cloud-girl.png" alt="cloud girl" class="hero__img" />

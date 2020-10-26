@@ -4,6 +4,12 @@
     <!-- <transition name="slide-fade"> -->
     <router-view />
     <!-- </transition> -->
+    <button class="switch__trad switch__trad--en" @click="swithToEnglish">
+      Eng
+    </button>
+    <button class="switch__trad switch__trad--fr" @click="swithToFrench">
+      FR
+    </button>
   </div>
 </template>
 
@@ -16,6 +22,14 @@ export default {
   },
   components: {
     TheNavbar,
+  },
+  methods: {
+    swithToEnglish() {
+      this.$i18n.locale = "en";
+    },
+    swithToFrench() {
+      this.$i18n.locale = "fr";
+    },
   },
 };
 </script>
@@ -35,6 +49,16 @@ export default {
   transform: translateX(10px);
   opacity: 0;
 }
+
+.switch__trad
+  position fixed
+  bottom 5%
+  z-index 1000
+
+  &--en
+    left 5%
+  &--fr
+    left 8%
 
 html
   font-size: 62.5%; // 1rem = 10px
