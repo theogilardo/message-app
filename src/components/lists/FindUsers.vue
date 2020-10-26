@@ -4,7 +4,7 @@
       v-model="search"
       class="list-category__search-bar"
       type="text"
-      placeholder="Type phone number.."
+      :placeholder="$t('chatbox.list.placeholder')"
     />
     <div v-for="user in filterUsers" :key="user.id" class="list-category__user">
       <img

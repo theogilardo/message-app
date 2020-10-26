@@ -77,7 +77,7 @@
         {{ listCategoryTypeLabel }} ({{ listCategoryTypeLength }})
       </h3>
       <h3 v-else class="chat__category__name">
-        {{ listCategoryTypeLabel }}
+        {{ $t("chatbox.list.label") }}
       </h3>
 
       <a @click="switchToNewContact">
@@ -129,9 +129,9 @@
     </div>
     <div v-show="test" class="chat__onboarding">
       <h1 class="chat__onboarding__text__main">
-        Welcome {{ user.name }} !
+        {{ $t("chatbox.onboarding.welcome") }} {{ user.name }} !
         <h2 class="chat__onboarding__text__second">
-          Add contacts and start chatting !
+          {{ $t("chatbox.onboarding.subline") }}
         </h2>
       </h1>
     </div>

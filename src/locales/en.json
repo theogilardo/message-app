@@ -8,5 +8,32 @@
     "logout": "Logout",
     "login": "Login",
     "signup": "Signup"
+  },
+  "signup": {
+    "title": "Please fill this form",
+    "placeholder": {
+      "name": "Enter your name..",
+      "surname": "Enter your surname..",
+      "phone": "Enter your phone..",
+      "email": "Enter your email..",
+      "password": "Enter your password.."
+    }
+  },
+  "login": {
+    "title": "Signup",
+    "placeholder": {
+      "email": "Enter your email..",
+      "password": "Enter your password.."
+    }
+  },
+  "chatbox": {
+    "list": {
+      "label": "Find New Contact",
+      "placeholder": "Enter your phone.."
+    },
+    "onboarding": {
+      "welcome": "Welcome",
+      "subline": "Add contacts and start chatting !"
+    }
   }
 }

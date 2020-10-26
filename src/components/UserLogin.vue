@@ -9,7 +9,7 @@
           v-validate="'required|email'"
           name="email"
           type="text"
-          placeholder="Enter email..."
+          :placeholder="$t('login.placeholder.email')"
         />
         <label> {{ errors.first("email") }} </label>
       </div>
@@ -20,12 +20,14 @@
           v-validate="'required|min:6'"
           name="password"
           type="text"
-          placeholder="Enter password..."
+          :placeholder="$t('login.placeholder.password')"
         />
         <label> {{ errors.first("password") }} </label>
       </div>
       <!-- <input type="email" placeholder="Enter phone.." /> -->
-      <button class="btn" @click.prevent="formSubmitted">Login</button>
+      <button class="btn" @click.prevent="formSubmitted">
+        {{ $t("button.login") }}
+      </button>
     </form>
   </div>
 </template>

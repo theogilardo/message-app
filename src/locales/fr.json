@@ -8,5 +8,32 @@
     "logout": "Déconnexion",
     "login": "Connexion",
     "signup": "S'inscire"
+  },
+  "signup": {
+    "title": "Veuillez remplir ce formulaire",
+    "placeholder": {
+      "name": "Entrez votre prénom..",
+      "surname": "Entrez votre nom..",
+      "phone": "Entrez votre numéro mobile..",
+      "email": "Entrez votre email..",
+      "password": "Entrez votre mot de passe.."
+    }
+  },
+  "login": {
+    "title": "Inscription",
+    "placeholder": {
+      "email": "Entrez votre email..",
+      "password": "Entrez votre mot de passe.."
+    }
+  },
+  "chatbox": {
+    "list": {
+      "label": "Trouve de Nouveaux Contacts",
+      "placeholder": "Entrez votre numéro mobile.."
+    },
+    "onboarding": {
+      "welcome": "Bienvenu !",
+      "subline": "Ajoute des contacts et commence à chatter !"
+    }
   }
 }

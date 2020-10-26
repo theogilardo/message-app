@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <form class="container__form">
-      <h2>Please Signup</h2>
+      <h2>{{ $t("signup.title") }}</h2>
       <div class="container__form__field container__form__appelation">
         <div>
           <input
@@ -10,7 +10,7 @@
             v-validate="'required'"
             name="name"
             type="text"
-            placeholder="Enter name..."
+            :placeholder="$t('signup.placeholder.name')"
           />
           <label> {{ errors.first("name") }} </label>
         </div>
@@ -21,7 +21,7 @@
             v-validate="'required'"
             name="surname"
             type="text"
-            placeholder="Enter surname..."
+            :placeholder="$t('signup.placeholder.surname')"
           />
           <label> {{ errors.first("surname") }} </label>
         </div>
@@ -33,7 +33,7 @@
           v-validate="'required|regex:^([0-9]+)$'"
           name="phone"
           type="text"
-          placeholder="Enter phone..."
+          :placeholder="$t('signup.placeholder.phone')"
         />
         <label> {{ errors.first("phone") }} </label>
       </div>
@@ -44,7 +44,7 @@
           v-validate="'required|email'"
           name="email"
           type="text"
-          placeholder="Enter email..."
+          :placeholder="$t('signup.placeholder.email')"
         />
         <label> {{ errors.first("email") }} </label>
       </div>
@@ -55,12 +55,12 @@
           v-validate="'required|min:6'"
           name="password"
           type="text"
-          placeholder="Enter password..."
+          :placeholder="$t('signup.placeholder.password')"
         />
         <label> {{ errors.first("password") }} </label>
       </div>
       <button class="btn" type="submit" @click.prevent="formSubmitted">
-        Signup
+        {{ $t("button.signup") }}
       </button>
     </form>
   </div>
