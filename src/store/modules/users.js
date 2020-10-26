@@ -7,11 +7,15 @@ const state = {
   users: [],
   messages: [],
   componentKey: 0,
+  isDataFetched: false,
 };
 
 const getters = {
   user(state) {
     return state.user;
+  },
+  isDataFetched(state) {
+    return state.isDataFetched;
   },
   componentKey(state) {
     return state.componentKey;
@@ -95,6 +99,7 @@ const actions = {
   },
 
   fetchUser({ state, commit, dispatch, rootState }) {
+    console.log(state.isDataFetched);
     axios
       .get("https://message-app-719f5.firebaseio.com/users.json")
       .then((res) => {
@@ -146,6 +151,9 @@ const actions = {
 
         localStorage.setItem("storeUser", JSON.stringify(activeUser));
         commit("storeUser", activeUser);
+
+        state.isDataFetched = true;
+        console.log(state.isDataFetched);
       })
       .catch((err) => console.log(err));
   },

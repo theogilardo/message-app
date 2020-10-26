@@ -1,5 +1,5 @@
 <template>
-  <div class="chat">
+  <div class="chat" v-if="isDataFetched">
     <div class="background"></div>
     <div class="logo">
       <router-link to="/login">
@@ -8,13 +8,6 @@
     </div>
     <div class="chat__side-bar">
       <div class="chat__side-bar__container">
-        <!-- <a class="chat__side-bar__link">
-          <img
-            class="chat__side-bar__icon"
-            src="../assets/edit.svg"
-            alt="Edit Button"
-          />
-        </a> -->
         <a class="chat__side-bar__link">
           <img
             class="chat__side-bar__profile-pic"
@@ -37,6 +30,7 @@
           />
         </a>
         <a
+          v-if="userContacts.length"
           :class="{
             'chat__side-bar__link--active': listCategoryType === 'contacts',
           }"
@@ -51,13 +45,6 @@
         </a>
       </div>
       <div>
-        <!-- <a class="chat__side-bar__link">
-          <img
-            class="chat__side-bar__icon"
-            src="../assets/dots.svg"
-            alt="Edit Button"
-          />
-        </a> -->
         <a class="chat__side-bar__link" @click="logout">
           <img
             class="chat__side-bar__icon chat__side-bar__icon__last"
@@ -160,6 +147,9 @@ export default {
     };
   },
   computed: {
+    isDataFetched() {
+      return this.$store.getters.isDataFetched;
+    },
     test() {
       if (this.userMessageReceiver) {
         return false;
