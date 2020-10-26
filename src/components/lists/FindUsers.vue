@@ -37,11 +37,7 @@ export default {
   data() {
     return {
       search: "",
-      allUsers: null,
     };
-  },
-  created() {
-    this.allUsers = this.users;
   },
   computed: {
     filterUsers() {
