@@ -134,7 +134,7 @@
     </div>
     <div v-show="test" class="chat__onboarding">
       <h1 class="chat__onboarding__text__main">
-        Welcome !
+        Welcome {{ user.name }} !
         <h2 class="chat__onboarding__text__second">
           Add contacts and start chatting !
         </h2>

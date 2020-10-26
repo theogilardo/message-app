@@ -272,8 +272,9 @@ const actions = {
       });
   },
 
-  chatWithContact({ commit }, contact) {
+  chatWithContact({ commit, dispatch }, contact) {
     commit("storeUserMessageReceiver", contact);
+    dispatch("fetchMessages");
   },
 };
 
