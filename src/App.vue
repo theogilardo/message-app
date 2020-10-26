@@ -4,12 +4,24 @@
     <!-- <transition name="slide-fade"> -->
     <router-view />
     <!-- </transition> -->
-    <button class="switch__trad switch__trad--en" @click="swithToEnglish">
-      Eng
-    </button>
-    <button class="switch__trad switch__trad--fr" @click="swithToFrench">
-      FR
-    </button>
+    <div class="switch__trad">
+      <a class="switch__trad--en" @click="swithToEnglish">
+        <img
+          class="switch__trad__icon"
+          :class="{ 'trad-active': isActive }"
+          src="./assets/flag-us.svg"
+          alt="Flag USA"
+        />
+      </a>
+      <a class="switch__trad--fr" @click="swithToFrench">
+        <img
+          class="switch__trad__icon"
+          :class="{ 'trad-active': !isActive }"
+          src="./assets/flag-fr.svg"
+          alt="Flag FR"
+        />
+      </a>
+    </div>
   </div>
 </template>
 
@@ -17,6 +29,11 @@
 import TheNavbar from "./components/TheNavbar";
 
 export default {
+  data() {
+    return {
+      isActive: true,
+    };
+  },
   created() {
     this.$store.dispatch("autoLogin");
   },
@@ -26,9 +43,11 @@ export default {
   methods: {
     swithToEnglish() {
       this.$i18n.locale = "en";
+      this.isActive = !this.isActive;
     },
     swithToFrench() {
       this.$i18n.locale = "fr";
+      this.isActive = !this.isActive;
     },
   },
 };
@@ -36,29 +55,36 @@ export default {
 
 <style lang="stylus">
 
-/* Enter and leave animations can use different */
-/* durations and timing functions.              */
-.slide-fade-enter-active {
+.slide-fade-enter-active
   transition: all .3s ease;
-}
-.slide-fade-leave-active {
+
+.slide-fade-leave-active
   transition: all .4s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-}
+
 .slide-fade-enter, .slide-fade-leave-to
-/* .slide-fade-leave-active below version 2.1.8 */ {
   transform: translateX(10px);
   opacity: 0;
-}
 
 .switch__trad
   position fixed
-  bottom 5%
   z-index 1000
+  position: absolute;
+  top: 7%;
+  right: 2.5rem
+  display flex
+  align-items center
+  justify-content center
 
-  &--en
-    left 5%
   &--fr
-    left 8%
+    margin-left 1rem
+
+  &__icon
+    opacity .5
+    width 24px
+
+.trad-active
+  opacity 1 !important
+  backgorund pink
 
 html
   font-size: 62.5%; // 1rem = 10px

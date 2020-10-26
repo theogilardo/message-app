@@ -31,6 +31,7 @@
       "label": "Find New Contact",
       "placeholder": "Enter your phone.."
     },
+    "typing": "Type your message here..",
     "onboarding": {
       "welcome": "Welcome",
       "subline": "Add contacts and start chatting !"

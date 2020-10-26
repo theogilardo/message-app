@@ -121,7 +121,7 @@
         <input
           v-model="message"
           type="text"
-          placeholder="Type your message here.."
+          :placeholder="$t('chatbox.typing')"
           ref="typeMessage"
         />
         <img @click="sendMessage" src="../assets/send.svg" alt="Send Icon" />
@@ -244,8 +244,8 @@ export default {
 .logo
   position: absolute;
   z-index 500
-  top: 18px;
-  right: 17px;
+  top: 1.8rem;
+  right: 15rem;
 
 .logo__img
   width: 45px;

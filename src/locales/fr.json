@@ -31,6 +31,7 @@
       "label": "Trouve de Nouveaux Contacts",
       "placeholder": "Entrez votre numéro mobile.."
     },
+    "typing": "Ecrivez un message..",
     "onboarding": {
       "welcome": "Bienvenu !",
       "subline": "Ajoute des contacts et commence à chatter !"
