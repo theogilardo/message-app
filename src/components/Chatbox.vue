@@ -114,7 +114,7 @@
         <img @click="sendMessage" src="../assets/send.svg" alt="Send Icon" />
       </div>
     </div>
-    <div v-show="test" class="chat__onboarding">
+    <div v-show="!userMessageReceiver" class="chat__onboarding">
       <h1 class="chat__onboarding__text__main">
         {{ $t("chatbox.onboarding.welcome") }} {{ user.name }} !
         <h2 class="chat__onboarding__text__second">
@@ -149,12 +149,6 @@ export default {
   computed: {
     isDataFetched() {
       return this.$store.getters.isDataFetched;
-    },
-    test() {
-      if (this.userMessageReceiver) {
-        return false;
-      }
-      return true;
     },
     componentKey() {
       return this.$store.getters.componentKey;
