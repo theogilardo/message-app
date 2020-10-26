@@ -17,6 +17,11 @@ Vue.filter("setTimeHourMinutes", (timestamp) => {
   return formattedTime;
 });
 
+Vue.filter("sliceMessage", (message) => {
+  const sliceMessage = message.slice(0, 14);
+  return `${sliceMessage}..`;
+});
+
 // Your web app's Firebase configuration
 var firebaseConfig = {
   apiKey: "AIzaSyCGkv9-83v6LsQRhClROTowTL6rK5YcPI8",

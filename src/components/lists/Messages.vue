@@ -24,7 +24,7 @@
         </h2>
 
         <p class="list-category__user__info__message">
-          {{ user.lastMessage }}
+          {{ user.lastMessage | sliceMessage }}
         </p>
       </div>
 
@@ -67,7 +67,7 @@ export default {
 
 .activeChat
   background #f8f8f8
-  color #333
+  color #333 !important
 
 .list-category
   width 100%
@@ -88,6 +88,12 @@ export default {
     padding: 20px;
     height: 70px;
     width: 100%;
+    color #E8E8E8
+    transition all .6s
+
+    &:hover
+      background #F8F8F8
+      color #333 !important
 
     &__img
       object-fit: cover;
@@ -116,7 +122,6 @@ export default {
     &__btn
       margin-left auto
       background transparent
-      color #E8E8E8
       cursor pointer
 
       &__add-contact

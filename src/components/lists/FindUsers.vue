@@ -72,6 +72,18 @@ export default {
     padding: 20px;
     height: 70px;
     width: 100%;
+    color: white;
+    transition all .6s
+
+    &:hover
+      background #F8F8F8
+      color #333 !important
+
+      & > .list-category__user__btn__add-contact
+        border 2px solid #333
+
+      & > .list-category__user__btn
+        color #333 !important
 
     &__img
       object-fit: cover;
@@ -82,7 +94,6 @@ export default {
     &__info
       text-align: left;
       margin-left: 15px;
-      color: white;
 
       &__name
         font-size: 1.4rem;
@@ -97,13 +108,13 @@ export default {
       margin-left: auto;
       font-size: 13px;
       opacity: 0.9;
-      color: white;
 
     &__btn
       margin-left auto
       background transparent
       color #E8E8E8
       cursor pointer
+      transition all .6s
 
       &__add-contact
         font-weight bold

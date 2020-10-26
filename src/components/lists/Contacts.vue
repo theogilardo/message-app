@@ -69,6 +69,18 @@ export default {
     padding: 20px;
     height: 70px;
     width: 100%;
+    color: white;
+    transition all .6s
+
+    &:hover
+      background #F8F8F8
+      color #333 !important
+
+      & > .list-category__user__btn__chat
+        border 1.5px solid #333
+
+      & > .list-category__user__btn
+        color #333 !important
 
     &__img
       object-fit: cover;
@@ -79,7 +91,6 @@ export default {
     &__info
       text-align: left;
       margin-left: 15px;
-      color: white;
 
       &__name
         font-size: 1.4rem;
@@ -101,12 +112,14 @@ export default {
       background transparent
       color #E8E8E8
       cursor pointer
+      transition all .6s
 
       &__add-contact
         font-weight bold
         border 2px solid #E8E8E8
         border-radius 50%
         padding .4rem .7rem
+        transition all .6s
 
       &__chat
         border none
