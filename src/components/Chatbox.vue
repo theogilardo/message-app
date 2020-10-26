@@ -407,7 +407,6 @@ export default {
         color black
         background #F1F0F0
         border-radius: 7px;
-        // width: 50%;
         margin: 15px;
         font-size: 15px;
         text-align: left;
@@ -422,7 +421,6 @@ export default {
 
       input
         border: none;
-        // border-top: 1px solid #e3e3e3;
         border-top: 1px solid #4c7de050;
         padding: 2rem;
         width: 100%;

@@ -29,7 +29,6 @@ export default {
   max-width: 1366px;
   width: 85%;
   min-height: 100vh;
-  // height 100%
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -40,7 +39,6 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  // width: 90%;
   margin: 85px auto 0 auto;
   height: 500px;
 
@@ -55,12 +53,10 @@ export default {
       text-align: left;
 
     h3
-      // color: rgba(74,210,149,1);
       background-image: linear-gradient(to right, rgba(74,210,149,1), rgba(77,125,225,1));
       -webkit-background-clip: text;
       color: transparent;
       letter-spacing: 1px;
-      // color: #e69cc0;
       font-size: 24px;
 
     h1
@@ -83,7 +79,6 @@ export default {
   border: none;
   color: white;
   background: linear-gradient(to right, rgba(74,210,149,1), rgba(77,125,225,1));
-  // background-image: linear-gradient(to right, #4c7de0, #e69cc0);
   border-radius: 15px;
   text-transform: uppercase;
   font-weight: 700;
@@ -105,7 +100,5 @@ span::after
   transform: translateY(70px);
   width: 100%;
   height: 5px;
-  // background-color: rgba(74,210,149,1);
   background: linear-gradient(to right, rgba(74,210,149,1), rgba(77,125,225,1));
-  // background-color: #e69cc0;
 </style>

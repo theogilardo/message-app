@@ -43,7 +43,6 @@ export default {
 <style lang="stylus" scoped>
 
 .navbar
-  // border 1px solid red
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -71,7 +70,6 @@ export default {
       padding: .8rem 1.8rem;
       border: none;
       background: linear-gradient(to right, rgba(74,210,149,1), rgba(77,125,225,1));
-      // background-image: linear-gradient(to right, #4c7de0, #e69cc0);
       border-radius: 15px;
       font-weight: 600;
       box-shadow: 0 3px 2px rgba(0, 0, 0, 0.2);
@@ -80,18 +78,4 @@ export default {
 
       &:hover
         transform: translateY(-2px);
-
-// .link
-//   padding: 12px 22px;
-//   border: none;
-//   color: white !important;
-//   background-image: linear-gradient(to right, #4c7de0, #e69cc0);
-//   border-radius: 15px;
-//   font-weight: 700;
-//   box-shadow: 0 3px 2px rgba(0, 0, 0, 0.2);
-//   cursor: pointer;
-//   transition: all 0.5s;
-
-//   &:hover
-//     transform: translateY(-2px);
 </style>

@@ -113,8 +113,6 @@ html
   min-height 100vh
   width 100%
   background-color #DEF2EC
-  // background-image linear-gradient(to right, #def2ec, #e69cc0)
-  // background-image linear-gradient(to right, #4c7de0, #e69cc0)
   position relative
 
 *,

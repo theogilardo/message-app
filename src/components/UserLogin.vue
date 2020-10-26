@@ -62,11 +62,6 @@ export default {
     },
   },
   methods: {
-    // formSubmitted() {
-    //   this.$store.dispatch("login", this.userData);
-    //   this.clearFields();
-    //   this.redirectUser();
-    // },
     formSubmitted() {
       this.$validator.validateAll().then((isValid) => {
         if (isValid) {
@@ -110,10 +105,7 @@ export default {
     width 70%
     max-width 55rem
     border-radius 20px
-    // background #ececec
-    // border 1px solid #adadad
     background: linear-gradient(to right, rgba(74,210,149,1), rgba(77,125,225,1));
-    // background-image linear-gradient(to right, #4c7de0, #e69cc0)
     display flex
     align-items center
     justify-content center
@@ -122,7 +114,6 @@ export default {
     h2
       margin-bottom 2.5rem
       color white
-      // color #333
 
     &__field
       width 100%
@@ -142,7 +133,6 @@ export default {
         color red
         font-size 1.1rem
         width 100%
-        // top 120%
         top 5.5rem
         left 0
 

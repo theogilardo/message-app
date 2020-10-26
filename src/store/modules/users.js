@@ -99,7 +99,6 @@ const actions = {
   },
 
   fetchUser({ state, commit, dispatch, rootState }) {
-    console.log(state.isDataFetched);
     axios
       .get("https://message-app-719f5.firebaseio.com/users.json")
       .then((res) => {
@@ -153,7 +152,6 @@ const actions = {
         commit("storeUser", activeUser);
 
         state.isDataFetched = true;
-        console.log(state.isDataFetched);
       })
       .catch((err) => console.log(err));
   },
@@ -276,7 +274,6 @@ const actions = {
       })
       .catch((err) => {
         console.log(err);
-        // alert("You don't have any messages yet!");
       });
   },
 
