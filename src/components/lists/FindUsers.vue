@@ -43,14 +43,6 @@ export default {
   created() {
     this.allUsers = this.users;
   },
-  watch: {
-    search() {
-      console.log(this.allUsers);
-      // this.allUsers = this.allUsers.filter((user) =>
-      //   user.phone.match(this.search)
-      // );
-    },
-  },
   computed: {
     filterUsers() {
       return this.users.filter((user) => user.phone.match(this.search));
