@@ -45,7 +45,7 @@ export default {
   },
   computed: {
     filterUsers() {
-      return this.users.filter((user) => user.phone.match(this.search));
+      return this.users.filter((user) => user.phone.match(this.search.trim()));
     },
     listCategoryType() {
       return this.$store.getters.listCategoryType;

@@ -67,11 +67,6 @@
         </a>
       </div>
     </div>
-    <div class="chat__search">
-      <input type="text" placeholder="Search here .." />
-      <!-- <img src="../assets/search.svg" alt="Edit Button" /> -->
-    </div>
-
     <div class="chat__category">
       <h3
         v-if="
