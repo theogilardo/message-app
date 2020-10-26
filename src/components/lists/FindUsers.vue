@@ -1,11 +1,12 @@
 <template>
   <div class="list-category">
     <input
+      v-model="search"
       class="list-category__search-bar"
       type="text"
       placeholder="Type phone number.."
     />
-    <div v-for="user in users" :key="user.id" class="list-category__user">
+    <div v-for="user in filterUsers" :key="user.id" class="list-category__user">
       <img
         class="list-category__user__img"
         src="../../assets/theo.png"
@@ -33,7 +34,27 @@
 <script>
 export default {
   name: "FindUsers",
+  data() {
+    return {
+      search: "",
+      allUsers: null,
+    };
+  },
+  created() {
+    this.allUsers = this.users;
+  },
+  watch: {
+    search() {
+      console.log(this.allUsers);
+      // this.allUsers = this.allUsers.filter((user) =>
+      //   user.phone.match(this.search)
+      // );
+    },
+  },
   computed: {
+    filterUsers() {
+      return this.users.filter((user) => user.phone.match(this.search));
+    },
     listCategoryType() {
       return this.$store.getters.listCategoryType;
     },
@@ -43,6 +64,7 @@ export default {
   },
   methods: {
     addContact(newContact) {
+      console.log(newContact);
       return this.$store.dispatch("addContact", newContact);
     },
     chatWithContact(contact) {
