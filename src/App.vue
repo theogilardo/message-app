@@ -69,7 +69,7 @@ export default {
   position fixed
   z-index 1000
   position: absolute;
-  top: 7%;
+  top: 4%;
   right: 2.5rem
   display flex
   align-items center
