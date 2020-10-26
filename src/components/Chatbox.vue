@@ -132,6 +132,14 @@
         <img @click="sendMessage" src="../assets/send.svg" alt="Send Icon" />
       </div>
     </div>
+    <div v-show="test" class="chat__onboarding">
+      <h1 class="chat__onboarding__text__main">
+        Welcome !
+        <h2 class="chat__onboarding__text__second">
+          Add contacts and start chatting !
+        </h2>
+      </h1>
+    </div>
   </div>
 </template>
 
@@ -157,6 +165,12 @@ export default {
     };
   },
   computed: {
+    test() {
+      if (this.userMessageReceiver) {
+        return false;
+      }
+      return true;
+    },
     componentKey() {
       return this.$store.getters.componentKey;
     },
@@ -234,6 +248,7 @@ export default {
 
 .logo
   position: absolute;
+  z-index 500
   top: 18px;
   right: 17px;
 
@@ -252,6 +267,23 @@ export default {
   display: grid;
   grid-template-columns: 60px 25% 1fr;
   grid-template-rows: 80px 40px 1fr;
+
+  &__onboarding
+    z-index 100
+    background white
+    heigh 100vh
+    display flex
+    align-items center
+    justify-content center
+    font-size 4rem
+    grid-column: 3 /4;
+    grid-row: 1 /4;
+
+    &__text__main, &__text__second
+      background-image: linear-gradient(to right, rgba(74,210,149,1), rgba(77,125,225,1));
+      -webkit-background-clip: text;
+      color: transparent;
+      letter-spacing: 1px;
 
   &__side-bar
     grid-column: 1 / 2;
