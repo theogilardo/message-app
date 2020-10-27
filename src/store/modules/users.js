@@ -194,14 +194,27 @@ const actions = {
         const contactId = state.userMessageReceiver.localId;
         const conversation = [];
 
+        // Get all messages
+        console.log(messages);
+
+        // Find all messages related to the currentUser
         const findContactIds = messages
-          .filter((message) => message.receiverId !== userId)
+          .filter(
+            (message) =>
+              message.receiverId === userId || message.senderId === userId
+          )
           .map((message) => message.receiverId);
 
+        console.log(findContactIds);
+
+        // Find unique Ids between current user chats
         const _ = require("lodash");
-        const uniqueContactIds = _.uniq(findContactIds, "localId");
+        const uniqueContactIds = _.uniq(findContactIds, "localId").filter(
+          (id) => id !== userId
+        );
 
         console.log(uniqueContactIds);
+        console.log(state.users);
 
         const contactMessages = [];
 
@@ -209,6 +222,7 @@ const actions = {
           const contactDataFromUsers = state.users.find(
             (user) => user.localId === contactId
           );
+          console.log(contactDataFromUsers);
           contactMessages.push(contactDataFromUsers);
         });
 

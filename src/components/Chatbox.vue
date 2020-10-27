@@ -15,8 +15,8 @@
             alt="Edit Button"
           />
         </a>
+        <!-- v-if="firebaseMessages.length" -->
         <a
-          v-if="firebaseMessages.length"
           :class="{
             'chat__side-bar__link--active': listCategoryType === 'messages',
           }"

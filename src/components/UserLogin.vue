@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <form class="container__form">
-      <h2>milo@gmail.com</h2>
-      <h2>raoul@gmail.com</h2>
+      <h2>jack@gmail.com</h2>
+      <h2>marta@gmail.com</h2>
       <div class="container__form__field">
         <input
           :class="{ error: emailError }"
