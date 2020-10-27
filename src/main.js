@@ -5,10 +5,12 @@ import store from "./store";
 import VeeValidate from "vee-validate";
 import firebase from "firebase";
 import i18n from "./i18n";
+import Toasted from "vue-toasted";
 
 Vue.config.productionTip = false;
 
 Vue.use(VeeValidate);
+Vue.use(Toasted);
 
 Vue.filter("setTimeHourMinutes", (timestamp) => {
   const date = new Date(timestamp);

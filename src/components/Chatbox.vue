@@ -137,6 +137,14 @@ export default {
     contacts: Contacts,
     messages: Messages,
   },
+  created() {
+    this.$toasted.success("Logged In", {
+      className: "toast-success",
+      theme: "bubble",
+      position: "top-right",
+      duration: 2000,
+    });
+  },
   data() {
     return {
       selectedComponent: "messages",
@@ -219,6 +227,9 @@ export default {
 </script>
 
 <style lang="stylus">
+
+.toast-success
+  background: linear-gradient(to right, rgba(74,210,149,1), rgba(77,125,225,1)) !important
 
 .sent
   background: #4c7de0 !important

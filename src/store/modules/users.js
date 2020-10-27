@@ -241,6 +241,8 @@ const actions = {
           messages.push(message);
         }
 
+        console.log(messages);
+
         const userId = state.user.localId;
         const contactId = state.userMessageReceiver.localId;
         const conversation = [];
