@@ -1,6 +1,6 @@
 <template>
   <!-- v-if="userContacts.some((contact) => contact.lastMessage)" -->
-  <div class="list-category" v-if="contactMessages">
+  <div class="list-category" v-if="areMessagesLoaded && userMessageReceiver">
     <!-- v-for="user in userContacts
         .filter((contact) => contact.lastMessage)
         .sort((a, b) => b.timestamp - a.timestamp)" -->
@@ -44,6 +44,9 @@ export default {
     };
   },
   computed: {
+    areMessagesLoaded() {
+      return this.$store.getters.areMessagesLoaded;
+    },
     listCategoryType() {
       return this.$store.getters.listCategoryType;
     },

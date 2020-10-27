@@ -9,6 +9,7 @@ const state = {
   contactMessages: [],
   componentKey: 0,
   isDataFetched: false,
+  areMessagesLoaded: false,
 };
 
 const getters = {
@@ -17,6 +18,9 @@ const getters = {
   },
   contactMessages(state) {
     return state.contactMessages;
+  },
+  areMessagesLoaded(state) {
+    return state.areMessagesLoaded;
   },
   isDataFetched(state) {
     return state.isDataFetched;
@@ -291,6 +295,7 @@ const actions = {
 
         commit("storeMessageList", contactMessages);
         // End of Fetch messages
+        state.areMessagesLoaded = true;
       })
       .catch((err) => {
         console.log(err);
