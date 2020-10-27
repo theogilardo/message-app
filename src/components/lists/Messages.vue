@@ -4,10 +4,10 @@
     <!-- v-for="user in userContacts
         .filter((contact) => contact.lastMessage)
         .sort((a, b) => b.timestamp - a.timestamp)" -->
-    <!-- :class="{ activeChat: user.localId === userMessageReceiver.localId }" -->
     <div
       v-for="user in contactMessages"
       :key="user.id"
+      :class="{ activeChat: user.localId === userMessageReceiver.localId }"
       class="list-category__user"
       @click="fetchMessages(user)"
     >

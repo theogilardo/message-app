@@ -44,12 +44,13 @@ const actions = {
     dispatch("fetchMessages");
     commit("switchToMessages");
 
-    const findLastUserChat = rootState.users.user.contacts
-      .filter((contact) => contact.lastMessage)
-      .sort((a, b) => b.timestamp - a.timestamp)[0];
-    dispatch("chatWithContact", findLastUserChat);
+    // const findLastUserChat = rootState.users.user.contacts
+    //   .filter((contact) => contact.lastMessage)
+    //   .sort((a, b) => b.timestamp - a.timestamp)[0];
+    // dispatch("chatWithContact", findLastUserChat);
 
     const messagesLength = rootState.users.contactMessages.length;
+    console.log(messagesLength);
     commit("switchListLength", messagesLength);
   },
   switchToNewContact({ commit, rootState }) {
