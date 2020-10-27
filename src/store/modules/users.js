@@ -179,7 +179,7 @@ const actions = {
       .catch((err) => console.log(err));
   },
 
-  fetchMessages({ state, commit }) {
+  fetchMessages({ state, commit, dispatch }) {
     axios
       .get("https://message-app-719f5.firebaseio.com/messages.json")
       .then((res) => {
@@ -191,7 +191,6 @@ const actions = {
         }
 
         const userId = state.user.localId;
-        const contactId = state.userMessageReceiver.localId;
         const conversation = [];
 
         // Get all messages
@@ -222,11 +221,8 @@ const actions = {
           const contactDataFromUsers = state.users.find(
             (user) => user.localId === contactId
           );
-          console.log(contactDataFromUsers);
           contactMessages.push(contactDataFromUsers);
         });
-
-        console.log(contactMessages);
 
         contactMessages.forEach((contact) => {
           const contactMessagesFiltered = messages.filter(
@@ -242,6 +238,16 @@ const actions = {
 
         commit("storeMessageList", contactMessages);
         // End of Fetch messages
+
+        // Check for most recent chat
+
+        if (contactMessages) {
+          dispatch("chatWithContact", contactMessages);
+        }
+
+        const contactId = state.userMessageReceiver.localId;
+
+        //
 
         const messageUsertoContact = messages.filter(
           (message) =>
@@ -277,7 +283,8 @@ const actions = {
 
   chatWithContact({ commit, dispatch }, contact) {
     commit("storeUserMessageReceiver", contact);
-    dispatch("fetchMessages");
+    dispatch("switchToMessages");
+    // dispatch("fetchMessages");
   },
 };
 
