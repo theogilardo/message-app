@@ -194,33 +194,40 @@ const actions = {
         const contactId = state.userMessageReceiver.localId;
         const conversation = [];
 
-        const findContactUsers = messages
+        const findContactIds = messages
           .filter((message) => message.receiverId !== userId)
           .map((message) => message.receiverId);
 
+        const _ = require("lodash");
+        const uniqueContactIds = _.uniq(findContactIds, "localId");
+
+        console.log(uniqueContactIds);
+
         const contactMessages = [];
 
-        findContactUsers.forEach((theContactId) => {
-          const userMessage = state.users.find(
-            (user) => user.localId === theContactId
+        uniqueContactIds.forEach((contactId) => {
+          const contactDataFromUsers = state.users.find(
+            (user) => user.localId === contactId
           );
-          contactMessages.push(userMessage);
+          contactMessages.push(contactDataFromUsers);
         });
 
-        const _ = require("lodash");
-        const messageContactsLeft = _.uniq(contactMessages, "localId");
+        console.log(contactMessages);
 
-        messageContactsLeft.forEach((contact) => {
-          const contactMessages = messages.filter(
+        contactMessages.forEach((contact) => {
+          const contactMessagesFiltered = messages.filter(
             (message) =>
               message.receiverId === contact.localId ||
               message.senderId === contact.localId
           );
 
-          contact.messages = contactMessages;
+          contact.messages = contactMessagesFiltered;
         });
 
-        commit("storeMessageList", messageContactsLeft);
+        console.log(contactMessages);
+
+        commit("storeMessageList", contactMessages);
+        // End of Fetch messages
 
         const messageUsertoContact = messages.filter(
           (message) =>
