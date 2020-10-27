@@ -6,6 +6,7 @@ const state = {
   userMessageReceiver: null,
   users: [],
   messages: [],
+  contactMessages: [],
   componentKey: 0,
   isDataFetched: false,
 };
@@ -13,6 +14,9 @@ const state = {
 const getters = {
   user(state) {
     return state.user;
+  },
+  contactMessages(state) {
+    return state.contactMessages;
   },
   isDataFetched(state) {
     return state.isDataFetched;
@@ -37,6 +41,10 @@ const getters = {
 const mutations = {
   storeUser(state, userData) {
     state.user = userData;
+  },
+
+  storeMessageList(state, payload) {
+    state.contactMessages = payload;
   },
 
   forceRerender(state) {
@@ -73,16 +81,16 @@ const mutations = {
   storeMessages(state, messageObj) {
     state.messages = messageObj;
   },
-  updateUserContact(state, message) {
-    const timestamp = new Date().getTime();
+  // updateUserContact(state, message) {
+  //   const timestamp = new Date().getTime();
 
-    state.user.contacts.forEach((contact) => {
-      if (contact.localId === state.userMessageReceiver.localId) {
-        contact.lastMessage = message;
-        contact.timestamp = timestamp;
-      }
-    });
-  },
+  //   state.user.contacts.forEach((contact) => {
+  //     if (contact.localId === state.userMessageReceiver.localId) {
+  //       contact.lastMessage = message;
+  //       contact.timestamp = timestamp;
+  //     }
+  //   });
+  // },
 };
 
 const actions = {
@@ -98,7 +106,7 @@ const actions = {
       .catch((err) => console.log(err));
   },
 
-  fetchUser({ state, commit, dispatch, rootState }) {
+  fetchUser({ state, commit, rootState }) {
     axios
       .get("https://message-app-719f5.firebaseio.com/users.json")
       .then((res) => {
@@ -119,37 +127,37 @@ const actions = {
           (user) => rootState.auth.userId !== user.localId
         );
 
-        if (activeUser.contacts) {
-          const activeUserContacts = [];
-          for (let key in activeUser.contacts) {
-            const contact = activeUser.contacts[key];
-            contact.contactKey = key;
-            activeUserContacts.push(contact);
-          }
+        // if (activeUser.contacts) {
+        //   const activeUserContacts = [];
+        //   for (let key in activeUser.contacts) {
+        //     const contact = activeUser.contacts[key];
+        //     contact.contactKey = key;
+        //     activeUserContacts.push(contact);
+        //   }
 
-          activeUser.contacts = activeUserContacts;
-          const otherUsersNotInUserContacts = otherUsers.filter(
-            (user) =>
-              !activeUserContacts.some(
-                (contact) => user.localId === contact.localId
-              )
-          );
+        //   activeUser.contacts = activeUserContacts;
+        //   const otherUsersNotInUserContacts = otherUsers.filter(
+        //     (user) =>
+        //       !activeUserContacts.some(
+        //         (contact) => user.localId === contact.localId
+        //       )
+        //   );
 
-          if (state.messages.length) {
-            const findLastUserChat = activeUserContacts
-              .filter((contact) => contact.lastMessage)
-              .sort((a, b) => b.timestamp - a.timestamp)[0];
-            dispatch("chatWithContact", findLastUserChat);
-          }
+        // if (state.messages.length) {
+        // const findLastUserChat = activeUserContacts
+        //   .filter((contact) => contact.lastMessage)
+        //   .sort((a, b) => b.timestamp - a.timestamp)[0];
+        // dispatch("chatWithContact", findLastUserChat);
+        // }
 
-          commit("storeUsers", otherUsersNotInUserContacts);
-        } else {
-          activeUser.contacts = [];
-          commit("storeUsers", otherUsers);
-        }
+        // commit("storeUsers", otherUsersNotInUserContacts);
+        // } else {
+        // activeUser.contacts = [];
+        // }
 
         localStorage.setItem("storeUser", JSON.stringify(activeUser));
         commit("storeUser", activeUser);
+        commit("storeUsers", otherUsers);
 
         state.isDataFetched = true;
       })
@@ -182,31 +190,31 @@ const actions = {
       .catch((err) => console.log(err));
   },
 
-  updateUserContact({ state, commit }, message) {
-    commit("updateUserContact", message);
+  // updateUserContact({ state, commit }, message) {
+  //   commit("updateUserContact", message);
 
-    const userKey = state.user.key;
-    const contactKey = state.userMessageReceiver.newContactKey;
-    const date = new Date();
-    const minutes = date.getMinutes();
-    const hours = date.getHours();
-    const time = `${hours}:${minutes}`;
-    const updatedUserContact = state.userMessageReceiver;
-    updatedUserContact.lastMessage = message;
-    updatedUserContact.time = time;
+  //   const userKey = state.user.key;
+  //   const contactKey = state.userMessageReceiver.newContactKey;
+  //   const date = new Date();
+  //   const minutes = date.getMinutes();
+  //   const hours = date.getHours();
+  //   const time = `${hours}:${minutes}`;
+  //   const updatedUserContact = state.userMessageReceiver;
+  //   updatedUserContact.lastMessage = message;
+  //   updatedUserContact.time = time;
 
-    firebase
-      .database()
-      .ref(`users/${userKey}/contacts/${contactKey}`)
-      .set(updatedUserContact)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => console.log(err));
-  },
+  //   firebase
+  //     .database()
+  //     .ref(`users/${userKey}/contacts/${contactKey}`)
+  //     .set(updatedUserContact)
+  //     .then((res) => {
+  //       console.log(res);
+  //     })
+  //     .catch((err) => console.log(err));
+  // },
 
   storeMessage({ state, commit, dispatch }, message) {
-    dispatch("updateUserContact", message);
+    // dispatch("updateUserContact", message);
 
     const timestamp = new Date().getTime();
 
@@ -241,11 +249,115 @@ const actions = {
           messages.push(message);
         }
 
-        console.log(messages);
-
         const userId = state.user.localId;
         const contactId = state.userMessageReceiver.localId;
         const conversation = [];
+
+        console.log(messages);
+
+        // 6. Fetch all messages
+        // 7. Build list of contacts with Messages
+        //     1. Take all the messages available + 2. Filter the one including the main user
+
+        const userReceivedMessages = messages.filter(
+          (message) =>
+            message.receiverId === userId || message.senderId === userId
+        );
+        console.log(userReceivedMessages);
+
+        //     3. Build array with each contact in it (name, surname and array of related messages with current user ->> last message of the array is displayed)
+        // .a Go to users and find
+        const findContactUsers = messages
+          .filter((message) => message.receiverId !== userId)
+          .map((message) => message.receiverId);
+
+        console.log(findContactUsers);
+
+        const contactMessages = [];
+
+        findContactUsers.forEach((theContactId) => {
+          const userMessage = state.users.find(
+            (user) => user.localId === theContactId
+          );
+          contactMessages.push(userMessage);
+        });
+
+        const _ = require("lodash");
+        const messageContactsLeft = _.uniq(contactMessages, "localId");
+
+        console.log(messageContactsLeft);
+
+        messageContactsLeft.forEach((contact) => {
+          const contactMessages = messages.filter(
+            (message) =>
+              message.receiverId === contact.localId ||
+              message.senderId === contact.localId
+          );
+
+          contact.messages = contactMessages;
+        });
+
+        console.log(messageContactsLeft);
+
+        commit("storeMessageList", messageContactsLeft);
+
+        // contactMessages.forEach(contact => {
+        //   contact.messages = userReceivedMessages
+        // })
+
+        /*
+          contactMessages = [
+            {
+              name: "Theo",
+              surname: "Gilardo",
+              messages: {
+                {
+                  receiverId: "FERFZE9343223",
+                  senderId: "MMDZRER0323423932",
+                  message: "Hey man!",
+                  timestamp: "16590543"
+                }
+                {
+                  receiverId: "PAZOEZAR343",
+                  senderId: "MMDZRER0323423932",
+                  message: "Really?",
+                  timestamp: "16453454"
+                }
+
+              }
+            }
+            {
+              name: "Bill",
+              surname: "Callahan",
+              messages: {
+                {
+                  receiverId: "FERFZE9343223",
+                  senderId: "MMDZRER0323423932",
+                  message: "Hey man!",
+                  timestamp: "16590543"
+                }
+                {
+                  receiverId: "PAZOEZAR343",
+                  senderId: "MMDZRER0323423932",
+                  message: "Really?",
+                  timestamp: "16453454"
+                }
+
+              }
+            }
+
+          ]
+
+
+
+        */
+
+        // 8. Redirect to the current one = messageReceiver and retrieve its array of messages
+
+        // const UserSentMessages = messages.filter(
+        //   (message) => message.senderId === userId
+        // );
+        // console.log(UserSentMessages);
 
         const messageUsertoContact = messages.filter(
           (message) =>

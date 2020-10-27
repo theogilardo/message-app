@@ -22,7 +22,7 @@
         </p>
       </div>
       <button
-        @click="addContact(user)"
+        @click="chatWithContact(user)"
         class="list-category__user__btn list-category__user__btn__add-contact"
       >
         +
@@ -56,6 +56,7 @@ export default {
       return this.$store.dispatch("addContact", newContact);
     },
     chatWithContact(contact) {
+      this.$emit("chatWithContact");
       return this.$store.dispatch("chatWithContact", contact);
     },
   },

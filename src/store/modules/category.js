@@ -49,9 +49,7 @@ const actions = {
       .sort((a, b) => b.timestamp - a.timestamp)[0];
     dispatch("chatWithContact", findLastUserChat);
 
-    const messagesLength = rootState.users.user.contacts.filter(
-      (contact) => contact.lastMessage
-    ).length;
+    const messagesLength = rootState.users.contactMessages.length;
     commit("switchListLength", messagesLength);
   },
   switchToNewContact({ commit, rootState }) {

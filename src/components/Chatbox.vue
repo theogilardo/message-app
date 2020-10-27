@@ -1,11 +1,11 @@
 <template>
   <div class="chat" v-if="isDataFetched">
     <div class="background"></div>
-    <div class="logo">
+    <!-- <div class="logo">
       <router-link to="/login">
         <img class="logo__img" src="../assets/logo.png" alt="logo" />
       </router-link>
-    </div>
+    </div> -->
     <div class="chat__side-bar">
       <div class="chat__side-bar__container">
         <a class="chat__side-bar__link">
@@ -30,12 +30,11 @@
           />
         </a>
         <a
-          v-if="userContacts.length"
           :class="{
-            'chat__side-bar__link--active': listCategoryType === 'contacts',
+            'chat__side-bar__link--active': listCategoryType === 'findUsers',
           }"
           class="chat__side-bar__link"
-          @click="switchToContacts"
+          @click="switchToNewContact"
         >
           <img
             class="chat__side-bar__icon"
@@ -67,14 +66,14 @@
         {{ $t("chatbox.list.label") }}
       </h3>
 
-      <a @click="switchToNewContact">
+      <!-- <a @click="switchToNewContact">
         <img
           v-if="listCategoryType === 'contacts'"
           class="chat__category__icon"
           src="../assets/add-contact.svg"
           alt="Add contact"
         />
-      </a>
+      </a> -->
     </div>
 
     <div class="chat__lists">
@@ -137,14 +136,14 @@ export default {
     contacts: Contacts,
     messages: Messages,
   },
-  created() {
-    this.$toasted.success("Logged In", {
-      className: "toast-success",
-      theme: "bubble",
-      position: "top-right",
-      duration: 2000,
-    });
-  },
+  // created() {
+  //   this.$toasted.success("Logged In", {
+  //     className: "toast-success",
+  //     theme: "bubble",
+  //     position: "top-right",
+  //     duration: 2000,
+  //   });
+  // },
   data() {
     return {
       selectedComponent: "messages",
@@ -155,6 +154,9 @@ export default {
     };
   },
   computed: {
+    contactMessages() {
+      return this.$store.getters.contactMessages;
+    },
     isDataFetched() {
       return this.$store.getters.isDataFetched;
     },

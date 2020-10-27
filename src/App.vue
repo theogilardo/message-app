@@ -4,6 +4,11 @@
     <!-- <transition name="slide-fade"> -->
     <router-view />
     <!-- </transition> -->
+    <div class="logo">
+      <router-link to="/login">
+        <img class="logo__img" src="./assets/logo.png" alt="logo" />
+      </router-link>
+    </div>
     <div class="switch__trad">
       <a class="switch__trad--en" @click="swithToEnglish">
         <img
@@ -54,6 +59,15 @@ export default {
 </script>
 
 <style lang="stylus">
+
+.logo
+  position: absolute;
+  z-index 500
+  top: 1.8rem;
+  right: 15rem;
+
+.logo__img
+  width: 45px;
 
 .slide-fade-enter-active
   transition: all .3s ease;

@@ -1,13 +1,12 @@
 <template>
-  <div
-    class="list-category"
-    v-if="userContacts.some((contact) => contact.lastMessage)"
-  >
-    <div
-      v-for="user in userContacts
+  <!-- v-if="userContacts.some((contact) => contact.lastMessage)" -->
+  <div class="list-category" v-if="contactMessages">
+    <!-- v-for="user in userContacts
         .filter((contact) => contact.lastMessage)
-        .sort((a, b) => b.timestamp - a.timestamp)"
-      :class="{ activeChat: user.localId === userMessageReceiver.localId }"
+        .sort((a, b) => b.timestamp - a.timestamp)" -->
+    <!-- :class="{ activeChat: user.localId === userMessageReceiver.localId }" -->
+    <div
+      v-for="user in contactMessages"
       :key="user.id"
       class="list-category__user"
       @click="fetchMessages(user)"
@@ -23,13 +22,14 @@
           {{ user.name }} {{ user.surname }}
         </h2>
 
+        <!-- {{ user.messages | sliceMessage }} -->
         <p class="list-category__user__info__message">
-          {{ user.lastMessage | sliceMessage }}
+          {{ user.messages | sliceMessage }}
         </p>
       </div>
 
       <h3 class="list-category__user__time">
-        {{ user.timestamp | setTimeHourMinutes }}
+        {{ user.messages | setTimeHourMinutes }}
       </h3>
     </div>
   </div>
@@ -46,6 +46,9 @@ export default {
   computed: {
     listCategoryType() {
       return this.$store.getters.listCategoryType;
+    },
+    contactMessages() {
+      return this.$store.getters.contactMessages;
     },
     userContacts() {
       return this.$store.getters.userContacts;
