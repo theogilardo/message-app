@@ -179,7 +179,61 @@ const actions = {
       .catch((err) => console.log(err));
   },
 
-  fetchMessages({ state, commit, dispatch }) {
+  theFetchMessageTest({ state, commit, dispatch }) {
+    axios
+      .get("https://message-app-719f5.firebaseio.com/messages.json")
+      .then((res) => {
+        const data = res.data;
+        const messages = [];
+        for (let key in data) {
+          const message = data[key];
+          messages.push(message);
+        }
+        // Check for most recent chat
+
+        if (state.contactMessages) {
+          dispatch("chatWithContact", state.contactMessages[0]);
+        }
+
+        const conversation = [];
+        const userId = state.user.localId;
+        const contactId = state.userMessageReceiver.localId;
+
+        //
+
+        const messageUsertoContact = messages.filter(
+          (message) =>
+            message.senderId === userId && message.receiverId === contactId
+        );
+
+        messageUsertoContact.forEach((message) => {
+          return (message.type = "sent");
+        });
+
+        const messageContactToUser = messages.filter(
+          (message) =>
+            message.receiverId === userId && message.senderId === contactId
+        );
+
+        messageContactToUser.forEach((message) => {
+          return (message.type = "received");
+        });
+
+        const concatChat = messageUsertoContact.concat(messageContactToUser);
+        conversation.push(concatChat);
+
+        const sortConversation = conversation[0].sort(
+          (a, b) => a.timestamp - b.timestamp
+        );
+
+        commit("storeMessages", sortConversation);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
+
+  fetchMessages({ state, commit }) {
     axios
       .get("https://message-app-719f5.firebaseio.com/messages.json")
       .then((res) => {
@@ -191,7 +245,6 @@ const actions = {
         }
 
         const userId = state.user.localId;
-        const conversation = [];
 
         // Get all messages
         console.log(messages);
@@ -238,52 +291,15 @@ const actions = {
 
         commit("storeMessageList", contactMessages);
         // End of Fetch messages
-
-        // Check for most recent chat
-
-        if (contactMessages) {
-          dispatch("chatWithContact", contactMessages);
-        }
-
-        const contactId = state.userMessageReceiver.localId;
-
-        //
-
-        const messageUsertoContact = messages.filter(
-          (message) =>
-            message.senderId === userId && message.receiverId === contactId
-        );
-
-        messageUsertoContact.forEach((message) => {
-          return (message.type = "sent");
-        });
-
-        const messageContactToUser = messages.filter(
-          (message) =>
-            message.receiverId === userId && message.senderId === contactId
-        );
-
-        messageContactToUser.forEach((message) => {
-          return (message.type = "received");
-        });
-
-        const concatChat = messageUsertoContact.concat(messageContactToUser);
-        conversation.push(concatChat);
-
-        const sortConversation = conversation[0].sort(
-          (a, b) => a.timestamp - b.timestamp
-        );
-
-        commit("storeMessages", sortConversation);
       })
       .catch((err) => {
         console.log(err);
       });
   },
 
-  chatWithContact({ commit, dispatch }, contact) {
+  chatWithContact({ commit }, contact) {
     commit("storeUserMessageReceiver", contact);
-    dispatch("switchToMessages");
+    // dispatch("switchToMessages");
     // dispatch("fetchMessages");
   },
 };

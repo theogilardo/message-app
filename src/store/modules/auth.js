@@ -49,6 +49,7 @@ const actions = {
         console.log("login");
 
         dispatch("fetchUser");
+        dispatch("fetchMessages");
       })
       .catch((error) => console.log(error));
   },
