@@ -211,7 +211,7 @@ const actions = {
       });
   },
 
-  fetchMessages({ state, commit }) {
+  fetchMessages({ state, commit, dispatch }) {
     axios
       .get("https://message-app-719f5.firebaseio.com/messages.json")
       .then((res) => {
@@ -270,6 +270,26 @@ const actions = {
         console.log(contactMessages);
 
         commit("storeMessageList", contactMessages);
+
+        if (!state.userMessageReceiver && state.contactMessages.length) {
+          // Find last user message
+          const findLastUserMessage = messages.filter(
+            (message) =>
+              message.receiverId === userId || message.senderId === userId
+          );
+
+          console.log(findLastUserMessage);
+
+          const lastUserMessage =
+            findLastUserMessage[findLastUserMessage.length - 1].receiverId;
+          console.log(lastUserMessage);
+
+          const setMostRecentChat = contactMessages.find(
+            (contact) => contact.localId === lastUserMessage
+          );
+          dispatch("chatWithContact", setMostRecentChat);
+        }
+
         // End of Fetch messages
         state.areMessagesLoaded = true;
       })
