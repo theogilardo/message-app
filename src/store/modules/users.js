@@ -19,6 +19,11 @@ const getters = {
   contactMessages(state) {
     return state.contactMessages;
   },
+  userContactMessagesSorted(state) {
+    return state.contactMessages.sort(
+      (a, b) => b.lastTimestamp - a.lastTimestamp
+    );
+  },
   areMessagesLoaded(state) {
     return state.areMessagesLoaded;
   },
@@ -265,6 +270,12 @@ const actions = {
           );
 
           contact.messages = contactMessagesFiltered;
+
+          const lastTimestamp = contactMessagesFiltered.sort(
+            (a, b) => a.timestamp - b.timestamp
+          );
+          contact.lastTimestamp =
+            lastTimestamp[lastTimestamp.length - 1].timestamp;
         });
 
         console.log(contactMessages);

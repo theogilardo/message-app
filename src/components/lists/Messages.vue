@@ -5,7 +5,7 @@
         .filter((contact) => contact.lastMessage)
         .sort((a, b) => b.timestamp - a.timestamp)" -->
     <div
-      v-for="user in contactMessages"
+      v-for="user in userContactMessagesSorted"
       :key="user.id"
       :class="{ activeChat: user.localId === userMessageReceiver.localId }"
       class="list-category__user"
@@ -38,9 +38,13 @@
 <script>
 export default {
   name: "Messages",
+  created() {
+    this.userContacts = this.contactMessages;
+  },
   data() {
     return {
       test: {},
+      userContacts: [],
     };
   },
   computed: {
@@ -53,9 +57,15 @@ export default {
     contactMessages() {
       return this.$store.getters.contactMessages;
     },
-    userContacts() {
-      return this.$store.getters.userContacts;
+    userContactMessagesSorted() {
+      return this.$store.getters.userContactMessagesSorted;
+      // return this.$store.getters.contactMessages.sort(
+      //   (a, b) => a.lastTimestamp - b.lastTimestamp
+      // );
     },
+    // userContacts() {
+    //   return this.$store.getters.userContacts;
+    // },
     userMessageReceiver() {
       return this.$store.getters.userMessageReceiver;
     },
