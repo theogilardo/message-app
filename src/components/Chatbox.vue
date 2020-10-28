@@ -90,7 +90,7 @@
         <h1>
           {{ userMessageReceiver.name }} {{ userMessageReceiver.surname }}
         </h1>
-        <p>{{ userContactMessages.length }} messages</p>
+        <p>{{ contactMessages.length }} messages</p>
       </div>
     </div>
     <div class="chat__messages">
