@@ -40,7 +40,7 @@ const actions = {
     commit("switchToContacts");
     commit("switchListLength", rootState.users.user.contacts.length);
   },
-  switchToMessages({ commit, dispatch, rootState }) {
+  switchToMessages({ commit, rootState }) {
     // if (!rootState.users.userMessageReceiver && rootState.users.contactMessages.length) {
     //   const contactMessages = rootState.users.contactMessages
     //   const findLastMessage = contactMessages.sort(contact => contact.messages)
@@ -48,7 +48,7 @@ const actions = {
 
     // dispatch("fetchMessages");
     commit("switchToMessages");
-    dispatch("fetchContactMessages");
+    // dispatch("fetchContactMessages");
 
     // const findLastUserChat = rootState.users.user.contacts
     //   .filter((contact) => contact.lastMessage)

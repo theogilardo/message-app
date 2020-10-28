@@ -73,7 +73,7 @@ export default {
   methods: {
     fetchMessages(user) {
       this.$store.dispatch("chatWithContact", user);
-      this.$store.dispatch("fetchMessages");
+      // this.$store.dispatch("fetchMessages");
     },
   },
 };

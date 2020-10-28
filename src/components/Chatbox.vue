@@ -97,7 +97,7 @@
     <div class="chat__messages">
       <div v-if="userMessageReceiver" class="chat__messages__conversation">
         <p
-          v-for="message in userContactMessages"
+          v-for="message in selectedContactMessages"
           :class="{ sent: message.type === 'sent' }"
           :key="message.id"
         >
@@ -155,6 +155,9 @@ export default {
     };
   },
   computed: {
+    selectedContactMessages() {
+      return this.$store.getters.selectedContactMessages;
+    },
     contactMessages() {
       return this.$store.getters.contactMessages;
     },
