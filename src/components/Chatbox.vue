@@ -91,7 +91,7 @@
         <h1>
           {{ userMessageReceiver.name }} {{ userMessageReceiver.surname }}
         </h1>
-        <p>{{ userContactMessages.length }} messages</p>
+        <p>{{ selectedContactMessagesLength }} messages</p>
       </div>
     </div>
     <div class="chat__messages">
@@ -157,6 +157,9 @@ export default {
   computed: {
     selectedContactMessages() {
       return this.$store.getters.selectedContactMessages;
+    },
+    selectedContactMessagesLength() {
+      return this.$store.getters.selectedContactMessagesLength;
     },
     contactMessages() {
       return this.$store.getters.contactMessages;

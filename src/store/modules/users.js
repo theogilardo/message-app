@@ -23,6 +23,9 @@ const getters = {
   selectedContactMessages(state) {
     return state.selectedContactMessages;
   },
+  selectedContactMessagesLength(state) {
+    return state.selectedContactMessages.length;
+  },
   userContactMessagesSorted(state) {
     return state.contactMessages.sort(
       (a, b) => b.lastTimestamp - a.lastTimestamp
