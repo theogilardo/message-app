@@ -38,9 +38,29 @@
 <script>
 export default {
   name: "Messages",
-  created() {
-    this.userContacts = this.contactMessages;
-  },
+  // created() {
+  //   this.userContacts = this.contactMessages;
+  //   //
+
+  //   console.log(this.$store.getters.user);
+  //   console.log(this.$store.getters.contactMessages);
+  //   const messageContactsInit = this.contactMessages;
+  //   const userId = this.user.localId;
+  //   console.log(userId);
+  //   // Go through the messages
+  //   messageContactsInit.forEach((contact) => {
+  //     const hasNoCurrentUserMessage = contact.messages.some((message) => {
+  //       message.senderId !== userId && ;
+  //       console.log(hasNoCurrentUserMessage);
+  //       if (hasNoCurrentUserMessage) {
+  //         console.log(contact);
+  //       }
+  //     });
+  //   });
+  // Check if there is a message a contact chat with messages
+  // that DO NOT have the current user ID as senderId
+  // Notify it with toaster
+  // },
   data() {
     return {
       test: {},

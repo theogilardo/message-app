@@ -284,6 +284,7 @@ const actions = {
           contactMessages.push(contactDataFromUsers);
         });
 
+        // Users of the current user message list
         contactMessages.forEach((contact) => {
           const contactMessagesFiltered = messages.filter(
             (message) =>
@@ -294,7 +295,7 @@ const actions = {
           );
           // Modify contactMessagesFiltered
 
-          contact.messages = contactMessagesFiltered;
+          // contact.messages = contactMessagesFiltered;
 
           // console.log(contactMessagesFiltered);
 
@@ -323,11 +324,14 @@ const actions = {
           // console.log(contactMessagesFilteredFormatted);
           // console.log(contactMessagesFilteredFormatted[0]);
 
-          contact.messages = contactMessagesFilteredFormatted[0];
+          contact.messages = contactMessagesFilteredFormatted[0].sort(
+            (a, b) => b.timestamp - a.timestamp
+          );
 
-          const lastTimestamp = contactMessagesFiltered.sort(
+          const lastTimestamp = contactMessagesFilteredFormatted[0].sort(
             (a, b) => a.timestamp - b.timestamp
           );
+
           contact.lastTimestamp =
             lastTimestamp[lastTimestamp.length - 1].timestamp;
         });
