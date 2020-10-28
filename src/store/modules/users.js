@@ -299,6 +299,7 @@ const actions = {
             (contact) => contact.localId === lastUserMessage
           );
           dispatch("chatWithContact", setMostRecentChat);
+          dispatch("switchToMessages");
         }
 
         // End of Fetch messages
