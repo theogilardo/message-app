@@ -157,6 +157,7 @@ const actions = {
       .then((res) => {
         console.log(res);
         dispatch("fetchContactMessages");
+        dispatch("fetchMessages");
         dispatch("switchToMessages");
       })
       .catch((err) => console.log(err));
