@@ -23,9 +23,9 @@
       </div>
       <button
         @click="chatWithContact(user)"
-        class="list-category__user__btn list-category__user__btn__add-contact"
+        class="list-category__user__btn list-category__user__btn__chat"
       >
-        +
+        Chat
       </button>
     </div>
   </div>
@@ -90,8 +90,8 @@ export default {
       background #F8F8F8
       color #333 !important
 
-      & > .list-category__user__btn__add-contact
-        border 2px solid #333
+      & > .list-category__user__btn__chat
+        border 1.5px solid #333
 
       & > .list-category__user__btn
         color #333 !important

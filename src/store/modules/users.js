@@ -151,6 +151,7 @@ const actions = {
       .push(messageObj)
       .then((res) => {
         console.log(res);
+        dispatch("fetchContactMessages");
         dispatch("switchToMessages");
       })
       .catch((err) => console.log(err));
