@@ -100,7 +100,7 @@ const actions = {
       .catch((err) => console.log(err));
   },
 
-  fetchUser({ state, commit, rootState }) {
+  fetchUser({ state, commit, dispatch, rootState }) {
     axios
       .get("https://message-app-719f5.firebaseio.com/users.json")
       .then((res) => {
@@ -121,39 +121,12 @@ const actions = {
           (user) => rootState.auth.userId !== user.localId
         );
 
-        // if (activeUser.contacts) {
-        //   const activeUserContacts = [];
-        //   for (let key in activeUser.contacts) {
-        //     const contact = activeUser.contacts[key];
-        //     contact.contactKey = key;
-        //     activeUserContacts.push(contact);
-        //   }
-
-        //   activeUser.contacts = activeUserContacts;
-        //   const otherUsersNotInUserContacts = otherUsers.filter(
-        //     (user) =>
-        //       !activeUserContacts.some(
-        //         (contact) => user.localId === contact.localId
-        //       )
-        //   );
-
-        // if (state.messages.length) {
-        // const findLastUserChat = activeUserContacts
-        //   .filter((contact) => contact.lastMessage)
-        //   .sort((a, b) => b.timestamp - a.timestamp)[0];
-        // dispatch("chatWithContact", findLastUserChat);
-        // }
-
-        // commit("storeUsers", otherUsersNotInUserContacts);
-        // } else {
-        // activeUser.contacts = [];
-        // }
-
         localStorage.setItem("storeUser", JSON.stringify(activeUser));
         commit("storeUser", activeUser);
         commit("storeUsers", otherUsers);
 
         state.isDataFetched = true;
+        dispatch("fetchMessages");
       })
       .catch((err) => console.log(err));
   },
@@ -284,8 +257,10 @@ const actions = {
         contactMessages.forEach((contact) => {
           const contactMessagesFiltered = messages.filter(
             (message) =>
-              message.receiverId === contact.localId ||
-              message.senderId === contact.localId
+              (message.receiverId === contact.localId &&
+                message.senderId === userId) ||
+              (message.receiverId === userId &&
+                message.senderId === contact.localId)
           );
 
           contact.messages = contactMessagesFiltered;
@@ -302,10 +277,10 @@ const actions = {
       });
   },
 
-  chatWithContact({ commit }, contact) {
+  chatWithContact({ commit, dispatch }, contact) {
     commit("storeUserMessageReceiver", contact);
     // dispatch("switchToMessages");
-    // dispatch("fetchMessages");
+    dispatch("theFetchMessageTest");
   },
 };
 

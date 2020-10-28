@@ -40,7 +40,7 @@ const actions = {
     commit("switchToContacts");
     commit("switchListLength", rootState.users.user.contacts.length);
   },
-  switchToMessages({ commit, rootState, dispatch }) {
+  switchToMessages({ commit, dispatch, rootState }) {
     dispatch("theFetchMessageTest");
     commit("switchToMessages");
 
@@ -50,7 +50,6 @@ const actions = {
     // dispatch("chatWithContact", findLastUserChat);
 
     const messagesLength = rootState.users.contactMessages.length;
-    console.log(messagesLength);
     commit("switchListLength", messagesLength);
   },
   switchToNewContact({ commit, rootState }) {

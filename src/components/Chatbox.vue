@@ -94,12 +94,9 @@
       </div>
     </div>
     <div class="chat__messages">
-      <div
-        v-if="userMessageReceiver.messages"
-        class="chat__messages__conversation"
-      >
+      <div v-if="userMessageReceiver" class="chat__messages__conversation">
         <p
-          v-for="message in userMessageReceiver.messages"
+          v-for="message in userMessageReceiver"
           :class="{ sent: message.type === 'sent' }"
           :key="message.id"
         >
