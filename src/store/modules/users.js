@@ -230,7 +230,7 @@ const actions = {
         const userId = state.user.localId;
 
         // Get all messages
-        console.log(messages);
+        // console.log(messages);
 
         // Find all messages related to the currentUser
         const findContactIds = messages
@@ -238,9 +238,15 @@ const actions = {
             (message) =>
               message.receiverId === userId || message.senderId === userId
           )
-          .map((message) => message.receiverId);
+          .map((message) => {
+            const weFoundIt =
+              message.senderId === userId
+                ? message.receiverId
+                : message.senderId;
+            return weFoundIt;
+          });
 
-        console.log(findContactIds);
+        // console.log(findContactIds);
 
         // Find unique Ids between current user chats
         const _ = require("lodash");
@@ -248,8 +254,8 @@ const actions = {
           (id) => id !== userId
         );
 
-        console.log(uniqueContactIds);
-        console.log(state.users);
+        // console.log(uniqueContactIds);
+        // console.log(state.users);
 
         const contactMessages = [];
 
@@ -278,7 +284,7 @@ const actions = {
             lastTimestamp[lastTimestamp.length - 1].timestamp;
         });
 
-        console.log(contactMessages);
+        // console.log(contactMessages);
 
         commit("storeMessageList", contactMessages);
 
@@ -289,17 +295,26 @@ const actions = {
               message.receiverId === userId || message.senderId === userId
           );
 
-          console.log(findLastUserMessage);
+          // console.log(findLastUserMessage);
 
           const lastUserMessage =
-            findLastUserMessage[findLastUserMessage.length - 1].receiverId;
-          console.log(lastUserMessage);
+            findLastUserMessage[findLastUserMessage.length - 1];
+
+          const weFoundIt =
+            lastUserMessage.senderId === userId
+              ? lastUserMessage.receiverId
+              : lastUserMessage.senderId;
+
+          // console.log(lastUserMessage);
+          // console.log(weFoundIt);
+          // console.log(contactMessages);
 
           const setMostRecentChat = contactMessages.find(
-            (contact) => contact.localId === lastUserMessage
+            (contact) => contact.localId === weFoundIt
           );
+          // console.log("hey");
+          // console.log(setMostRecentChat);
           dispatch("chatWithContact", setMostRecentChat);
-          dispatch("switchToMessages");
         }
 
         // End of Fetch messages
@@ -312,8 +327,8 @@ const actions = {
 
   chatWithContact({ commit, dispatch }, contact) {
     commit("storeUserMessageReceiver", contact);
-    // dispatch("switchToMessages");
-    dispatch("fetchContactMessages");
+    dispatch("switchToMessages");
+    // dispatch("fetchContactMessages");
   },
 };
 

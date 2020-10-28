@@ -46,9 +46,9 @@ const actions = {
     //   const findLastMessage = contactMessages.sort(contact => contact.messages)
     // }
 
-    dispatch("fetchContactMessages");
-    dispatch("fetchMessages");
+    // dispatch("fetchMessages");
     commit("switchToMessages");
+    dispatch("fetchContactMessages");
 
     // const findLastUserChat = rootState.users.user.contacts
     //   .filter((contact) => contact.lastMessage)
