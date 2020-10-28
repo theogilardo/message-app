@@ -150,10 +150,11 @@ const actions = {
       receiverId: state.userMessageReceiver.localId,
       message: message,
       timestamp: timestamp,
-      type: "sent",
     };
 
-    commit("storeMessage", messageObj);
+    const currentSession = messageObj;
+    currentSession.type = "sent";
+    commit("storeMessage", currentSession);
 
     firebase
       .database()
@@ -238,29 +239,6 @@ const actions = {
         // Get all messages
         // console.log(messages);
 
-        const conversation = [];
-
-        const messageUsertoContact = messages.filter(
-          (message) => message.senderId === userId
-        );
-
-        messageUsertoContact.forEach((message) => {
-          return (message.type = "sent");
-        });
-
-        const messageContactToUser = messages.filter(
-          (message) => message.receiverId === userId
-        );
-
-        messageContactToUser.forEach((message) => {
-          return (message.type = "received");
-        });
-
-        const concatChat = messageUsertoContact.concat(messageContactToUser);
-        conversation.push(concatChat);
-
-        console.log(conversation);
-
         // Find all messages related to the currentUser
         const findContactIds = messages
           .filter(
@@ -284,7 +262,7 @@ const actions = {
         );
 
         // console.log(uniqueContactIds);
-        // console.log(state.users);
+        console.log(state.users);
 
         const contactMessages = [];
 
@@ -303,8 +281,38 @@ const actions = {
               (message.receiverId === userId &&
                 message.senderId === contact.localId)
           );
+          // Modify contactMessagesFiltered
 
           contact.messages = contactMessagesFiltered;
+
+          // console.log(contactMessagesFiltered);
+
+          // Add the filters here
+          const contactMessagesFilteredFormatted = [];
+
+          const messageUsertoContact = contactMessagesFiltered.filter(
+            (message) => message.senderId === userId
+          );
+
+          messageUsertoContact.forEach((message) => {
+            return (message.type = "sent");
+          });
+
+          const messageContactToUser = contactMessagesFiltered.filter(
+            (message) => message.receiverId === userId
+          );
+
+          messageContactToUser.forEach((message) => {
+            return (message.type = "received");
+          });
+
+          const concatChat = messageUsertoContact.concat(messageContactToUser);
+          contactMessagesFilteredFormatted.push(concatChat);
+
+          // console.log(contactMessagesFilteredFormatted);
+          // console.log(contactMessagesFilteredFormatted[0]);
+
+          contact.messages = contactMessagesFilteredFormatted[0];
 
           const lastTimestamp = contactMessagesFiltered.sort(
             (a, b) => a.timestamp - b.timestamp
