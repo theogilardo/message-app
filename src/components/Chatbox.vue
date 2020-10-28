@@ -91,7 +91,12 @@
         <h1>
           {{ userMessageReceiver.name }} {{ userMessageReceiver.surname }}
         </h1>
-        <p>{{ selectedContactMessagesLength }} messages</p>
+        <p v-if="selectedContactMessages">
+          {{ selectedContactMessages.length }} messages
+        </p>
+        <p v-else>
+          0 message
+        </p>
       </div>
     </div>
     <div class="chat__messages">
@@ -158,9 +163,14 @@ export default {
     selectedContactMessages() {
       return this.$store.getters.selectedContactMessages;
     },
-    selectedContactMessagesLength() {
-      return this.$store.getters.selectedContactMessagesLength;
-    },
+    // selectedContactMessagesLength() {
+    //   const selectedContactMessagesLength = this.$store.getters
+    //     .selectedContactMessagesLength;
+    //   if (!selectedContactMessagesLength) {
+    //     return "0";
+    //   }
+    //   return selectedContactMessagesLength;
+    // },
     contactMessages() {
       return this.$store.getters.contactMessages;
     },
@@ -210,6 +220,7 @@ export default {
     },
     sendMessage() {
       this.messages.push(this.message);
+      console.log(this.message);
       this.$store.dispatch("storeMessage", this.message);
       this.clearTypeInput();
       this.selectTypeInput();

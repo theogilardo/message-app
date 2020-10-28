@@ -23,9 +23,9 @@ const getters = {
   selectedContactMessages(state) {
     return state.selectedContactMessages;
   },
-  selectedContactMessagesLength(state) {
-    return state.selectedContactMessages.length;
-  },
+  // selectedContactMessagesLength(state) {
+  //   return state.selectedContactMessages.length;
+  // },
   userContactMessagesSorted(state) {
     return state.contactMessages.sort(
       (a, b) => b.lastTimestamp - a.lastTimestamp
@@ -55,6 +55,9 @@ const getters = {
 };
 
 const mutations = {
+  emptyMessages(state) {
+    state.selectedContactMessages = [];
+  },
   storeUser(state, userData) {
     state.user = userData;
   },
@@ -91,6 +94,7 @@ const mutations = {
     );
   },
   storeMessage(state, messageObj) {
+    console.log(state.selectedContactMessages);
     state.selectedContactMessages.push(messageObj);
   },
 
@@ -148,12 +152,16 @@ const actions = {
 
     const timestamp = new Date().getTime();
 
+    console.log(state.userMessageReceiver.localId);
+
     const messageObj = {
       senderId: state.user.localId,
       receiverId: state.userMessageReceiver.localId,
       message: message,
       timestamp: timestamp,
     };
+
+    console.log(messageObj);
 
     const currentSession = messageObj;
     currentSession.type = "sent";
@@ -367,9 +375,18 @@ const actions = {
 
   chatWithContact({ commit, dispatch }, contact) {
     // Condition if empty chat
-
+    console.log(contact);
     commit("storeUserMessageReceiver", contact);
-    commit("storeSelectedContactMessages", contact);
+
+    // if (!state.contactMessages) {
+    //   return;
+    // }
+
+    commit("emptyMessages");
+
+    if (contact.messages) {
+      commit("storeSelectedContactMessages", contact);
+    }
     dispatch("switchToMessages");
     // dispatch("fetchContactMessages");
   },
