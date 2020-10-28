@@ -150,6 +150,7 @@ const actions = {
       receiverId: state.userMessageReceiver.localId,
       message: message,
       timestamp: timestamp,
+      type: "sent",
     };
 
     commit("storeMessage", messageObj);
