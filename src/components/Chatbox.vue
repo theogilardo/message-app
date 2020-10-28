@@ -17,6 +17,7 @@
         </a>
         <!-- v-if="userContactMessages.length" -->
         <a
+          v-if="contactMessages.length"
           :class="{
             'chat__side-bar__link--active': listCategoryType === 'messages',
           }"
