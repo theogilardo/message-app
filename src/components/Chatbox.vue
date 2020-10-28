@@ -94,9 +94,12 @@
       </div>
     </div>
     <div class="chat__messages">
-      <div v-if="firebaseMessages" class="chat__messages__conversation">
+      <div
+        v-if="userMessageReceiver.messages"
+        class="chat__messages__conversation"
+      >
         <p
-          v-for="message in firebaseMessages"
+          v-for="message in userMessageReceiver.messages"
           :class="{ sent: message.type === 'sent' }"
           :key="message.id"
         >
