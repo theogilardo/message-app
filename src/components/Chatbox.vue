@@ -15,7 +15,7 @@
             alt="Edit Button"
           />
         </a>
-        <!-- v-if="firebaseMessages.length" -->
+        <!-- v-if="userContactMessages.length" -->
         <a
           :class="{
             'chat__side-bar__link--active': listCategoryType === 'messages',
@@ -90,13 +90,13 @@
         <h1>
           {{ userMessageReceiver.name }} {{ userMessageReceiver.surname }}
         </h1>
-        <p>{{ firebaseMessages.length }} messages</p>
+        <p>{{ userContactMessages.length }} messages</p>
       </div>
     </div>
     <div class="chat__messages">
       <div v-if="userMessageReceiver" class="chat__messages__conversation">
         <p
-          v-for="message in userMessageReceiver"
+          v-for="message in userContactMessages"
           :class="{ sent: message.type === 'sent' }"
           :key="message.id"
         >
@@ -178,7 +178,7 @@ export default {
     userMessages() {
       return this.$store.getters.userMessages;
     },
-    firebaseMessages() {
+    userContactMessages() {
       return this.$store.getters.messages;
     },
     listCategoryType() {

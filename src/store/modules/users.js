@@ -156,7 +156,7 @@ const actions = {
       .catch((err) => console.log(err));
   },
 
-  theFetchMessageTest({ state, commit, dispatch }) {
+  fetchContactMessages({ state, commit }) {
     axios
       .get("https://message-app-719f5.firebaseio.com/messages.json")
       .then((res) => {
@@ -168,9 +168,9 @@ const actions = {
         }
         // Check for most recent chat
 
-        if (state.contactMessages) {
-          dispatch("chatWithContact", state.contactMessages[0]);
-        }
+        // if (state.contactMessages) {
+        //   dispatch("chatWithContact", state.contactMessages[0]);
+        // }
 
         const conversation = [];
         const userId = state.user.localId;
@@ -280,7 +280,7 @@ const actions = {
   chatWithContact({ commit, dispatch }, contact) {
     commit("storeUserMessageReceiver", contact);
     // dispatch("switchToMessages");
-    dispatch("theFetchMessageTest");
+    dispatch("fetchContactMessages");
   },
 };
 

@@ -41,7 +41,7 @@ const actions = {
     commit("switchListLength", rootState.users.user.contacts.length);
   },
   switchToMessages({ commit, dispatch, rootState }) {
-    dispatch("theFetchMessageTest");
+    dispatch("fetchContactMessages");
     commit("switchToMessages");
 
     // const findLastUserChat = rootState.users.user.contacts
