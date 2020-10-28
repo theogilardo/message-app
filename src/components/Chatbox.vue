@@ -60,8 +60,9 @@
         "
         class="chat__category__name"
       >
-        {{ listCategoryTypeLabel }} ({{ listCategoryTypeLength }})
+        {{ listCategoryTypeLabel }}
       </h3>
+      <!-- {{ listCategoryTypeLabel }} ({{ listCategoryTypeLength }}) -->
       <h3 v-else class="chat__category__name">
         {{ $t("chatbox.list.label") }}
       </h3>
