@@ -22,6 +22,6 @@ export default {};
   flex-direction column
 
   img
-    width 50rem
+    width 60rem
     object-fit cover
 </style>
