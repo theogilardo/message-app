@@ -1,6 +1,6 @@
 <template>
   <!-- v-if="userContacts.some((contact) => contact.lastMessage)" -->
-  <div class="list-category" v-if="areMessagesLoaded && userMessageReceiver">
+  <div class="list-category" v-if="userMessageReceiver">
     <!-- v-for="user in userContacts
         .filter((contact) => contact.lastMessage)
         .sort((a, b) => b.timestamp - a.timestamp)" -->
@@ -60,6 +60,13 @@ export default {
   // Check if there is a message a contact chat with messages
   // that DO NOT have the current user ID as senderId
   // Notify it with toaster
+  // },
+  // mounted() {
+  //   if (localStorage.getItem("messageList")) {
+  //     const messageList = JSON.parse(localStorage.getItem("messageList"));
+  //     console.log(messageList);
+  //     this.$store.commit("storeMessageList", messageList);
+  //   }
   // },
   data() {
     return {

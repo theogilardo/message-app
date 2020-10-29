@@ -1,5 +1,5 @@
 <template>
-  <div class="chat" v-if="isDataFetched">
+  <div class="chat">
     <div class="background"></div>
     <!-- <div class="logo">
       <router-link to="/login">
@@ -122,7 +122,7 @@
     </div>
     <div v-show="!userMessageReceiver" class="chat__onboarding">
       <h1 class="chat__onboarding__text__main">
-        {{ $t("chatbox.onboarding.welcome") }} {{ user.name }} !
+        {{ $t("chatbox.onboarding.welcome") }} !
         <h2 class="chat__onboarding__text__second">
           {{ $t("chatbox.onboarding.subline") }}
         </h2>
@@ -151,6 +151,32 @@ export default {
   //     duration: 2000,
   //   });
   // },
+  mounted() {
+    // if (!window.localStorage.length) {
+    //   console.log("local storage is empty");
+    //   this.$store.dispatch("fetchUser");
+    // }
+    if (localStorage.getItem("storeUsers")) {
+      const users = JSON.parse(localStorage.getItem("storeUsers"));
+      this.$store.commit("storeUsers", users);
+    }
+    if (localStorage.getItem("storeUser")) {
+      const users = JSON.parse(localStorage.getItem("storeUser"));
+      this.$store.commit("storeUser", users);
+    }
+    if (localStorage.getItem("userMessageReceiver")) {
+      const userMessageReceiver = JSON.parse(
+        localStorage.getItem("userMessageReceiver")
+      );
+      this.$store.dispatch("chatWithContact", userMessageReceiver);
+      this.$store.commit("storeSelectedContactMessages", userMessageReceiver);
+    }
+    if (localStorage.getItem("messageList")) {
+      const messageList = JSON.parse(localStorage.getItem("messageList"));
+      console.log(messageList);
+      this.$store.commit("storeMessageList", messageList);
+    }
+  },
   data() {
     return {
       selectedComponent: "messages",

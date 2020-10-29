@@ -43,12 +43,6 @@ const getters = {
   userMessageReceiver(state) {
     return state.userMessageReceiver;
   },
-  userContacts(state) {
-    return state.user.contacts;
-  },
-  messages(state) {
-    return state.messages;
-  },
   users(state) {
     return state.users;
   },
@@ -137,7 +131,10 @@ const actions = {
           (user) => rootState.auth.userId !== user.localId
         );
 
+        // console.log(activeUser);
+        // console.log(otherUsers);
         localStorage.setItem("storeUser", JSON.stringify(activeUser));
+        localStorage.setItem("storeUsers", JSON.stringify(otherUsers));
         commit("storeUser", activeUser);
         commit("storeUsers", otherUsers);
 
@@ -339,6 +336,7 @@ const actions = {
         // console.log(contactMessages);
 
         commit("storeMessageList", contactMessages);
+        localStorage.setItem("messageList", JSON.stringify(contactMessages));
 
         if (!state.userMessageReceiver && state.contactMessages.length) {
           // Find last user message
@@ -381,6 +379,7 @@ const actions = {
     // Condition if empty chat
     console.log(contact);
     commit("storeUserMessageReceiver", contact);
+    localStorage.setItem("userMessageReceiver", JSON.stringify(contact));
 
     // if (!state.contactMessages) {
     //   return;
