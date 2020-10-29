@@ -97,12 +97,10 @@
         <h1>
           {{ userMessageReceiver.name }} {{ userMessageReceiver.surname }}
         </h1>
-        <p v-if="selectedContactMessages">
+        <p v-if="selectedContactMessages.length > 1">
           {{ selectedContactMessages.length }} messages
         </p>
-        <p v-else>
-          0 message
-        </p>
+        <p v-else>{{ selectedContactMessages.length }} message</p>
       </div>
     </div>
     <div class="chat__messages">
