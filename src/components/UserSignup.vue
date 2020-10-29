@@ -151,7 +151,7 @@ export default {
           this.clearFields();
           this.redirectUser();
         } else {
-          return;
+          alert("Form not valid");
         }
       });
     },
