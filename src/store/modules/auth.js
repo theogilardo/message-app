@@ -52,6 +52,8 @@ const actions = {
       })
       .catch((error) => {
         console.log(error);
+        console.log(router);
+
         alert("Invalid email");
       });
   },

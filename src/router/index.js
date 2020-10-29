@@ -4,6 +4,7 @@ import HomePage from "../components/HomePage.vue";
 import Signup from "../components/UserSignup.vue";
 import Login from "../components/UserLogin.vue";
 import Chatbox from "../components/Chatbox.vue";
+import Error from "../components/Error.vue";
 import store from "../store/index.js";
 
 Vue.use(VueRouter);
@@ -37,6 +38,11 @@ const routes = [
         next("/login");
       }
     },
+  },
+  {
+    path: "*",
+    name: "404",
+    component: Error,
   },
 ];
 

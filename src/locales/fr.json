@@ -36,5 +36,8 @@
       "welcome": "Bienvenu",
       "subline": "Trouve des contacts et commence à chatter !"
     }
+  },
+  "error": {
+    "404": "La page que vous recherchez n'existe pas !"
   }
 }
