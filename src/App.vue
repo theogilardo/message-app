@@ -59,7 +59,8 @@ export default {
 </script>
 
 <style lang="stylus">
-
+// @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Raleway&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Roboto&display=swap');
 .logo
   position: absolute;
   z-index 500
@@ -100,26 +101,10 @@ export default {
   opacity 1 !important
   backgorund pink
 
-html
-  font-size: 62.5%; // 1rem = 10px
 
-  h1
-    font-size: 4.6rem;
-
-  h2
-    font-size: 2.2rem;
-
-  h3
-    font-size: 1.6rem;
-
-  h4
-    font-size: 1rem;
-
-  p
-    font-size: 1.4rem;
 
 #app
-  font-family Avenir, Helvetica, Arial, sans-serif
+  // font-family Avenir, Helvetica, Arial, sans-serif
   -webkit-font-smoothing antialiased
   -moz-osx-font-smoothing grayscale
   text-align center
@@ -128,6 +113,37 @@ html
   width 100%
   background-color #DEF2EC
   position relative
+  // font-family: 'Abril Fatface', cursive;
+  font-family: 'Roboto', sans-serif;
+
+
+
+
+html
+  font-size: 62.5%; // 1rem = 10px
+
+
+
+  h1
+    font-size: 4.6rem;
+    font-family: 'Abril Fatface', cursive;
+
+  h2
+    font-size: 2.2rem;
+
+  h3
+    font-size: 1.6rem;
+    font-family: 'Abril Fatface', cursive;
+
+  h4
+    font-size: 1rem;
+
+  p
+    font-size: 1.4rem;
+
+button
+  font-family: 'Roboto', sans-serif;
+
 
 *,
 *::before,

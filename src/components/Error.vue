@@ -20,6 +20,7 @@ export default {};
   align-items center
   justify-content center
   flex-direction column
+  font-family: 'Abril Fatface', cursive;
 
   img
     width 60rem
