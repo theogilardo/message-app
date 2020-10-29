@@ -7,12 +7,16 @@
       :placeholder="$t('chatbox.list.placeholder')"
     />
     <div v-for="user in filterUsers" :key="user.id" class="list-category__user">
-      <img
+      <!-- <img
         class="list-category__user__img"
         src="../../assets/theo.png"
         alt="Main Profile Photo"
+      /> -->
+      <img
+        :src="user.profilePic"
+        class="list-category__user__img"
+        alt="Main Profile Photo"
       />
-      <!-- <img :src="user.profilePic" alt="Main Profile Photo" /> -->
       <div class="list-category__user__info">
         <h2 class="list-category__user__info__name">
           {{ user.name }} {{ user.surname }}

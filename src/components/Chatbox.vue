@@ -8,12 +8,17 @@
     </div> -->
     <div class="chat__side-bar">
       <div class="chat__side-bar__container">
-        <a class="chat__side-bar__link">
+        <a v-if="user" class="chat__side-bar__link">
           <img
+            class="chat__side-bar__profile-pic"
+            :src="user.profilePic"
+            alt="Edit Button"
+          />
+          <!-- <img
             class="chat__side-bar__profile-pic"
             src="../assets/theo.png"
             alt="Edit Button"
-          />
+          /> -->
         </a>
         <!-- v-if="userContactMessages.length" -->
         <a
@@ -86,8 +91,8 @@
       ></component>
     </div>
     <div v-if="userMessageReceiver" class="chat__main-user">
-      <!-- <img :src="user.profilePic" alt="Main Profile Photo" /> -->
-      <img src="../assets/theo.png" alt="Main Profile Photo" />
+      <img :src="userMessageReceiver.profilePic" alt="Main Profile Photo" />
+      <!-- <img src="../assets/theo.png" alt="Main Profile Photo" /> -->
       <div class="chat__main-user__information">
         <h1>
           {{ userMessageReceiver.name }} {{ userMessageReceiver.surname }}

@@ -2,6 +2,9 @@
   <div class="container">
     <form class="container__form">
       <h2>{{ $t("signup.title") }}</h2>
+      <div>
+        <input type="file" id="file" ref="myFiles" @change="onFileSelected" />
+      </div>
       <div class="container__form__field container__form__appelation">
         <div>
           <input
@@ -67,6 +70,8 @@
 </template>
 
 <script>
+import firebase from "firebase";
+
 export default {
   name: "Signup",
   data() {
@@ -76,6 +81,7 @@ export default {
         surname: "",
         email: "",
         phone: "",
+        profilePic: null,
       },
     };
   },
@@ -118,6 +124,29 @@ export default {
     },
     redirectUser() {
       return this.$router.push("/chatbox");
+    },
+    onFileSelected(event) {
+      let file = event.target.files[0];
+      var storageRef = firebase.storage().ref("profile-pics/" + file.name);
+      let uploadTask = storageRef.put(file);
+
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          console.log(snapshot);
+          // let bytesTransferred = snapshot.bytesTransferred;
+          // let totalBytes = snapshot.totalBytes;
+          // this.loading = Math.round((bytesTransferred / totalBytes) * 100);
+        },
+        (error) => {
+          console.log(error);
+        },
+        () => {
+          uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+            this.userData.profilePic = downloadURL;
+          });
+        }
+      );
     },
   },
 };
