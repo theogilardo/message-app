@@ -277,7 +277,8 @@ export default {
       return this.$store.commit("logout");
     },
     redirectHome() {
-      return this.$router.push("/login");
+      this.$router.push("/login");
+      location.reload();
     },
   },
 };
