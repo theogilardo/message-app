@@ -1,70 +1,105 @@
 <template>
   <div class="container">
     <form class="container__form">
-      <h2>{{ $t("signup.title") }}</h2>
-      <div>
-        <input type="file" id="file" ref="myFiles" @change="onFileSelected" />
+      <div class="container__form__label">
+        <h2>{{ $t("signup.title") }}</h2>
       </div>
-      <div class="container__form__field container__form__appelation">
-        <div>
+
+      <div class="container__form__photo">
+        <div class="container__form__photo__circle">
+          <img :src="profilePicDOM" alt="" />
+          <p
+            v-if="!userData.profilePic"
+            class="container__form__photo__circle__label"
+          >
+            + Add photo <br />
+            here
+          </p>
           <input
-            :class="{ error: errors.has('name') }"
-            v-model="userData.name"
+            class="container__form__photo__upload"
             v-validate="'required'"
-            name="name"
-            type="text"
-            :placeholder="$t('signup.placeholder.name')"
+            name="image"
+            type="file"
+            id="file"
+            ref="myFiles"
+            @change="onFileSelected"
           />
-          <label> {{ errors.first("name") }} </label>
+          <label class="container__form__photo__circle__error">
+            {{ errors.first("image") }}
+          </label>
         </div>
-        <div>
+      </div>
+
+      <div class="container__form__input">
+        <div class="container__form__field container__form__input__appelation">
+          <div class="container__form__input__appelation__error">
+            <input
+              :class="{ error: errors.has('name') }"
+              v-model="userData.name"
+              v-validate="'required'"
+              name="name"
+              type="text"
+              :placeholder="$t('signup.placeholder.name')"
+            />
+            <label class="container__form__input__appelation__error__label">
+              {{ errors.first("name") }}
+            </label>
+          </div>
+          <div>
+            <div class="container__form__input__appelation__error">
+              <input
+                :class="{ error: errors.has('surname') }"
+                v-model="userData.surname"
+                v-validate="'required'"
+                name="surname"
+                type="text"
+                :placeholder="$t('signup.placeholder.surname')"
+              />
+              <label class="container__form__input__appelation__error__label">
+                {{ errors.first("surname") }}
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="container__form__field">
           <input
-            :class="{ error: errors.has('surname') }"
-            v-model="userData.surname"
-            v-validate="'required'"
-            name="surname"
+            :class="{ error: phoneError }"
+            v-model="userData.phone"
+            v-validate="'required|regex:^([0-9]+)$'"
+            name="phone"
             type="text"
-            :placeholder="$t('signup.placeholder.surname')"
+            :placeholder="$t('signup.placeholder.phone')"
           />
-          <label> {{ errors.first("surname") }} </label>
+          <label> {{ errors.first("phone") }} </label>
+        </div>
+        <div class="container__form__field">
+          <input
+            :class="{ error: emailError }"
+            v-model="userData.email"
+            v-validate="'required|email'"
+            name="email"
+            type="text"
+            :placeholder="$t('signup.placeholder.email')"
+          />
+          <label> {{ errors.first("email") }} </label>
+        </div>
+        <div class="container__form__field">
+          <input
+            :class="{ error: passwordError }"
+            v-model="userData.password"
+            v-validate="'required|min:6'"
+            name="password"
+            type="text"
+            :placeholder="$t('signup.placeholder.password')"
+          />
+          <label> {{ errors.first("password") }} </label>
         </div>
       </div>
-      <div class="container__form__field">
-        <input
-          :class="{ error: phoneError }"
-          v-model="userData.phone"
-          v-validate="'required|regex:^([0-9]+)$'"
-          name="phone"
-          type="text"
-          :placeholder="$t('signup.placeholder.phone')"
-        />
-        <label> {{ errors.first("phone") }} </label>
+      <div class="container__form__btn">
+        <button class="btn" type="submit" @click.prevent="formSubmitted">
+          {{ $t("button.signup") }}
+        </button>
       </div>
-      <div class="container__form__field">
-        <input
-          :class="{ error: emailError }"
-          v-model="userData.email"
-          v-validate="'required|email'"
-          name="email"
-          type="text"
-          :placeholder="$t('signup.placeholder.email')"
-        />
-        <label> {{ errors.first("email") }} </label>
-      </div>
-      <div class="container__form__field">
-        <input
-          :class="{ error: passwordError }"
-          v-model="userData.password"
-          v-validate="'required|min:6'"
-          name="password"
-          type="text"
-          :placeholder="$t('signup.placeholder.password')"
-        />
-        <label> {{ errors.first("password") }} </label>
-      </div>
-      <button class="btn" type="submit" @click.prevent="formSubmitted">
-        {{ $t("button.signup") }}
-      </button>
     </form>
   </div>
 </template>
@@ -86,6 +121,12 @@ export default {
     };
   },
   computed: {
+    profilePicDOM() {
+      if (!this.userData.profilePic) {
+        return require("@/assets/default-user.png");
+      }
+      return this.userData.profilePic;
+    },
     emailError() {
       return this.$validator.errors.items.some(
         (error) => error.field === "email" && error.rule === "required"
@@ -120,6 +161,7 @@ export default {
         surname: "",
         email: "",
         phone: "",
+        profilePic: null,
       };
     },
     redirectUser() {
@@ -166,41 +208,120 @@ export default {
 
   &__form
     margin-top 8rem
-    padding 2rem
+    padding 2rem 2rem 2rem 3rem
     width 100%
-    max-width 55rem
+    max-width 75rem
+    height 48rem
+    position relative
     border-radius 20px
     background: linear-gradient(to right, rgba(74,210,149,1), rgba(77,125,225,1));
-    display flex
-    align-items center
-    justify-content center
-    flex-direction column
+    display grid
+    grid-template-rows 5rem 1fr 5rem
+    grid-template-columns 30% 1fr
+    // flex-direction column
 
-    h2
-      margin 2rem 0 3rem 0
+    &__label
       color white
-
-    &__appelation
+      grid-row 1 / 2
+      grid-column 1 / -1
       display flex
       align-items center
-      justify-content space-between
-      margin-bottom 3.5rem
-      width 100%
+      justify-content center
 
-      div
+    &__photo
+        width 100%
+        height 100%
+        position relative
+        grid-row 2 / 5
+        grid-column 1 / 2
+        padding-bottom 2rem
+        display flex
+        align-items center
+        justify-content center
+
+        img
+          width 100%
+          height 100%
+          object-fit cover
+          border-radius 50%
+
+        &__circle
+          position relative
+          width 15rem
+          height 15rem
+          background white
+          border 1px solid white
+          border-radius 50%
+
+          &__label
+            position absolute
+            color white
+            top 0
+            left 0
+            width 100%
+            height 100%
+            display flex
+            align-items center
+            justify-content center
+            background #404040a6
+            z-index 200
+            border-radius 50%
+
+          &__error
+            position: absolute;
+            top: 115%;
+
+        &__upload
+          position absolute
+          z-index 500
+          top 50%
+          left 50%
+          transform translate(-50%, -50%) scale(2)
+          opacity 0
+
+    &__input
+      grid-row 1 / 4
+      grid-column 2 / 3
+      margin-top 4rem
+      display flex
+      align-items center
+      justify-content center
+      flex-direction column
+
+      &__appelation
+        display flex
+        align-items center
+        justify-content space-between
+        margin-bottom 3rem
         width 100%
 
-        &:first-child
-          margin-right 2rem
+        &__error
+          position relative
+
+          &__label
+            position absolute
+
+        div
+          width 100%
+
+          &:first-child
+            margin-right 2rem
 
     &__field
         width 70%
         position relative
 
-        &:not(:first-child)
+        &:not(:last-child)
           margin-bottom 3.5rem
+
+    &__btn
+      grid-row 4 / 5
+      grid-column 1 / -1
+      display flex
+      align-items center
+      justify-content center
+
     .btn
-      margin 1.5rem;
       font-size 1.6rem
       padding: 1.5rem 2.5rem;
       border: none;
@@ -217,7 +338,7 @@ export default {
         transform: translateY(-2px);
 
 input
-  padding 1.5rem
+  padding 1.2rem
   width 100%
   border none
   border-radius 5px
@@ -227,6 +348,6 @@ label
   color red
   font-size 1.1rem
   width 100%
-  top 5.5rem
+  top 5rem
   left 0
 </style>

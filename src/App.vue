@@ -4,7 +4,7 @@
     <!-- <transition name="slide-fade"> -->
     <router-view />
     <!-- </transition> -->
-    <div class="logo">
+    <!-- <div class="logo">
       <router-link to="/login">
         <img class="logo__img" src="./assets/logo.png" alt="logo" />
       </router-link>
@@ -26,7 +26,7 @@
           alt="Flag FR"
         />
       </a>
-    </div>
+    </div> -->
   </div>
 </template>
 
