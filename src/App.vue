@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <the-navbar></the-navbar>
-    <!-- <transition name="slide-fade"> -->
-    <router-view />
-    <!-- </transition> -->
+    <transition name="slide-fade">
+      <router-view />
+    </transition>
     <!-- <div class="logo">
       <router-link to="/login">
         <img class="logo__img" src="./assets/logo.png" alt="logo" />
@@ -71,13 +71,13 @@ export default {
   width: 45px;
 
 .slide-fade-enter-active
-  transition: all .3s ease;
+  transition: all .8s ease;
 
 .slide-fade-leave-active
-  transition: all .4s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  transition: all .8s ease
 
 .slide-fade-enter, .slide-fade-leave-to
-  transform: translateX(10px);
+  transform: translateY(25px);
   opacity: 0;
 
 .switch__trad
