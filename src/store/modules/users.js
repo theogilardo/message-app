@@ -93,7 +93,7 @@ const mutations = {
   },
 
   storeSelectedContactMessages(state, selectedContactMessages) {
-    state.selectedContactMessages = selectedContactMessages.messages;
+    state.selectedContactMessages = selectedContactMessages;
   },
 };
 
@@ -163,6 +163,11 @@ const actions = {
     const currentSession = messageObj;
     currentSession.type = "sent";
     commit("storeMessage", currentSession);
+    console.log(state.selectedContactMessages);
+    localStorage.setItem(
+      "selectedContactMessages",
+      JSON.stringify(state.selectedContactMessages)
+    );
 
     firebase
       .database()
@@ -388,7 +393,7 @@ const actions = {
     commit("emptyMessages");
 
     if (contact.messages) {
-      commit("storeSelectedContactMessages", contact);
+      commit("storeSelectedContactMessages", contact.messages);
     }
     dispatch("switchToMessages");
     // dispatch("fetchContactMessages");

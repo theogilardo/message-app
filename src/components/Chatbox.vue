@@ -168,13 +168,20 @@ export default {
       const userMessageReceiver = JSON.parse(
         localStorage.getItem("userMessageReceiver")
       );
+      console.log(userMessageReceiver);
       this.$store.dispatch("chatWithContact", userMessageReceiver);
-      this.$store.commit("storeSelectedContactMessages", userMessageReceiver);
+      // this.$store.commit("storeSelectedContactMessages", userMessageReceiver);
     }
     if (localStorage.getItem("messageList")) {
       const messageList = JSON.parse(localStorage.getItem("messageList"));
-      console.log(messageList);
       this.$store.commit("storeMessageList", messageList);
+    }
+    if (localStorage.getItem("selectedContactMessages")) {
+      const messageList = JSON.parse(
+        localStorage.getItem("selectedContactMessages")
+      );
+      console.log(messageList);
+      this.$store.commit("storeSelectedContactMessages", messageList);
     }
   },
   data() {
