@@ -65,10 +65,10 @@ export default {
     formSubmitted() {
       this.$validator.validateAll().then((isValid) => {
         if (isValid) {
+          console.log(isValid);
           this.$store.dispatch("login", this.userData);
-          this.clearFields();
-          this.redirectUser();
         } else {
+          alert("Form not valid");
           return;
         }
       });

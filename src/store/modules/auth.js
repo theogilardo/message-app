@@ -1,4 +1,5 @@
 import axios from "axios";
+import router from "../../router";
 
 const state = {
   userId: null,
@@ -46,12 +47,13 @@ const actions = {
           tokenId: res.data.idToken,
           userId: res.data.localId,
         });
-        console.log("login");
-
+        router.replace("/chatbox");
         dispatch("fetchUser");
-        // dispatch("fetchMessages");
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error);
+        alert("Invalid email");
+      });
   },
 
   signup({ commit, dispatch }, authData) {
