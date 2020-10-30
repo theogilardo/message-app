@@ -69,9 +69,7 @@
     </div>
     <div class="chat__category">
       <h3
-        v-if="
-          listCategoryType === 'contacts' || listCategoryType === 'messages'
-        "
+        v-if="listCategoryType === 'list-user-messages'"
         class="chat__category__name"
       >
         {{ listCategoryTypeLabel }}
@@ -201,13 +199,10 @@ export default {
       location.reload();
     },
     switchToUserMessages() {
-      return this.$store.dispatch("switchToUserMessages");
-    },
-    switchToContacts() {
-      return this.$store.dispatch("switchToContacts");
+      return this.$store.commit("switchToUserMessages");
     },
     switchToUsers() {
-      return this.$store.dispatch("switchToUsers");
+      return this.$store.commit("switchToUsers");
     },
     swithToEnglish() {
       this.$i18n.locale = "en";

@@ -22,14 +22,7 @@ const mutations = {
     state.category = "list-user-messages";
   },
 };
-const actions = {
-  switchToUsers({ commit }) {
-    commit("switchToUsers");
-  },
-  switchToUserMessages({ commit }) {
-    commit("switchToUserMessages");
-  },
-};
+const actions = {};
 
 export default {
   state,

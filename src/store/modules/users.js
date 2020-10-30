@@ -147,7 +147,7 @@ const actions = {
       .then((res) => {
         console.log(res);
         dispatch("fetchMessages");
-        dispatch("switchToUserMessages");
+        commit("switchToUserMessages");
       })
       .catch((err) => console.log(err));
   },
@@ -265,7 +265,7 @@ const actions = {
       });
   },
 
-  chatWithContact({ commit, dispatch }, contact) {
+  chatWithContact({ commit }, contact) {
     commit("storeUserChatContact", contact);
     localStorage.setItem("userChatContact", JSON.stringify(contact));
 
@@ -274,7 +274,7 @@ const actions = {
     if (contact.messages) {
       commit("storeUserChatContactMessages", contact.messages);
     }
-    dispatch("switchToUserMessages");
+    commit("switchToUserMessages");
   },
 };
 
