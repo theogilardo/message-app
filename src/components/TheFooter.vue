@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="!isPathChatbox">
     <div class="switch__trad">
       <a class="switch__trad--en" @click="swithToEnglish">
         <img
@@ -28,6 +28,11 @@ export default {
     return {
       isActive: true,
     };
+  },
+  computed: {
+    isPathChatbox() {
+      return this.$route.name === "Chatbox";
+    },
   },
   methods: {
     swithToEnglish() {

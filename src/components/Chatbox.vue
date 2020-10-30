@@ -1,11 +1,24 @@
 <template>
   <div class="chat">
     <div class="background"></div>
-    <!-- <div class="logo">
-      <router-link to="/login">
-        <img class="logo__img" src="../assets/logo.png" alt="logo" />
-      </router-link>
-    </div> -->
+    <div class="switch__trad">
+      <a class="switch__trad--en" @click="swithToEnglish">
+        <img
+          class="switch__trad__icon"
+          :class="{ 'trad-active': isActive }"
+          src="../assets/flag-us.svg"
+          alt="Flag USA"
+        />
+      </a>
+      <a class="switch__trad--fr" @click="swithToFrench">
+        <img
+          class="switch__trad__icon"
+          :class="{ 'trad-active': !isActive }"
+          src="../assets/flag-fr.svg"
+          alt="Flag FR"
+        />
+      </a>
+    </div>
     <div class="chat__side-bar">
       <div class="chat__side-bar__container">
         <a v-if="user" class="chat__side-bar__link">
@@ -194,6 +207,7 @@ export default {
       listLength: 0,
       message: null,
       messages: [],
+      isActive: true,
     };
   },
   computed: {
@@ -246,6 +260,14 @@ export default {
     },
   },
   methods: {
+    swithToEnglish() {
+      this.$i18n.locale = "en";
+      this.isActive = !this.isActive;
+    },
+    swithToFrench() {
+      this.$i18n.locale = "fr";
+      this.isActive = !this.isActive;
+    },
     listLengthUpdate(value) {
       this.listLength = value;
     },
@@ -286,6 +308,24 @@ export default {
 
 <style lang="stylus">
 
+.switch__trad
+  display: flex;
+  position: fixed;
+  z-index: 1000;
+  top: 2.5rem;
+  right: 3rem;
+  align-items: center;
+
+  &--fr
+    margin-left 1rem
+
+  &__icon
+    opacity .5
+    width 24px
+
+.trad-active
+  opacity 1 !important
+
 .toast-success
   background: linear-gradient(to right, rgba(74,210,149,1), rgba(77,125,225,1)) !important
 
@@ -293,15 +333,6 @@ export default {
   background: #4c7de0 !important
   color: white !important
   align-self flex-end
-
-.logo
-  position: absolute;
-  z-index 500
-  top: 1.8rem;
-  right: 15rem;
-
-.logo__img
-  width: 45px;
 
 .background
   background: linear-gradient(to right, rgba(74,210,149,1), rgba(77,125,225,1));
