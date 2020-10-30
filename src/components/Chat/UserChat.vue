@@ -36,6 +36,14 @@ export default {
   mounted() {
     this.refreshLocalStorage();
   },
+  created() {
+    this.$toasted.success("Logged In", {
+      className: "toast-success",
+      theme: "bubble",
+      position: "top-right",
+      duration: 2000,
+    });
+  },
   computed: {
     listTypeTest() {
       return this.$store.getters.listType;
@@ -170,11 +178,11 @@ export default {
 
     &__icon
       padding 0 1.5rem
-      width 90%
-      filter: invert(47%) sepia(60%) saturate(640%) hue-rotate(183deg) brightness(90%) contrast(94%);
+      width 100%
 
-      &__last
+      &--last
         margin-top 2.5rem
+        width 94%
 
     &__profile-pic
       border-radius 50%
@@ -218,11 +226,6 @@ export default {
     display: flex;
     align-items center
     justify-content space-between
-
-    &__icon
-      width 25px
-      height 25px
-      filter: invert(99%) sepia(54%) saturate(130%) hue-rotate(274deg) brightness(114%) contrast(87%);
 
   &__lists
     display: flex;
@@ -303,6 +306,6 @@ export default {
         top: 50%;
         right: 25px;
         transform: translateY(-50%);
-        width: 25px;
+        width: 30px;
         opacity: 0.8;
 </style>

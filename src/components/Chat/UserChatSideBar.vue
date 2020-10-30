@@ -39,7 +39,7 @@
     <div>
       <a class="chat__side-bar__link" @click="logout">
         <img
-          class="chat__side-bar__icon chat__side-bar__icon__last"
+          class="chat__side-bar__icon chat__side-bar__icon--last"
           src="../../assets/logout.svg"
           alt="Edit Button"
         />
