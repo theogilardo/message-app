@@ -23,9 +23,6 @@ const getters = {
   selectedContactMessages(state) {
     return state.selectedContactMessages;
   },
-  // selectedContactMessagesLength(state) {
-  //   return state.selectedContactMessages.length;
-  // },
   userContactMessagesSorted(state) {
     return state.contactMessages.sort(
       (a, b) => b.lastTimestamp - a.lastTimestamp
@@ -88,7 +85,6 @@ const mutations = {
     );
   },
   storeMessage(state, messageObj) {
-    console.log(state.selectedContactMessages);
     state.selectedContactMessages.push(messageObj);
   },
 
@@ -131,8 +127,6 @@ const actions = {
           (user) => rootState.auth.userId !== user.localId
         );
 
-        // console.log(activeUser);
-        // console.log(otherUsers);
         localStorage.setItem("storeUser", JSON.stringify(activeUser));
         localStorage.setItem("storeUsers", JSON.stringify(otherUsers));
         commit("storeUser", activeUser);
@@ -145,11 +139,7 @@ const actions = {
   },
 
   storeMessage({ state, commit, dispatch }, message) {
-    // dispatch("updateUserContact", message);
-
     const timestamp = new Date().getTime();
-
-    console.log(state.userMessageReceiver.localId);
 
     const messageObj = {
       senderId: state.user.localId,
@@ -158,12 +148,10 @@ const actions = {
       timestamp: timestamp,
     };
 
-    console.log(messageObj);
-
     const currentSession = messageObj;
     currentSession.type = "sent";
     commit("storeMessage", currentSession);
-    console.log(state.selectedContactMessages);
+
     localStorage.setItem(
       "selectedContactMessages",
       JSON.stringify(state.selectedContactMessages)
@@ -175,66 +163,11 @@ const actions = {
       .push(messageObj)
       .then((res) => {
         console.log(res);
-        // dispatch("fetchContactMessages");
         dispatch("fetchMessages");
         dispatch("switchToMessages");
       })
       .catch((err) => console.log(err));
   },
-
-  // fetchContactMessages({ state, commit }) {
-  //   axios
-  //     .get("https://message-app-719f5.firebaseio.com/messages.json")
-  //     .then((res) => {
-  //       const data = res.data;
-  //       const messages = [];
-  //       for (let key in data) {
-  //         const message = data[key];
-  //         messages.push(message);
-  //       }
-  //       // Check for most recent chat
-
-  //       // if (state.contactMessages) {
-  //       //   dispatch("chatWithContact", state.contactMessages[0]);
-  //       // }
-
-  //       const conversation = [];
-  //       const userId = state.user.localId;
-  //       const contactId = state.userMessageReceiver.localId;
-
-  //       //
-
-  //       const messageUsertoContact = messages.filter(
-  //         (message) =>
-  //           message.senderId === userId && message.receiverId === contactId
-  //       );
-
-  //       messageUsertoContact.forEach((message) => {
-  //         return (message.type = "sent");
-  //       });
-
-  //       const messageContactToUser = messages.filter(
-  //         (message) =>
-  //           message.receiverId === userId && message.senderId === contactId
-  //       );
-
-  //       messageContactToUser.forEach((message) => {
-  //         return (message.type = "received");
-  //       });
-
-  //       const concatChat = messageUsertoContact.concat(messageContactToUser);
-  //       conversation.push(concatChat);
-
-  //       const sortConversation = conversation[0].sort(
-  //         (a, b) => a.timestamp - b.timestamp
-  //       );
-
-  //       commit("storeMessages", sortConversation);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // },
 
   fetchMessages({ state, commit, dispatch }) {
     axios
@@ -248,9 +181,6 @@ const actions = {
         }
 
         const userId = state.user.localId;
-
-        // Get all messages
-        // console.log(messages);
 
         // Find all messages related to the currentUser
         const findContactIds = messages
@@ -266,16 +196,11 @@ const actions = {
             return weFoundIt;
           });
 
-        // console.log(findContactIds);
-
         // Find unique Ids between current user chats
         const _ = require("lodash");
         const uniqueContactIds = _.uniq(findContactIds, "localId").filter(
           (id) => id !== userId
         );
-
-        // console.log(uniqueContactIds);
-        console.log(state.users);
 
         const contactMessages = [];
 
@@ -295,15 +220,8 @@ const actions = {
               (message.receiverId === userId &&
                 message.senderId === contact.localId)
           );
-          // Modify contactMessagesFiltered
 
-          // contact.messages = contactMessagesFiltered;
-
-          // console.log(contactMessagesFiltered);
-
-          // Add the filters here
           const contactMessagesFilteredFormatted = [];
-
           const messageUsertoContact = contactMessagesFiltered.filter(
             (message) => message.senderId === userId
           );
@@ -323,9 +241,6 @@ const actions = {
           const concatChat = messageUsertoContact.concat(messageContactToUser);
           contactMessagesFilteredFormatted.push(concatChat);
 
-          // console.log(contactMessagesFilteredFormatted);
-          // console.log(contactMessagesFilteredFormatted[0]);
-
           contact.messages = contactMessagesFilteredFormatted[0].sort(
             (a, b) => b.timestamp - a.timestamp
           );
@@ -338,8 +253,6 @@ const actions = {
             lastTimestamp[lastTimestamp.length - 1].timestamp;
         });
 
-        // console.log(contactMessages);
-
         commit("storeMessageList", contactMessages);
         localStorage.setItem("messageList", JSON.stringify(contactMessages));
 
@@ -350,8 +263,6 @@ const actions = {
               message.receiverId === userId || message.senderId === userId
           );
 
-          // console.log(findLastUserMessage);
-
           const lastUserMessage =
             findLastUserMessage[findLastUserMessage.length - 1];
 
@@ -360,19 +271,12 @@ const actions = {
               ? lastUserMessage.receiverId
               : lastUserMessage.senderId;
 
-          // console.log(lastUserMessage);
-          // console.log(weFoundIt);
-          // console.log(contactMessages);
-
           const setMostRecentChat = contactMessages.find(
             (contact) => contact.localId === weFoundIt
           );
-          // console.log("hey");
-          // console.log(setMostRecentChat);
           dispatch("chatWithContact", setMostRecentChat);
         }
 
-        // End of Fetch messages
         state.areMessagesLoaded = true;
       })
       .catch((err) => {
@@ -381,14 +285,8 @@ const actions = {
   },
 
   chatWithContact({ commit, dispatch }, contact) {
-    // Condition if empty chat
-    console.log(contact);
     commit("storeUserMessageReceiver", contact);
     localStorage.setItem("userMessageReceiver", JSON.stringify(contact));
-
-    // if (!state.contactMessages) {
-    //   return;
-    // }
 
     commit("emptyMessages");
 
@@ -396,7 +294,6 @@ const actions = {
       commit("storeSelectedContactMessages", contact.messages);
     }
     dispatch("switchToMessages");
-    // dispatch("fetchContactMessages");
   },
 };
 

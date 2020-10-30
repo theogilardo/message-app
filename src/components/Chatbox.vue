@@ -27,13 +27,7 @@
             :src="user.profilePic"
             alt="Edit Button"
           />
-          <!-- <img
-            class="chat__side-bar__profile-pic"
-            src="../assets/theo.png"
-            alt="Edit Button"
-          /> -->
         </a>
-        <!-- v-if="userContactMessages.length" -->
         <a
           v-if="contactMessages.length"
           :class="{
@@ -81,19 +75,9 @@
       >
         {{ listCategoryTypeLabel }}
       </h3>
-      <!-- {{ listCategoryTypeLabel }} ({{ listCategoryTypeLength }}) -->
       <h3 v-else class="chat__category__name">
         {{ $t("chatbox.list.label") }}
       </h3>
-
-      <!-- <a @click="switchToNewContact">
-        <img
-          v-if="listCategoryType === 'contacts'"
-          class="chat__category__icon"
-          src="../assets/add-contact.svg"
-          alt="Add contact"
-        />
-      </a> -->
     </div>
 
     <div class="chat__lists">
@@ -105,7 +89,6 @@
     </div>
     <div v-if="userMessageReceiver" class="chat__main-user">
       <img :src="userMessageReceiver.profilePic" alt="Main Profile Photo" />
-      <!-- <img src="../assets/theo.png" alt="Main Profile Photo" /> -->
       <div class="chat__main-user__information">
         <h1>
           {{ userMessageReceiver.name }} {{ userMessageReceiver.surname }}
@@ -149,29 +132,15 @@
 
 <script>
 import FindUsers from "./lists/FindUsers.vue";
-import Contacts from "./lists/Contacts.vue";
 import Messages from "./lists/Messages.vue";
 
 export default {
   name: "Chatbox",
   components: {
     findUsers: FindUsers,
-    contacts: Contacts,
     messages: Messages,
   },
-  // created() {
-  //   this.$toasted.success("Logged In", {
-  //     className: "toast-success",
-  //     theme: "bubble",
-  //     position: "top-right",
-  //     duration: 2000,
-  //   });
-  // },
   mounted() {
-    // if (!window.localStorage.length) {
-    //   console.log("local storage is empty");
-    //   this.$store.dispatch("fetchUser");
-    // }
     if (localStorage.getItem("storeUsers")) {
       const users = JSON.parse(localStorage.getItem("storeUsers"));
       this.$store.commit("storeUsers", users);
@@ -184,9 +153,7 @@ export default {
       const userMessageReceiver = JSON.parse(
         localStorage.getItem("userMessageReceiver")
       );
-      console.log(userMessageReceiver);
       this.$store.dispatch("chatWithContact", userMessageReceiver);
-      // this.$store.commit("storeSelectedContactMessages", userMessageReceiver);
     }
     if (localStorage.getItem("messageList")) {
       const messageList = JSON.parse(localStorage.getItem("messageList"));
@@ -196,7 +163,6 @@ export default {
       const messageList = JSON.parse(
         localStorage.getItem("selectedContactMessages")
       );
-      console.log(messageList);
       this.$store.commit("storeSelectedContactMessages", messageList);
     }
   },
@@ -204,50 +170,28 @@ export default {
     return {
       selectedComponent: "messages",
       category: "Contacts",
-      listLength: 0,
       message: null,
-      messages: [],
       isActive: true,
     };
   },
   computed: {
-    selectedContactMessages() {
-      return this.$store.getters.selectedContactMessages;
-    },
-    // selectedContactMessagesLength() {
-    //   const selectedContactMessagesLength = this.$store.getters
-    //     .selectedContactMessagesLength;
-    //   if (!selectedContactMessagesLength) {
-    //     return "0";
-    //   }
-    //   return selectedContactMessagesLength;
-    // },
-    contactMessages() {
-      return this.$store.getters.contactMessages;
-    },
-    isDataFetched() {
-      return this.$store.getters.isDataFetched;
-    },
-    componentKey() {
-      return this.$store.getters.componentKey;
-    },
-    users() {
-      return this.$store.getters.users;
-    },
     user() {
       return this.$store.getters.user;
     },
     userMessageReceiver() {
       return this.$store.getters.userMessageReceiver;
     },
-    userContacts() {
-      return this.$store.getters.userContacts;
-    },
-    userMessages() {
-      return this.$store.getters.userMessages;
-    },
     userContactMessages() {
       return this.$store.getters.messages;
+    },
+    users() {
+      return this.$store.getters.users;
+    },
+    contactMessages() {
+      return this.$store.getters.contactMessages;
+    },
+    selectedContactMessages() {
+      return this.$store.getters.selectedContactMessages;
     },
     listCategoryType() {
       return this.$store.getters.listCategoryType;
@@ -258,18 +202,16 @@ export default {
     listCategoryTypeLength() {
       return this.$store.getters.listCategoryTypeLength;
     },
+    componentKey() {
+      return this.$store.getters.componentKey;
+    },
   },
   methods: {
-    swithToEnglish() {
-      this.$i18n.locale = "en";
-      this.isActive = !this.isActive;
-    },
-    swithToFrench() {
-      this.$i18n.locale = "fr";
-      this.isActive = !this.isActive;
-    },
-    listLengthUpdate(value) {
-      this.listLength = value;
+    sendMessage() {
+      this.$store.dispatch("storeMessage", this.message);
+      this.clearTypeInput();
+      this.selectTypeInput();
+      this.$store.commit("forceRerender");
     },
     clearTypeInput() {
       this.message = "";
@@ -277,13 +219,13 @@ export default {
     selectTypeInput() {
       this.$refs.typeMessage.select();
     },
-    sendMessage() {
-      this.messages.push(this.message);
-      console.log(this.message);
-      this.$store.dispatch("storeMessage", this.message);
-      this.clearTypeInput();
-      this.selectTypeInput();
-      this.$store.commit("forceRerender");
+    logout() {
+      this.redirectHome();
+      return this.$store.commit("logout");
+    },
+    redirectHome() {
+      this.$router.push("/login");
+      location.reload();
     },
     switchToMessages() {
       return this.$store.dispatch("switchToMessages");
@@ -294,13 +236,13 @@ export default {
     switchToNewContact() {
       return this.$store.dispatch("switchToNewContact");
     },
-    logout() {
-      this.redirectHome();
-      return this.$store.commit("logout");
+    swithToEnglish() {
+      this.$i18n.locale = "en";
+      this.isActive = !this.isActive;
     },
-    redirectHome() {
-      this.$router.push("/login");
-      location.reload();
+    swithToFrench() {
+      this.$i18n.locale = "fr";
+      this.isActive = !this.isActive;
     },
   },
 };

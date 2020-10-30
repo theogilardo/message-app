@@ -8,7 +8,9 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: "Error",
+};
 </script>
 
 <style lang="stylus" scoped>

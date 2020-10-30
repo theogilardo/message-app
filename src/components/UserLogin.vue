@@ -24,7 +24,6 @@
         />
         <label> {{ errors.first("password") }} </label>
       </div>
-      <!-- <input type="email" placeholder="Enter phone.." /> -->
       <button class="btn" @click.prevent="formSubmitted">
         {{ $t("button.login") }}
       </button>
@@ -40,7 +39,6 @@ export default {
       userData: {
         email: "",
         password: "",
-        // phone: "",
       },
     };
   },
@@ -72,16 +70,6 @@ export default {
           return;
         }
       });
-    },
-    clearFields() {
-      this.userData = {
-        email: "",
-        password: "",
-        // phone: "",
-      };
-    },
-    redirectUser() {
-      return this.$router.push("/chatbox");
     },
   },
 };

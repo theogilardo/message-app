@@ -148,24 +148,10 @@ export default {
       this.$validator.validateAll().then((isValid) => {
         if (isValid) {
           this.$store.dispatch("signup", this.userData);
-          this.clearFields();
-          this.redirectUser();
         } else {
           alert("Form not valid");
         }
       });
-    },
-    clearFields() {
-      this.userData = {
-        name: "",
-        surname: "",
-        email: "",
-        phone: "",
-        profilePic: null,
-      };
-    },
-    redirectUser() {
-      return this.$router.push("/chatbox");
     },
     onFileSelected(event) {
       let file = event.target.files[0];

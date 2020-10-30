@@ -1,9 +1,5 @@
 <template>
-  <!-- v-if="userContacts.some((contact) => contact.lastMessage)" -->
   <div class="list-category" v-if="userMessageReceiver">
-    <!-- v-for="user in userContacts
-        .filter((contact) => contact.lastMessage)
-        .sort((a, b) => b.timestamp - a.timestamp)" -->
     <div
       v-for="user in userContactMessagesSorted"
       :key="user.id"
@@ -11,11 +7,6 @@
       class="list-category__user"
       @click="fetchMessages(user)"
     >
-      <!-- <img
-        class="list-category__user__img"
-        src="../../assets/theo.png"
-        alt="Main Profile Photo"
-      /> -->
       <img
         :src="user.profilePic"
         class="list-category__user__img"
@@ -25,8 +16,6 @@
         <h2 class="list-category__user__info__name">
           {{ user.name }} {{ user.surname }}
         </h2>
-
-        <!-- {{ user.messages | sliceMessage }} -->
         <p class="list-category__user__info__message">
           {{ user.messages | sliceMessage }}
         </p>
@@ -42,36 +31,6 @@
 <script>
 export default {
   name: "Messages",
-  // created() {
-  //   this.userContacts = this.contactMessages;
-  //   //
-
-  //   console.log(this.$store.getters.user);
-  //   console.log(this.$store.getters.contactMessages);
-  //   const messageContactsInit = this.contactMessages;
-  //   const userId = this.user.localId;
-  //   console.log(userId);
-  //   // Go through the messages
-  //   messageContactsInit.forEach((contact) => {
-  //     const hasNoCurrentUserMessage = contact.messages.some((message) => {
-  //       message.senderId !== userId && ;
-  //       console.log(hasNoCurrentUserMessage);
-  //       if (hasNoCurrentUserMessage) {
-  //         console.log(contact);
-  //       }
-  //     });
-  //   });
-  // Check if there is a message a contact chat with messages
-  // that DO NOT have the current user ID as senderId
-  // Notify it with toaster
-  // },
-  // mounted() {
-  //   if (localStorage.getItem("messageList")) {
-  //     const messageList = JSON.parse(localStorage.getItem("messageList"));
-  //     console.log(messageList);
-  //     this.$store.commit("storeMessageList", messageList);
-  //   }
-  // },
   data() {
     return {
       test: {},
@@ -79,24 +38,12 @@ export default {
     };
   },
   computed: {
-    areMessagesLoaded() {
-      return this.$store.getters.areMessagesLoaded;
-    },
-    listCategoryType() {
-      return this.$store.getters.listCategoryType;
-    },
     contactMessages() {
       return this.$store.getters.contactMessages;
     },
     userContactMessagesSorted() {
       return this.$store.getters.userContactMessagesSorted;
-      // return this.$store.getters.contactMessages.sort(
-      //   (a, b) => a.lastTimestamp - b.lastTimestamp
-      // );
     },
-    // userContacts() {
-    //   return this.$store.getters.userContacts;
-    // },
     userMessageReceiver() {
       return this.$store.getters.userMessageReceiver;
     },
@@ -104,7 +51,6 @@ export default {
   methods: {
     fetchMessages(user) {
       this.$store.dispatch("chatWithContact", user);
-      // this.$store.dispatch("fetchMessages");
     },
   },
 };

@@ -52,7 +52,6 @@ const actions = {
       })
       .catch((error) => {
         console.log(error);
-        console.log(router);
 
         alert("Invalid email");
       });
@@ -83,8 +82,9 @@ const actions = {
 
         authData.localId = res.data.localId;
         authData.contacts = "";
-        console.log(authData);
         dispatch("storeUser", authData);
+
+        router.replace("/chatbox");
       })
       .catch((error) => {
         console.log(error);

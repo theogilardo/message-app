@@ -7,11 +7,6 @@
       :placeholder="$t('chatbox.list.placeholder')"
     />
     <div v-for="user in filterUsers" :key="user.id" class="list-category__user">
-      <!-- <img
-        class="list-category__user__img"
-        src="../../assets/theo.png"
-        alt="Main Profile Photo"
-      /> -->
       <img
         :src="user.profilePic"
         class="list-category__user__img"
@@ -44,21 +39,17 @@ export default {
     };
   },
   computed: {
+    users() {
+      return this.$store.getters.users;
+    },
     filterUsers() {
       return this.users.filter((user) => user.phone.match(this.search.trim()));
     },
     listCategoryType() {
       return this.$store.getters.listCategoryType;
     },
-    users() {
-      return this.$store.getters.users;
-    },
   },
   methods: {
-    addContact(newContact) {
-      console.log(newContact);
-      return this.$store.dispatch("addContact", newContact);
-    },
     chatWithContact(contact) {
       this.$emit("chatWithContact");
       return this.$store.dispatch("chatWithContact", contact);

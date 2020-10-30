@@ -41,21 +41,8 @@ const actions = {
     commit("switchListLength", rootState.users.user.contacts.length);
   },
   switchToMessages({ commit, rootState }) {
-    // if (!rootState.users.userMessageReceiver && rootState.users.contactMessages.length) {
-    //   const contactMessages = rootState.users.contactMessages
-    //   const findLastMessage = contactMessages.sort(contact => contact.messages)
-    // }
-
-    // dispatch("fetchMessages");
-    commit("switchToMessages");
-    // dispatch("fetchContactMessages");
-
-    // const findLastUserChat = rootState.users.user.contacts
-    //   .filter((contact) => contact.lastMessage)
-    //   .sort((a, b) => b.timestamp - a.timestamp)[0];
-    // dispatch("chatWithContact", findLastUserChat);
-
     const messagesLength = rootState.users.contactMessages.length;
+    commit("switchToMessages");
     commit("switchListLength", messagesLength);
   },
   switchToNewContact({ commit, rootState }) {

@@ -5,29 +5,6 @@
       <router-view />
     </transition>
     <the-footer></the-footer>
-    <!-- <div class="logo">
-      <router-link to="/login">
-        <img class="logo__img" src="./assets/logo.png" alt="logo" />
-      </router-link>
-    </div>
-    <div class="switch__trad">
-      <a class="switch__trad--en" @click="swithToEnglish">
-        <img
-          class="switch__trad__icon"
-          :class="{ 'trad-active': isActive }"
-          src="./assets/flag-us.svg"
-          alt="Flag USA"
-        />
-      </a>
-      <a class="switch__trad--fr" @click="swithToFrench">
-        <img
-          class="switch__trad__icon"
-          :class="{ 'trad-active': !isActive }"
-          src="./assets/flag-fr.svg"
-          alt="Flag FR"
-        />
-      </a>
-    </div> -->
   </div>
 </template>
 
@@ -49,22 +26,12 @@ export default {
     "the-navbar": TheNavbar,
     "the-footer": TheFooter,
   },
-  methods: {
-    swithToEnglish() {
-      this.$i18n.locale = "en";
-      this.isActive = !this.isActive;
-    },
-    swithToFrench() {
-      this.$i18n.locale = "fr";
-      this.isActive = !this.isActive;
-    },
-  },
 };
 </script>
 
 <style lang="stylus">
-// @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Raleway&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Roboto&display=swap');
+
 .logo
   position: absolute;
   z-index 500
