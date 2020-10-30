@@ -123,6 +123,7 @@ export default {
     z-index 100
     background white
     heigh 100vh
+    position relative
     display flex
     align-items center
     justify-content center
