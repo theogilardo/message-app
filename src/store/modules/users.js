@@ -164,7 +164,7 @@ const actions = {
       .then((res) => {
         console.log(res);
         dispatch("fetchMessages");
-        dispatch("switchToMessages");
+        dispatch("switchToUserMessages");
       })
       .catch((err) => console.log(err));
   },
@@ -293,7 +293,7 @@ const actions = {
     if (contact.messages) {
       commit("storeSelectedContactMessages", contact.messages);
     }
-    dispatch("switchToMessages");
+    dispatch("switchToUserMessages");
   },
 };
 

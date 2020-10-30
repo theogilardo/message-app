@@ -31,10 +31,11 @@
         <a
           v-if="contactMessages.length"
           :class="{
-            'chat__side-bar__link--active': listCategoryType === 'messages',
+            'chat__side-bar__link--active':
+              listCategoryType === 'list-user-messages',
           }"
           class="chat__side-bar__link"
-          @click="switchToMessages"
+          @click="switchToUserMessages"
         >
           <img
             class="chat__side-bar__icon"
@@ -44,10 +45,10 @@
         </a>
         <a
           :class="{
-            'chat__side-bar__link--active': listCategoryType === 'findUsers',
+            'chat__side-bar__link--active': listCategoryType === 'list-users',
           }"
           class="chat__side-bar__link"
-          @click="switchToNewContact"
+          @click="switchToUsers"
         >
           <img
             class="chat__side-bar__icon"
@@ -204,14 +205,14 @@ export default {
       this.$router.push("/login");
       location.reload();
     },
-    switchToMessages() {
-      return this.$store.dispatch("switchToMessages");
+    switchToUserMessages() {
+      return this.$store.dispatch("switchToUserMessages");
     },
     switchToContacts() {
       return this.$store.dispatch("switchToContacts");
     },
-    switchToNewContact() {
-      return this.$store.dispatch("switchToNewContact");
+    switchToUsers() {
+      return this.$store.dispatch("switchToUsers");
     },
     swithToEnglish() {
       this.$i18n.locale = "en";

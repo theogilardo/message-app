@@ -28,7 +28,7 @@
   },
   "chatbox": {
     "list": {
-      "label": "Find New Contact",
+      "label": "Find New Contacts",
       "placeholder": "Enter your phone.."
     },
     "typing": "Type your message here..",
