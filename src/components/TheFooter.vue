@@ -3,16 +3,16 @@
     <div class="switch__trad">
       <a class="switch__trad--en" @click="swithToEnglish">
         <img
-          class="switch__trad__icon"
           :class="{ 'trad-active': isActive }"
+          class="switch__trad__icon"
           src="../assets/flag-us.svg"
           alt="Flag USA"
         />
       </a>
       <a class="switch__trad--fr" @click="swithToFrench">
         <img
-          class="switch__trad__icon"
           :class="{ 'trad-active': !isActive }"
+          class="switch__trad__icon"
           src="../assets/flag-fr.svg"
           alt="Flag FR"
         />

@@ -16,11 +16,11 @@
             here
           </p>
           <input
-            class="container__form__photo__upload"
             v-validate="'required'"
+            id="file"
+            class="container__form__photo__upload"
             name="image"
             type="file"
-            id="file"
             ref="myFiles"
             @change="onFileSelected"
           />
@@ -34,12 +34,12 @@
         <div class="container__form__field container__form__input__appelation">
           <div class="container__form__input__appelation__error">
             <input
-              :class="{ error: errors.has('name') }"
-              v-model="userData.name"
               v-validate="'required'"
+              v-model="userData.name"
+              :class="{ error: errors.has('name') }"
+              :placeholder="$t('signup.placeholder.name')"
               name="name"
               type="text"
-              :placeholder="$t('signup.placeholder.name')"
             />
             <label class="container__form__input__appelation__error__label">
               {{ errors.first("name") }}
@@ -48,12 +48,12 @@
           <div>
             <div class="container__form__input__appelation__error">
               <input
-                :class="{ error: errors.has('surname') }"
-                v-model="userData.surname"
                 v-validate="'required'"
+                v-model="userData.surname"
+                :class="{ error: errors.has('surname') }"
+                :placeholder="$t('signup.placeholder.surname')"
                 name="surname"
                 type="text"
-                :placeholder="$t('signup.placeholder.surname')"
               />
               <label class="container__form__input__appelation__error__label">
                 {{ errors.first("surname") }}
@@ -63,34 +63,34 @@
         </div>
         <div class="container__form__field">
           <input
-            :class="{ error: phoneError }"
-            v-model="userData.phone"
             v-validate="'required|regex:^([0-9]+)$'"
+            v-model="userData.phone"
+            :class="{ error: phoneError }"
+            :placeholder="$t('signup.placeholder.phone')"
             name="phone"
             type="text"
-            :placeholder="$t('signup.placeholder.phone')"
           />
           <label> {{ errors.first("phone") }} </label>
         </div>
         <div class="container__form__field">
           <input
-            :class="{ error: emailError }"
-            v-model="userData.email"
             v-validate="'required|email'"
+            v-model="userData.email"
+            :class="{ error: emailError }"
+            :placeholder="$t('signup.placeholder.email')"
             name="email"
             type="text"
-            :placeholder="$t('signup.placeholder.email')"
           />
           <label> {{ errors.first("email") }} </label>
         </div>
         <div class="container__form__field">
           <input
-            :class="{ error: passwordError }"
-            v-model="userData.password"
             v-validate="'required|min:6'"
+            v-model="userData.password"
+            :class="{ error: passwordError }"
+            :placeholder="$t('signup.placeholder.password')"
             name="password"
             type="text"
-            :placeholder="$t('signup.placeholder.password')"
           />
           <label> {{ errors.first("password") }} </label>
         </div>

@@ -4,16 +4,16 @@
     <div class="chat__switch__trad">
       <a class="chat__switch__trad--en" @click="swithToEnglish">
         <img
-          class="chat__switch__trad__icon"
           :class="{ 'trad-active': isActive }"
+          class="chat__switch__trad__icon"
           src="../assets/flag-us.svg"
           alt="Flag USA"
         />
       </a>
       <a class="chat__switch__trad--fr" @click="swithToFrench">
         <img
-          class="chat__switch__trad__icon"
           :class="{ 'trad-active': !isActive }"
+          class="chat__switch__trad__icon"
           src="../assets/flag-fr.svg"
           alt="Flag FR"
         />
@@ -23,8 +23,8 @@
       <div class="chat__side-bar__container">
         <a v-if="user" class="chat__side-bar__link">
           <img
-            class="chat__side-bar__profile-pic"
             :src="user.profilePic"
+            class="chat__side-bar__profile-pic"
             alt="Edit Button"
           />
         </a>
@@ -33,8 +33,8 @@
           :class="{
             'chat__side-bar__link--active': listCategoryType === 'messages',
           }"
-          @click="switchToMessages"
           class="chat__side-bar__link"
+          @click="switchToMessages"
         >
           <img
             class="chat__side-bar__icon"
@@ -103,8 +103,8 @@
       <div v-if="userMessageReceiver" class="chat__messages__conversation">
         <p
           v-for="message in selectedContactMessages"
-          :class="{ sent: message.type === 'sent' }"
           :key="message.id"
+          :class="{ sent: message.type === 'sent' }"
         >
           {{ message.message }}
         </p>
@@ -112,9 +112,9 @@
       <div class="chat__messages__write" @keyup.enter="sendMessage">
         <input
           v-model="message"
-          type="text"
-          :placeholder="$t('chatbox.typing')"
           ref="typeMessage"
+          :placeholder="$t('chatbox.typing')"
+          type="text"
         />
         <img @click="sendMessage" src="../assets/send.svg" alt="Send Icon" />
       </div>

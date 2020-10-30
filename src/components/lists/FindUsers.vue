@@ -2,9 +2,9 @@
   <div class="list-category">
     <input
       v-model="search"
+      :placeholder="$t('chatbox.list.placeholder')"
       class="list-category__search-bar"
       type="text"
-      :placeholder="$t('chatbox.list.placeholder')"
     />
     <div v-for="user in filterUsers" :key="user.id" class="list-category__user">
       <img

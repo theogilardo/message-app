@@ -4,23 +4,23 @@
       <h2>Please login</h2>
       <div class="container__form__field">
         <input
-          :class="{ error: emailError }"
-          v-model="userData.email"
           v-validate="'required|email'"
+          v-model="userData.email"
+          :class="{ error: emailError }"
+          :placeholder="$t('login.placeholder.email')"
           name="email"
           type="text"
-          :placeholder="$t('login.placeholder.email')"
         />
         <label> {{ errors.first("email") }} </label>
       </div>
       <div class="container__form__field">
         <input
-          :class="{ error: passwordError }"
-          v-model="userData.password"
           v-validate="'required|min:6'"
+          v-model="userData.password"
+          :class="{ error: passwordError }"
+          :placeholder="$t('login.placeholder.password')"
           name="password"
           type="text"
-          :placeholder="$t('login.placeholder.password')"
         />
         <label> {{ errors.first("password") }} </label>
       </div>
