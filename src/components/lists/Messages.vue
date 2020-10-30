@@ -50,6 +50,7 @@ export default {
   },
   methods: {
     fetchMessages(user) {
+      this.$emit("chatWithContact");
       this.$store.dispatch("chatWithContact", user);
     },
   },
