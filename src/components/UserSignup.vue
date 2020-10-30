@@ -204,7 +204,6 @@ export default {
     display grid
     grid-template-rows 5rem 1fr 5rem
     grid-template-columns 30% 1fr
-    // flex-direction column
 
     &__label
       color white
