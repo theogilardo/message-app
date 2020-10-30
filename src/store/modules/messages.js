@@ -13,11 +13,11 @@ const mutations = {
   storeUserChatContactMessages(state, userChatContactMessages) {
     state.userChatContactMessages = userChatContactMessages;
   },
-  storeMessage(state, messageObj) {
-    state.userChatContactMessages.push(messageObj);
-  },
   emptyMessages(state) {
     state.userChatContactMessages = [];
+  },
+  storeMessage(state, messageObj) {
+    state.userChatContactMessages.push(messageObj);
   },
 };
 const actions = {

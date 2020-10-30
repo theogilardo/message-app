@@ -1,10 +1,10 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import HomePage from "../components/HomePage.vue";
+import TheHomepage from "../components/TheHomepage.vue";
 import Signup from "../components/UserSignup.vue";
 import Login from "../components/UserLogin.vue";
-import Chatbox from "../components/Chatbox.vue";
-import Error from "../components/Error.vue";
+import UserChatbox from "../components/UserChatbox.vue";
+import TheRouteError from "../components/TheRouteError.vue";
 import store from "../store/index.js";
 
 Vue.use(VueRouter);
@@ -12,8 +12,8 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "HomePage",
-    component: HomePage,
+    name: "Homepage",
+    component: TheHomepage,
   },
   {
     path: "/signup",
@@ -28,7 +28,7 @@ const routes = [
   {
     path: "/chatbox",
     name: "Chatbox",
-    component: Chatbox,
+    component: UserChatbox,
 
     beforeEnter(to, from, next) {
       console.log(store.state.auth);
@@ -42,7 +42,7 @@ const routes = [
   {
     path: "*",
     name: "404",
-    component: Error,
+    component: TheRouteError,
   },
 ];
 
