@@ -234,7 +234,7 @@ export default {
       }
       if (localStorage.getItem("messageList")) {
         const messageList = JSON.parse(localStorage.getItem("messageList"));
-        this.$store.commit("storeMessageList", messageList);
+        this.$store.commit("storeUserChatContacts", messageList);
       }
       if (localStorage.getItem("userChatContactMessages")) {
         const messageList = JSON.parse(

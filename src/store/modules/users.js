@@ -14,52 +14,59 @@ const getters = {
   user(state) {
     return state.user;
   },
-  userChatContacts(state) {
-    return state.userChatContacts;
+  userChatContact(state) {
+    return state.userChatContact;
   },
   userChatContactMessages(state) {
     return state.userChatContactMessages;
+  },
+  userChatContacts(state) {
+    return state.userChatContacts;
   },
   userChatContactsSorted(state) {
     return state.userChatContacts.sort(
       (a, b) => b.lastTimestamp - a.lastTimestamp
     );
   },
-  componentKey(state) {
-    return state.componentKey;
-  },
-  userChatContact(state) {
-    return state.userChatContact;
-  },
   users(state) {
     return state.users;
+  },
+  componentKey(state) {
+    return state.componentKey;
   },
 };
 
 const mutations = {
-  emptyMessages(state) {
-    state.userChatContactMessages = [];
-  },
   storeUser(state, userData) {
     state.user = userData;
   },
-
-  storeMessageList(state, payload) {
-    state.userChatContacts = payload;
-  },
-
-  forceRerender(state) {
-    state.componentKey += 1;
-  },
-
   storeUserChatContact(state, receiver) {
     state.userChatContact = receiver;
   },
-
+  storeUserChatContactMessages(state, userChatContactMessages) {
+    state.userChatContactMessages = userChatContactMessages;
+  },
+  storeUserChatContacts(state, payload) {
+    state.userChatContacts = payload;
+  },
+  addUserContact(state, newContact) {
+    state.user.contacts.push(newContact);
+    state.users = state.users.filter(
+      (user) => user.localId !== newContact.localId
+    );
+  },
   storeUsers(state, userData) {
     state.users = userData;
   },
-
+  storeMessage(state, messageObj) {
+    state.userChatContactMessages.push(messageObj);
+  },
+  emptyMessages(state) {
+    state.userChatContactMessages = [];
+  },
+  forceRerender(state) {
+    state.componentKey += 1;
+  },
   storeLocalStorageUser(_, authData) {
     const now = new Date();
     const expirationDate = new Date(now.getTime() + authData.expiresIn * 1000);
@@ -67,20 +74,6 @@ const mutations = {
     localStorage.setItem("userId", authData.localId);
     localStorage.setItem("userData", authData.userData);
     localStorage.setItem("expiresIn", expirationDate);
-  },
-
-  addUserContact(state, newContact) {
-    state.user.contacts.push(newContact);
-    state.users = state.users.filter(
-      (user) => user.localId !== newContact.localId
-    );
-  },
-  storeMessage(state, messageObj) {
-    state.userChatContactMessages.push(messageObj);
-  },
-
-  storeUserChatContactMessages(state, userChatContactMessages) {
-    state.userChatContactMessages = userChatContactMessages;
   },
 };
 
@@ -243,7 +236,7 @@ const actions = {
             lastTimestamp[lastTimestamp.length - 1].timestamp;
         });
 
-        commit("storeMessageList", userChatContacts);
+        commit("storeUserChatContacts", userChatContacts);
         localStorage.setItem("messageList", JSON.stringify(userChatContacts));
 
         if (!state.userChatContact && state.userChatContacts.length) {
