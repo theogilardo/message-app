@@ -137,7 +137,10 @@ const actions = {
         });
 
         commit("storeUserChatContacts", userChatContacts);
-        localStorage.setItem("messageList", JSON.stringify(userChatContacts));
+        localStorage.setItem(
+          "userChatContacts",
+          JSON.stringify(userChatContacts)
+        );
 
         if (
           !rootState.users.userChatContact &&

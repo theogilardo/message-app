@@ -206,13 +206,13 @@ export default {
       this.isActive = !this.isActive;
     },
     refreshLocalStorage() {
+      if (localStorage.getItem("storeUser")) {
+        const user = JSON.parse(localStorage.getItem("storeUser"));
+        this.$store.commit("storeUser", user);
+      }
       if (localStorage.getItem("storeUsers")) {
         const users = JSON.parse(localStorage.getItem("storeUsers"));
         this.$store.commit("storeUsers", users);
-      }
-      if (localStorage.getItem("storeUser")) {
-        const users = JSON.parse(localStorage.getItem("storeUser"));
-        this.$store.commit("storeUser", users);
       }
       if (localStorage.getItem("userChatContact")) {
         const userChatContact = JSON.parse(
@@ -220,15 +220,20 @@ export default {
         );
         this.$store.dispatch("chatWithContact", userChatContact);
       }
-      if (localStorage.getItem("messageList")) {
-        const messageList = JSON.parse(localStorage.getItem("messageList"));
-        this.$store.commit("storeUserChatContacts", messageList);
+      if (localStorage.getItem("userChatContacts")) {
+        const userChatContacts = JSON.parse(
+          localStorage.getItem("userChatContacts")
+        );
+        this.$store.commit("storeUserChatContacts", userChatContacts);
       }
       if (localStorage.getItem("userChatContactMessages")) {
-        const messageList = JSON.parse(
+        const userChatContactMessages = JSON.parse(
           localStorage.getItem("userChatContactMessages")
         );
-        this.$store.commit("storeUserChatContactMessages", messageList);
+        this.$store.commit(
+          "storeUserChatContactMessages",
+          userChatContactMessages
+        );
       }
     },
   },
