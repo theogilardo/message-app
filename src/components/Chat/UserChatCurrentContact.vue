@@ -13,6 +13,7 @@
 
 <script>
 export default {
+  name: "UserChatCurrentContact",
   computed: {
     userChatContact() {
       return this.$store.getters.userChatContact;

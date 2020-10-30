@@ -1,37 +1,10 @@
 <template>
   <div class="chat">
     <div class="background"></div>
-    <div class="chat__switch__trad">
-      <a class="chat__switch__trad--en" @click="swithToEnglish">
-        <img
-          :class="{ 'trad-active': isActive }"
-          class="chat__switch__trad__icon"
-          src="../assets/flag-us.svg"
-          alt="Flag USA"
-        />
-      </a>
-      <a class="chat__switch__trad--fr" @click="swithToFrench">
-        <img
-          :class="{ 'trad-active': !isActive }"
-          class="chat__switch__trad__icon"
-          src="../assets/flag-fr.svg"
-          alt="Flag FR"
-        />
-      </a>
-    </div>
+    <switch-trad></switch-trad>
     <side-bar></side-bar>
-    <div class="chat__category">
-      <h3 v-if="listType === 'list-user-messages'" class="chat__category__name">
-        {{ listTypeLabel }}
-      </h3>
-      <h3 v-else class="chat__category__name">
-        {{ $t("chat.list.label") }}
-      </h3>
-    </div>
-    <div class="chat__lists">
-      <component :is="listType" :key="componentKey"></component>
-      <!-- @chatWithContact="selectTypeInput" -->
-    </div>
+    <list-type></list-type>
+    <component :is="listTypeTest" class="chat__lists"></component>
     <contact-info></contact-info>
     <contact-messages></contact-messages>
     <user-onboarding></user-onboarding>
@@ -39,98 +12,37 @@
 </template>
 
 <script>
-import ListUsers from "./lists/ListUsers.vue";
-import ListUserMessages from "./lists/ListUserMessages.vue";
+import ListType from "./../Lists/ListType.vue";
+import ListTypeUsers from "./../Lists/ListTypeUsers.vue";
+import ListTypeUserMessages from "./../Lists/ListTypeUserMessages.vue";
 import UserChatSideBarVue from "./UserChatSideBar.vue";
 import UserChatCurrentContact from "./UserChatCurrentContact.vue";
 import UserChatContactMessages from "./UserChatContactMessages.vue";
 import UserChatOnboarding from "./UserChatOnboarding.vue";
+import SwitchTrad from "../SwitchTrad.vue";
 
 export default {
-  name: "Chat",
+  name: "UserChat",
   components: {
-    "list-users": ListUsers,
-    "list-user-messages": ListUserMessages,
+    "list-type": ListType,
+    "list-users": ListTypeUsers,
+    "list-user-messages": ListTypeUserMessages,
     "side-bar": UserChatSideBarVue,
     "contact-info": UserChatCurrentContact,
     "contact-messages": UserChatContactMessages,
     "user-onboarding": UserChatOnboarding,
+    "switch-trad": SwitchTrad,
   },
   mounted() {
     this.refreshLocalStorage();
   },
-  data() {
-    return {
-      selectedComponent: "list-user-messages",
-      category: "Contacts",
-      message: null,
-      isActive: true,
-    };
-  },
   computed: {
-    user() {
-      return this.$store.getters.user;
-    },
-    userChatContact() {
-      return this.$store.getters.userChatContact;
-    },
-    users() {
-      return this.$store.getters.users;
-    },
-    userChatContacts() {
-      return this.$store.getters.userChatContacts;
-    },
-    userChatContactMessages() {
-      return this.$store.getters.userChatContactMessages;
-    },
-    listType() {
+    listTypeTest() {
       return this.$store.getters.listType;
-    },
-    listTypeLabel() {
-      return this.$store.getters.listTypeLabel;
-    },
-    componentKey() {
-      return this.$store.getters.componentKey;
     },
   },
   methods: {
-    sendMessage() {
-      this.$store.dispatch("storeMessage", this.message);
-      this.clearTypeInput();
-      this.selectTypeInput();
-      this.$store.commit("forceRerender");
-    },
-    clearTypeInput() {
-      this.message = "";
-    },
-    selectTypeInput() {
-      this.$refs.typeMessage.select();
-    },
-    logout() {
-      this.redirectHome();
-      return this.$store.commit("logout");
-    },
-    redirectHome() {
-      this.$router.push("/login");
-      location.reload();
-    },
-    switchToUserMessages() {
-      return this.$store.commit("switchToUserMessages");
-    },
-    switchToUsers() {
-      return this.$store.commit("switchToUsers");
-    },
-    swithToEnglish() {
-      this.$i18n.locale = "en";
-      this.isActive = !this.isActive;
-    },
-    swithToFrench() {
-      this.$i18n.locale = "fr";
-      this.isActive = !this.isActive;
-    },
     refreshLocalStorage() {
-      // this.$router.dispatch("fetchMessages");
-
       if (localStorage.getItem("storeUser")) {
         const user = JSON.parse(localStorage.getItem("storeUser"));
         this.$store.commit("storeUser", user);

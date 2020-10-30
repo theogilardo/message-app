@@ -18,7 +18,7 @@
       >
         <img
           class="chat__side-bar__icon"
-          src="../assets/chat.svg"
+          src="../../assets/chat.svg"
           alt="Edit Button"
         />
       </a>
@@ -31,7 +31,7 @@
       >
         <img
           class="chat__side-bar__icon"
-          src="../assets/contact-book.svg"
+          src="../../assets/contact-book.svg"
           alt="Edit Button"
         />
       </a>
@@ -40,7 +40,7 @@
       <a class="chat__side-bar__link" @click="logout">
         <img
           class="chat__side-bar__icon chat__side-bar__icon__last"
-          src="../assets/logout.svg"
+          src="../../assets/logout.svg"
           alt="Edit Button"
         />
       </a>

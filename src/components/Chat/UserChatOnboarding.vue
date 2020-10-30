@@ -11,6 +11,7 @@
 
 <script>
 export default {
+  name: "UserChatOnboarding",
   computed: {
     userChatContact() {
       return this.$store.getters.userChatContact;

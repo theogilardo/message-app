@@ -3,7 +3,7 @@ import VueRouter from "vue-router";
 import TheHomepage from "../components/TheHomepage.vue";
 import Signup from "../components/UserSignup.vue";
 import Login from "../components/UserLogin.vue";
-import UserChat from "../components/UserChat.vue";
+import UserChat from "../components/Chat/UserChat.vue";
 import TheRouteError from "../components/TheRouteError.vue";
 import store from "../store/index.js";
 

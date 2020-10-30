@@ -16,15 +16,16 @@
         :placeholder="$t('chat.typing')"
         type="text"
       />
-      <img @click="sendMessage" src="../assets/send.svg" alt="Send Icon" />
+      <img @click="sendMessage" src="../../assets/send.svg" alt="Send Icon" />
     </div>
   </div>
 </template>
 
 <script>
-import { eventBus } from "../main.js";
+import { eventBus } from "../../main.js";
 
 export default {
+  name: "UserChatContactMessages",
   data() {
     return {
       message: null,
@@ -48,7 +49,6 @@ export default {
       this.$store.dispatch("storeMessage", this.message);
       this.clearTypeInput();
       this.selectTypeInput();
-      this.$store.commit("forceRerender");
     },
     clearTypeInput() {
       this.message = "";

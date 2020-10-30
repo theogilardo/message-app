@@ -5,7 +5,6 @@ const state = {
   userChatContact: null,
   userChatContacts: [],
   users: [],
-  componentKey: 0,
 };
 
 const getters = {
@@ -49,9 +48,6 @@ const mutations = {
   },
   storeUsers(state, userData) {
     state.users = userData;
-  },
-  forceRerender(state) {
-    state.componentKey += 1;
   },
   storeLocalStorageUser(_, authData) {
     const now = new Date();

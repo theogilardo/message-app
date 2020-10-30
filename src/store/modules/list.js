@@ -1,6 +1,7 @@
 const state = {
   type: "list-users",
 };
+
 const getters = {
   listType(state) {
     return state.type;
