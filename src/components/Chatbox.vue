@@ -131,44 +131,21 @@
 </template>
 
 <script>
-import FindUsers from "./lists/FindUsers.vue";
-import Messages from "./lists/Messages.vue";
+import ListUsers from "./lists/ListUsers.vue";
+import ListUserMessages from "./lists/ListUserMessages.vue";
 
 export default {
   name: "Chatbox",
   components: {
-    findUsers: FindUsers,
-    messages: Messages,
+    "list-users": ListUsers,
+    "list-user-messages": ListUserMessages,
   },
   mounted() {
-    if (localStorage.getItem("storeUsers")) {
-      const users = JSON.parse(localStorage.getItem("storeUsers"));
-      this.$store.commit("storeUsers", users);
-    }
-    if (localStorage.getItem("storeUser")) {
-      const users = JSON.parse(localStorage.getItem("storeUser"));
-      this.$store.commit("storeUser", users);
-    }
-    if (localStorage.getItem("userMessageReceiver")) {
-      const userMessageReceiver = JSON.parse(
-        localStorage.getItem("userMessageReceiver")
-      );
-      this.$store.dispatch("chatWithContact", userMessageReceiver);
-    }
-    if (localStorage.getItem("messageList")) {
-      const messageList = JSON.parse(localStorage.getItem("messageList"));
-      this.$store.commit("storeMessageList", messageList);
-    }
-    if (localStorage.getItem("selectedContactMessages")) {
-      const messageList = JSON.parse(
-        localStorage.getItem("selectedContactMessages")
-      );
-      this.$store.commit("storeSelectedContactMessages", messageList);
-    }
+    this.refreshLocalStorage();
   },
   data() {
     return {
-      selectedComponent: "messages",
+      selectedComponent: "list-user-messages",
       category: "Contacts",
       message: null,
       isActive: true,
@@ -243,6 +220,32 @@ export default {
     swithToFrench() {
       this.$i18n.locale = "fr";
       this.isActive = !this.isActive;
+    },
+    refreshLocalStorage() {
+      if (localStorage.getItem("storeUsers")) {
+        const users = JSON.parse(localStorage.getItem("storeUsers"));
+        this.$store.commit("storeUsers", users);
+      }
+      if (localStorage.getItem("storeUser")) {
+        const users = JSON.parse(localStorage.getItem("storeUser"));
+        this.$store.commit("storeUser", users);
+      }
+      if (localStorage.getItem("userMessageReceiver")) {
+        const userMessageReceiver = JSON.parse(
+          localStorage.getItem("userMessageReceiver")
+        );
+        this.$store.dispatch("chatWithContact", userMessageReceiver);
+      }
+      if (localStorage.getItem("messageList")) {
+        const messageList = JSON.parse(localStorage.getItem("messageList"));
+        this.$store.commit("storeMessageList", messageList);
+      }
+      if (localStorage.getItem("selectedContactMessages")) {
+        const messageList = JSON.parse(
+          localStorage.getItem("selectedContactMessages")
+        );
+        this.$store.commit("storeSelectedContactMessages", messageList);
+      }
     },
   },
 };

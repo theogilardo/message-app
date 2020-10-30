@@ -1,5 +1,5 @@
 const state = {
-  category: "findUsers",
+  category: "list-users",
   categoryLength: null,
 };
 const getters = {
@@ -10,36 +10,26 @@ const getters = {
     return state.categoryLength;
   },
   listCategoryTypeLabel(state) {
-    if (state.category === "contacts") {
-      return "Contacts";
-    }
-    if (state.category === "messages") {
+    if (state.category === "list-user-messages") {
       return "Messages";
     }
-    if (state.category === "findUsers") {
+    if (state.category === "list-users") {
       return "Find New Contact";
     }
   },
 };
 const mutations = {
-  switchToContacts(state) {
-    state.category = "contacts";
-  },
   switchToMessages(state) {
-    state.category = "messages";
+    state.category = "list-user-messages";
   },
   switchToNewContact(state) {
-    state.category = "findUsers";
+    state.category = "list-users";
   },
   switchListLength(state, listLength) {
     state.categoryLength = listLength;
   },
 };
 const actions = {
-  switchToContacts({ commit, rootState }) {
-    commit("switchToContacts");
-    commit("switchListLength", rootState.users.user.contacts.length);
-  },
   switchToMessages({ commit, rootState }) {
     const messagesLength = rootState.users.contactMessages.length;
     commit("switchToMessages");
