@@ -31,8 +31,7 @@
         <a
           v-if="userChatContacts.length"
           :class="{
-            'chat__side-bar__link--active':
-              listCategoryType === 'list-user-messages',
+            'chat__side-bar__link--active': listType === 'list-user-messages',
           }"
           class="chat__side-bar__link"
           @click="switchToUserMessages"
@@ -45,7 +44,7 @@
         </a>
         <a
           :class="{
-            'chat__side-bar__link--active': listCategoryType === 'list-users',
+            'chat__side-bar__link--active': listType === 'list-users',
           }"
           class="chat__side-bar__link"
           @click="switchToUsers"
@@ -68,11 +67,8 @@
       </div>
     </div>
     <div class="chat__category">
-      <h3
-        v-if="listCategoryType === 'list-user-messages'"
-        class="chat__category__name"
-      >
-        {{ listCategoryTypeLabel }}
+      <h3 v-if="listType === 'list-user-messages'" class="chat__category__name">
+        {{ listTypeLabel }}
       </h3>
       <h3 v-else class="chat__category__name">
         {{ $t("chatbox.list.label") }}
@@ -81,7 +77,7 @@
 
     <div class="chat__lists">
       <component
-        :is="listCategoryType"
+        :is="listType"
         :key="componentKey"
         @chatWithContact="selectTypeInput"
       ></component>
@@ -164,14 +160,11 @@ export default {
     userChatContactMessages() {
       return this.$store.getters.userChatContactMessages;
     },
-    listCategoryType() {
-      return this.$store.getters.listCategoryType;
+    listType() {
+      return this.$store.getters.listType;
     },
-    listCategoryTypeLabel() {
-      return this.$store.getters.listCategoryTypeLabel;
-    },
-    listCategoryTypeLength() {
-      return this.$store.getters.listCategoryTypeLength;
+    listTypeLabel() {
+      return this.$store.getters.listTypeLabel;
     },
     componentKey() {
       return this.$store.getters.componentKey;

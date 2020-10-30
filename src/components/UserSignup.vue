@@ -194,10 +194,10 @@ export default {
 
   &__form
     margin-top 8rem
-    padding 2rem 2rem 2rem 3rem
+    padding 2.5rem 2rem 3rem 3rem
     width 100%
     max-width 75rem
-    height 48rem
+    height 46rem
     position relative
     border-radius 20px
     background: linear-gradient(to right, rgba(74,210,149,1), rgba(77,125,225,1));
@@ -213,6 +213,7 @@ export default {
       display flex
       align-items center
       justify-content center
+      margin-bottom 2rem
 
     &__photo
         width 100%
@@ -238,6 +239,8 @@ export default {
           background white
           border 1px solid white
           border-radius 50%
+          margin-bottom 2rem
+          transform translateX(25px)
 
           &__label
             position absolute
@@ -306,6 +309,7 @@ export default {
       display flex
       align-items center
       justify-content center
+      margin-top 2rem
 
     .btn
       font-size 1.6rem

@@ -17,7 +17,6 @@ const mutations = {
     state.tokenId = authData.tokenId;
     state.userId = authData.userId;
   },
-
   logout(state) {
     state.tokenId = null;
     localStorage.clear();

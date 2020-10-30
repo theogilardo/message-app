@@ -1,25 +1,25 @@
 const state = {
-  category: "list-users",
+  type: "list-users",
 };
 const getters = {
-  listCategoryType(state) {
-    return state.category;
+  listType(state) {
+    return state.type;
   },
-  listCategoryTypeLabel(state) {
-    if (state.category === "list-user-messages") {
+  listTypeLabel(state) {
+    if (state.type === "list-user-messages") {
       return "Messages";
     }
-    if (state.category === "list-users") {
+    if (state.type === "list-users") {
       return "Find New Contact";
     }
   },
 };
 const mutations = {
   switchToUsers(state) {
-    state.category = "list-users";
+    state.type = "list-users";
   },
   switchToUserMessages(state) {
-    state.category = "list-user-messages";
+    state.type = "list-user-messages";
   },
 };
 const actions = {};
