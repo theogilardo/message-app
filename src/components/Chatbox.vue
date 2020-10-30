@@ -29,7 +29,7 @@
           />
         </a>
         <a
-          v-if="contactMessages.length"
+          v-if="userChatContacts.length"
           :class="{
             'chat__side-bar__link--active':
               listCategoryType === 'list-user-messages',
@@ -88,22 +88,20 @@
         @chatWithContact="selectTypeInput"
       ></component>
     </div>
-    <div v-if="userMessageReceiver" class="chat__main-user">
-      <img :src="userMessageReceiver.profilePic" alt="Main Profile Photo" />
+    <div v-if="userChatContact" class="chat__main-user">
+      <img :src="userChatContact.profilePic" alt="Main Profile Photo" />
       <div class="chat__main-user__information">
-        <h1>
-          {{ userMessageReceiver.name }} {{ userMessageReceiver.surname }}
-        </h1>
-        <p v-if="selectedContactMessages.length > 1">
-          {{ selectedContactMessages.length }} messages
+        <h1>{{ userChatContact.name }} {{ userChatContact.surname }}</h1>
+        <p v-if="userChatContactMessages.length > 1">
+          {{ userChatContactMessages.length }} messages
         </p>
-        <p v-else>{{ selectedContactMessages.length }} message</p>
+        <p v-else>{{ userChatContactMessages.length }} message</p>
       </div>
     </div>
     <div class="chat__messages">
-      <div v-if="userMessageReceiver" class="chat__messages__conversation">
+      <div v-if="userChatContact" class="chat__messages__conversation">
         <p
-          v-for="message in selectedContactMessages"
+          v-for="message in userChatContactMessages"
           :key="message.id"
           :class="{ sent: message.type === 'sent' }"
         >
@@ -120,7 +118,7 @@
         <img @click="sendMessage" src="../assets/send.svg" alt="Send Icon" />
       </div>
     </div>
-    <div v-show="!userMessageReceiver" class="chat__onboarding">
+    <div v-show="!userChatContact" class="chat__onboarding">
       <h1 class="chat__onboarding__text__main">
         {{ $t("chatbox.onboarding.welcome") }} !
         <h2 class="chat__onboarding__text__second">
@@ -156,20 +154,17 @@ export default {
     user() {
       return this.$store.getters.user;
     },
-    userMessageReceiver() {
-      return this.$store.getters.userMessageReceiver;
-    },
-    userContactMessages() {
-      return this.$store.getters.messages;
+    userChatContact() {
+      return this.$store.getters.userChatContact;
     },
     users() {
       return this.$store.getters.users;
     },
-    contactMessages() {
-      return this.$store.getters.contactMessages;
+    userChatContacts() {
+      return this.$store.getters.userChatContacts;
     },
-    selectedContactMessages() {
-      return this.$store.getters.selectedContactMessages;
+    userChatContactMessages() {
+      return this.$store.getters.userChatContactMessages;
     },
     listCategoryType() {
       return this.$store.getters.listCategoryType;
@@ -231,21 +226,21 @@ export default {
         const users = JSON.parse(localStorage.getItem("storeUser"));
         this.$store.commit("storeUser", users);
       }
-      if (localStorage.getItem("userMessageReceiver")) {
-        const userMessageReceiver = JSON.parse(
-          localStorage.getItem("userMessageReceiver")
+      if (localStorage.getItem("userChatContact")) {
+        const userChatContact = JSON.parse(
+          localStorage.getItem("userChatContact")
         );
-        this.$store.dispatch("chatWithContact", userMessageReceiver);
+        this.$store.dispatch("chatWithContact", userChatContact);
       }
       if (localStorage.getItem("messageList")) {
         const messageList = JSON.parse(localStorage.getItem("messageList"));
         this.$store.commit("storeMessageList", messageList);
       }
-      if (localStorage.getItem("selectedContactMessages")) {
+      if (localStorage.getItem("userChatContactMessages")) {
         const messageList = JSON.parse(
-          localStorage.getItem("selectedContactMessages")
+          localStorage.getItem("userChatContactMessages")
         );
-        this.$store.commit("storeSelectedContactMessages", messageList);
+        this.$store.commit("storeUserChatContactMessages", messageList);
       }
     },
   },

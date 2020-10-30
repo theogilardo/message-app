@@ -52,7 +52,6 @@ const actions = {
       })
       .catch((error) => {
         console.log(error);
-
         alert("Invalid email");
       });
   },
@@ -96,7 +95,6 @@ const actions = {
     const tokenId = localStorage.getItem("tokenId");
     const expirationDate = localStorage.getItem("expiresIn");
     const userData = localStorage.getItem("userData");
-
     const now = new Date();
 
     if (!tokenId && now >= expirationDate) {

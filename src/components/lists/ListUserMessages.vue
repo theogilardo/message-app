@@ -1,9 +1,9 @@
 <template>
-  <div class="list-category" v-if="userMessageReceiver">
+  <div class="list-category" v-if="userChatContact">
     <div
-      v-for="user in userContactMessagesSorted"
+      v-for="user in userChatContactsSorted"
       :key="user.id"
-      :class="{ activeChat: user.localId === userMessageReceiver.localId }"
+      :class="{ activeChat: user.localId === userChatContact.localId }"
       class="list-category__user"
       @click="fetchMessages(user)"
     >
@@ -38,14 +38,14 @@ export default {
     };
   },
   computed: {
-    contactMessages() {
-      return this.$store.getters.contactMessages;
+    userChatContacts() {
+      return this.$store.getters.userChatContacts;
     },
-    userContactMessagesSorted() {
-      return this.$store.getters.userContactMessagesSorted;
+    userChatContactsSorted() {
+      return this.$store.getters.userChatContactsSorted;
     },
-    userMessageReceiver() {
-      return this.$store.getters.userMessageReceiver;
+    userChatContact() {
+      return this.$store.getters.userChatContact;
     },
   },
   methods: {

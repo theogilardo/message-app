@@ -3,42 +3,33 @@ import firebase from "firebase";
 
 const state = {
   user: null,
-  userMessageReceiver: null,
+  userChatContact: null,
+  userChatContactMessages: [],
+  userChatContacts: [],
   users: [],
-  messages: [],
-  contactMessages: [],
-  selectedContactMessages: [],
   componentKey: 0,
-  isDataFetched: false,
-  areMessagesLoaded: false,
 };
 
 const getters = {
   user(state) {
     return state.user;
   },
-  contactMessages(state) {
-    return state.contactMessages;
+  userChatContacts(state) {
+    return state.userChatContacts;
   },
-  selectedContactMessages(state) {
-    return state.selectedContactMessages;
+  userChatContactMessages(state) {
+    return state.userChatContactMessages;
   },
-  userContactMessagesSorted(state) {
-    return state.contactMessages.sort(
+  userChatContactsSorted(state) {
+    return state.userChatContacts.sort(
       (a, b) => b.lastTimestamp - a.lastTimestamp
     );
-  },
-  areMessagesLoaded(state) {
-    return state.areMessagesLoaded;
-  },
-  isDataFetched(state) {
-    return state.isDataFetched;
   },
   componentKey(state) {
     return state.componentKey;
   },
-  userMessageReceiver(state) {
-    return state.userMessageReceiver;
+  userChatContact(state) {
+    return state.userChatContact;
   },
   users(state) {
     return state.users;
@@ -47,22 +38,22 @@ const getters = {
 
 const mutations = {
   emptyMessages(state) {
-    state.selectedContactMessages = [];
+    state.userChatContactMessages = [];
   },
   storeUser(state, userData) {
     state.user = userData;
   },
 
   storeMessageList(state, payload) {
-    state.contactMessages = payload;
+    state.userChatContacts = payload;
   },
 
   forceRerender(state) {
     state.componentKey += 1;
   },
 
-  storeUserMessageReceiver(state, receiver) {
-    state.userMessageReceiver = receiver;
+  storeUserChatContact(state, receiver) {
+    state.userChatContact = receiver;
   },
 
   storeUsers(state, userData) {
@@ -85,11 +76,11 @@ const mutations = {
     );
   },
   storeMessage(state, messageObj) {
-    state.selectedContactMessages.push(messageObj);
+    state.userChatContactMessages.push(messageObj);
   },
 
-  storeSelectedContactMessages(state, selectedContactMessages) {
-    state.selectedContactMessages = selectedContactMessages;
+  storeUserChatContactMessages(state, userChatContactMessages) {
+    state.userChatContactMessages = userChatContactMessages;
   },
 };
 
@@ -106,7 +97,7 @@ const actions = {
       .catch((err) => console.log(err));
   },
 
-  fetchUser({ state, commit, dispatch, rootState }) {
+  fetchUser({ commit, dispatch, rootState }) {
     axios
       .get("https://message-app-719f5.firebaseio.com/users.json")
       .then((res) => {
@@ -132,7 +123,6 @@ const actions = {
         commit("storeUser", activeUser);
         commit("storeUsers", otherUsers);
 
-        state.isDataFetched = true;
         dispatch("fetchMessages");
       })
       .catch((err) => console.log(err));
@@ -143,7 +133,7 @@ const actions = {
 
     const messageObj = {
       senderId: state.user.localId,
-      receiverId: state.userMessageReceiver.localId,
+      receiverId: state.userChatContact.localId,
       message: message,
       timestamp: timestamp,
     };
@@ -153,8 +143,8 @@ const actions = {
     commit("storeMessage", currentSession);
 
     localStorage.setItem(
-      "selectedContactMessages",
-      JSON.stringify(state.selectedContactMessages)
+      "userChatContactMessages",
+      JSON.stringify(state.userChatContactMessages)
     );
 
     firebase
@@ -202,18 +192,18 @@ const actions = {
           (id) => id !== userId
         );
 
-        const contactMessages = [];
+        const userChatContacts = [];
 
         uniqueContactIds.forEach((contactId) => {
           const contactDataFromUsers = state.users.find(
             (user) => user.localId === contactId
           );
-          contactMessages.push(contactDataFromUsers);
+          userChatContacts.push(contactDataFromUsers);
         });
 
         // Users of the current user message list
-        contactMessages.forEach((contact) => {
-          const contactMessagesFiltered = messages.filter(
+        userChatContacts.forEach((contact) => {
+          const userChatContactsFiltered = messages.filter(
             (message) =>
               (message.receiverId === contact.localId &&
                 message.senderId === userId) ||
@@ -221,8 +211,8 @@ const actions = {
                 message.senderId === contact.localId)
           );
 
-          const contactMessagesFilteredFormatted = [];
-          const messageUsertoContact = contactMessagesFiltered.filter(
+          const userChatContactsFilteredFormatted = [];
+          const messageUsertoContact = userChatContactsFiltered.filter(
             (message) => message.senderId === userId
           );
 
@@ -230,7 +220,7 @@ const actions = {
             return (message.type = "sent");
           });
 
-          const messageContactToUser = contactMessagesFiltered.filter(
+          const messageContactToUser = userChatContactsFiltered.filter(
             (message) => message.receiverId === userId
           );
 
@@ -239,13 +229,13 @@ const actions = {
           });
 
           const concatChat = messageUsertoContact.concat(messageContactToUser);
-          contactMessagesFilteredFormatted.push(concatChat);
+          userChatContactsFilteredFormatted.push(concatChat);
 
-          contact.messages = contactMessagesFilteredFormatted[0].sort(
+          contact.messages = userChatContactsFilteredFormatted[0].sort(
             (a, b) => b.timestamp - a.timestamp
           );
 
-          const lastTimestamp = contactMessagesFilteredFormatted[0].sort(
+          const lastTimestamp = userChatContactsFilteredFormatted[0].sort(
             (a, b) => a.timestamp - b.timestamp
           );
 
@@ -253,10 +243,10 @@ const actions = {
             lastTimestamp[lastTimestamp.length - 1].timestamp;
         });
 
-        commit("storeMessageList", contactMessages);
-        localStorage.setItem("messageList", JSON.stringify(contactMessages));
+        commit("storeMessageList", userChatContacts);
+        localStorage.setItem("messageList", JSON.stringify(userChatContacts));
 
-        if (!state.userMessageReceiver && state.contactMessages.length) {
+        if (!state.userChatContact && state.userChatContacts.length) {
           // Find last user message
           const findLastUserMessage = messages.filter(
             (message) =>
@@ -271,13 +261,11 @@ const actions = {
               ? lastUserMessage.receiverId
               : lastUserMessage.senderId;
 
-          const setMostRecentChat = contactMessages.find(
+          const setMostRecentChat = userChatContacts.find(
             (contact) => contact.localId === weFoundIt
           );
           dispatch("chatWithContact", setMostRecentChat);
         }
-
-        state.areMessagesLoaded = true;
       })
       .catch((err) => {
         console.log(err);
@@ -285,13 +273,13 @@ const actions = {
   },
 
   chatWithContact({ commit, dispatch }, contact) {
-    commit("storeUserMessageReceiver", contact);
-    localStorage.setItem("userMessageReceiver", JSON.stringify(contact));
+    commit("storeUserChatContact", contact);
+    localStorage.setItem("userChatContact", JSON.stringify(contact));
 
     commit("emptyMessages");
 
     if (contact.messages) {
-      commit("storeSelectedContactMessages", contact.messages);
+      commit("storeUserChatContactMessages", contact.messages);
     }
     dispatch("switchToUserMessages");
   },
