@@ -1,18 +1,18 @@
 <template>
   <div class="chat">
     <div class="background"></div>
-    <div class="switch__trad">
-      <a class="switch__trad--en" @click="swithToEnglish">
+    <div class="chat__switch__trad">
+      <a class="chat__switch__trad--en" @click="swithToEnglish">
         <img
-          class="switch__trad__icon"
+          class="chat__switch__trad__icon"
           :class="{ 'trad-active': isActive }"
           src="../assets/flag-us.svg"
           alt="Flag USA"
         />
       </a>
-      <a class="switch__trad--fr" @click="swithToFrench">
+      <a class="chat__switch__trad--fr" @click="swithToFrench">
         <img
-          class="switch__trad__icon"
+          class="chat__switch__trad__icon"
           :class="{ 'trad-active': !isActive }"
           src="../assets/flag-fr.svg"
           alt="Flag FR"
@@ -308,21 +308,6 @@ export default {
 
 <style lang="stylus">
 
-.switch__trad
-  display: flex;
-  position: fixed;
-  z-index: 1000;
-  top: 2.5rem;
-  right: 3rem;
-  align-items: center;
-
-  &--fr
-    margin-left 1rem
-
-  &__icon
-    opacity .5
-    width 24px
-
 .trad-active
   opacity 1 !important
 
@@ -346,6 +331,21 @@ export default {
   display: grid;
   grid-template-columns: 60px 25% 1fr;
   grid-template-rows: 80px 40px 1fr;
+
+  &__switch__trad
+    display: flex;
+    position: fixed;
+    z-index: 1000;
+    top: 2.5rem;
+    right: 3rem;
+    align-items: center;
+
+    &--fr
+      margin-left 1rem
+
+    &__icon
+      opacity .5
+      width 24px
 
   &__onboarding
     z-index 100
