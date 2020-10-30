@@ -24,16 +24,16 @@ const actions = {
   storeMessage({ state, rootState, commit, dispatch }, message) {
     const timestamp = new Date().getTime();
 
-    const messageObj = {
+    const messageFormatted = {
       senderId: rootState.users.user.localId,
       receiverId: rootState.users.userChatContact.localId,
       message: message,
       timestamp: timestamp,
     };
 
-    const currentSession = messageObj;
-    currentSession.type = "sent";
-    commit("storeMessage", currentSession);
+    const messageSent = messageFormatted;
+    messageSent.type = "sent";
+    commit("storeMessage", messageSent);
 
     localStorage.setItem(
       "userChatContactMessages",
@@ -43,7 +43,7 @@ const actions = {
     firebase
       .database()
       .ref(`messages`)
-      .push(messageObj)
+      .push(messageFormatted)
       .then((res) => {
         console.log(res);
         dispatch("fetchMessages");
@@ -64,39 +64,40 @@ const actions = {
         }
 
         const userId = rootState.users.user.localId;
+        const _ = require("lodash");
 
-        // Find all messages related to the currentUser
-        const findContactIds = messages
+        // Find all user chat contacts IDs from the messages in Firebase
+        const findUserChatContacts = messages
           .filter(
             (message) =>
               message.receiverId === userId || message.senderId === userId
           )
           .map((message) => {
-            const weFoundIt =
+            const userChatContactId =
               message.senderId === userId
                 ? message.receiverId
                 : message.senderId;
-            return weFoundIt;
+            return userChatContactId;
           });
 
-        // Find unique Ids between current user chats
-        const _ = require("lodash");
-        const uniqueContactIds = _.uniq(findContactIds, "localId").filter(
-          (id) => id !== userId
-        );
+        const uniqueUserChatContactsIds = _.uniq(
+          findUserChatContacts,
+          "localId"
+        ).filter((id) => id !== userId);
 
         const userChatContacts = [];
 
-        uniqueContactIds.forEach((contactId) => {
+        // Store data from users to the chat contact found
+        uniqueUserChatContactsIds.forEach((contactId) => {
           const contactDataFromUsers = rootState.users.users.find(
             (user) => user.localId === contactId
           );
           userChatContacts.push(contactDataFromUsers);
         });
 
-        // Users of the current user message list
+        // Store and format the messages for each user chat contact
         userChatContacts.forEach((contact) => {
-          const userChatContactsFiltered = messages.filter(
+          const userChatContactMessages = messages.filter(
             (message) =>
               (message.receiverId === contact.localId &&
                 message.senderId === userId) ||
@@ -104,31 +105,29 @@ const actions = {
                 message.senderId === contact.localId)
           );
 
-          const userChatContactsFilteredFormatted = [];
-          const messageUsertoContact = userChatContactsFiltered.filter(
+          const messageUsertoContact = userChatContactMessages.filter(
             (message) => message.senderId === userId
           );
 
-          messageUsertoContact.forEach((message) => {
-            return (message.type = "sent");
-          });
+          messageUsertoContact.forEach((message) => (message.type = "sent"));
 
-          const messageContactToUser = userChatContactsFiltered.filter(
+          const messageContactToUser = userChatContactMessages.filter(
             (message) => message.receiverId === userId
           );
 
-          messageContactToUser.forEach((message) => {
-            return (message.type = "received");
-          });
+          messageContactToUser.forEach(
+            (message) => (message.type = "received")
+          );
 
-          const concatChat = messageUsertoContact.concat(messageContactToUser);
-          userChatContactsFilteredFormatted.push(concatChat);
+          const userChatContactMessagesFormatted = messageUsertoContact.concat(
+            messageContactToUser
+          );
 
-          contact.messages = userChatContactsFilteredFormatted[0].sort(
+          contact.messages = userChatContactMessagesFormatted.sort(
             (a, b) => b.timestamp - a.timestamp
           );
 
-          const lastTimestamp = userChatContactsFilteredFormatted[0].sort(
+          const lastTimestamp = userChatContactMessagesFormatted.sort(
             (a, b) => a.timestamp - b.timestamp
           );
 
@@ -142,6 +141,7 @@ const actions = {
           JSON.stringify(userChatContacts)
         );
 
+        // Redirect to last chat when user login
         if (
           !rootState.users.userChatContact &&
           rootState.users.userChatContacts.length
@@ -155,13 +155,13 @@ const actions = {
           const lastUserMessage =
             findLastUserMessage[findLastUserMessage.length - 1];
 
-          const weFoundIt =
+          const contactId =
             lastUserMessage.senderId === userId
               ? lastUserMessage.receiverId
               : lastUserMessage.senderId;
 
           const setMostRecentChat = userChatContacts.find(
-            (contact) => contact.localId === weFoundIt
+            (contact) => contact.localId === contactId
           );
           dispatch("chatWithContact", setMostRecentChat);
         }
