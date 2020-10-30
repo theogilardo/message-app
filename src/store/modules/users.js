@@ -68,8 +68,7 @@ const actions = {
     axios
       .post("https://message-app-719f5.firebaseio.com/users.json", authData)
       .then((res) => {
-        const key = res.data.name;
-        authData.key = key;
+        console.log(res);
         commit("storeUser", authData);
         dispatch("fetchUser");
       })
@@ -94,23 +93,21 @@ const actions = {
         });
 
         const otherUsers = users.filter(
-          (user) => rootState.auth.userId !== user.localId
+          (user) => user.localId !== rootState.auth.userId
         );
 
         localStorage.setItem("storeUser", JSON.stringify(activeUser));
         localStorage.setItem("storeUsers", JSON.stringify(otherUsers));
         commit("storeUser", activeUser);
         commit("storeUsers", otherUsers);
-
         dispatch("fetchMessages");
       })
       .catch((err) => console.log(err));
   },
 
   chatWithContact({ commit }, contact) {
-    commit("storeUserChatContact", contact);
     localStorage.setItem("userChatContact", JSON.stringify(contact));
-
+    commit("storeUserChatContact", contact);
     commit("emptyMessages");
 
     if (contact.messages) {
