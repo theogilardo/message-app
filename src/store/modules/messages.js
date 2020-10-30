@@ -3,10 +3,14 @@ import firebase from "firebase";
 
 const state = {
   userChatContactMessages: [],
+  messagesLoaded: false,
 };
 const getters = {
   userChatContactMessages(state) {
     return state.userChatContactMessages;
+  },
+  messagesLoaded(state) {
+    return state.messagesLoaded;
   },
 };
 const mutations = {
@@ -18,6 +22,9 @@ const mutations = {
   },
   storeMessage(state, messageObj) {
     state.userChatContactMessages.push(messageObj);
+  },
+  messagesLoadedTrue(state) {
+    state.messagesLoaded = true;
   },
 };
 const actions = {
@@ -164,6 +171,7 @@ const actions = {
             (contact) => contact.localId === contactId
           );
           dispatch("chatWithContact", setMostRecentChat);
+          state.messagesLoaded = true;
         }
       })
       .catch((err) => {

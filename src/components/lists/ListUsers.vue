@@ -2,7 +2,7 @@
   <div class="list-category">
     <input
       v-model="search"
-      :placeholder="$t('chatbox.list.placeholder')"
+      :placeholder="$t('chat.list.placeholder')"
       class="list-category__search-bar"
       type="text"
     />
@@ -31,6 +31,8 @@
 </template>
 
 <script>
+import { eventBus } from "../../main.js";
+
 export default {
   name: "FindUsers",
   data() {
@@ -51,7 +53,7 @@ export default {
   },
   methods: {
     chatWithContact(contact) {
-      this.$emit("chatWithContact");
+      eventBus.$emit("chatWithContact");
       return this.$store.dispatch("chatWithContact", contact);
     },
   },

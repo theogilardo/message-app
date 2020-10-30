@@ -12,6 +12,8 @@ Vue.config.productionTip = false;
 Vue.use(VeeValidate);
 Vue.use(Toasted);
 
+export const eventBus = new Vue();
+
 Vue.filter("setTimeHourMinutes", (messageObj) => {
   const objLength = messageObj.length - 1;
   const lastTimestamp = messageObj[objLength].timestamp;

@@ -3,7 +3,7 @@ import VueRouter from "vue-router";
 import TheHomepage from "../components/TheHomepage.vue";
 import Signup from "../components/UserSignup.vue";
 import Login from "../components/UserLogin.vue";
-import UserChatbox from "../components/UserChatbox.vue";
+import UserChat from "../components/UserChat.vue";
 import TheRouteError from "../components/TheRouteError.vue";
 import store from "../store/index.js";
 
@@ -26,9 +26,9 @@ const routes = [
     component: Login,
   },
   {
-    path: "/chatbox",
-    name: "Chatbox",
-    component: UserChatbox,
+    path: "/chat",
+    name: "Chat",
+    component: UserChat,
 
     beforeEnter(to, from, next) {
       console.log(store.state.auth);

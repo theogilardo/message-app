@@ -19,119 +19,42 @@
         />
       </a>
     </div>
-    <div class="chat__side-bar">
-      <div class="chat__side-bar__container">
-        <a v-if="user" class="chat__side-bar__link">
-          <img
-            :src="user.profilePic"
-            class="chat__side-bar__profile-pic"
-            alt="Edit Button"
-          />
-        </a>
-        <a
-          v-if="userChatContacts.length"
-          :class="{
-            'chat__side-bar__link--active': listType === 'list-user-messages',
-          }"
-          class="chat__side-bar__link"
-          @click="switchToUserMessages"
-        >
-          <img
-            class="chat__side-bar__icon"
-            src="../assets/chat.svg"
-            alt="Edit Button"
-          />
-        </a>
-        <a
-          :class="{
-            'chat__side-bar__link--active': listType === 'list-users',
-          }"
-          class="chat__side-bar__link"
-          @click="switchToUsers"
-        >
-          <img
-            class="chat__side-bar__icon"
-            src="../assets/contact-book.svg"
-            alt="Edit Button"
-          />
-        </a>
-      </div>
-      <div>
-        <a class="chat__side-bar__link" @click="logout">
-          <img
-            class="chat__side-bar__icon chat__side-bar__icon__last"
-            src="../assets/logout.svg"
-            alt="Edit Button"
-          />
-        </a>
-      </div>
-    </div>
+    <side-bar></side-bar>
     <div class="chat__category">
       <h3 v-if="listType === 'list-user-messages'" class="chat__category__name">
         {{ listTypeLabel }}
       </h3>
       <h3 v-else class="chat__category__name">
-        {{ $t("chatbox.list.label") }}
+        {{ $t("chat.list.label") }}
       </h3>
     </div>
-
     <div class="chat__lists">
-      <component
-        :is="listType"
-        :key="componentKey"
-        @chatWithContact="selectTypeInput"
-      ></component>
+      <component :is="listType" :key="componentKey"></component>
+      <!-- @chatWithContact="selectTypeInput" -->
     </div>
-    <div v-if="userChatContact" class="chat__main-user">
-      <img :src="userChatContact.profilePic" alt="Main Profile Photo" />
-      <div class="chat__main-user__information">
-        <h1>{{ userChatContact.name }} {{ userChatContact.surname }}</h1>
-        <p v-if="userChatContactMessages.length > 1">
-          {{ userChatContactMessages.length }} messages
-        </p>
-        <p v-else>{{ userChatContactMessages.length }} message</p>
-      </div>
-    </div>
-    <div class="chat__messages">
-      <div v-if="userChatContact" class="chat__messages__conversation">
-        <p
-          v-for="message in userChatContactMessages"
-          :key="message.id"
-          :class="{ sent: message.type === 'sent' }"
-        >
-          {{ message.message }}
-        </p>
-      </div>
-      <div class="chat__messages__write" @keyup.enter="sendMessage">
-        <input
-          v-model="message"
-          ref="typeMessage"
-          :placeholder="$t('chatbox.typing')"
-          type="text"
-        />
-        <img @click="sendMessage" src="../assets/send.svg" alt="Send Icon" />
-      </div>
-    </div>
-    <div v-show="!userChatContact" class="chat__onboarding">
-      <h1 class="chat__onboarding__text__main">
-        {{ $t("chatbox.onboarding.welcome") }} !
-        <h2 class="chat__onboarding__text__second">
-          {{ $t("chatbox.onboarding.subline") }}
-        </h2>
-      </h1>
-    </div>
+    <contact-info></contact-info>
+    <contact-messages></contact-messages>
+    <user-onboarding></user-onboarding>
   </div>
 </template>
 
 <script>
 import ListUsers from "./lists/ListUsers.vue";
 import ListUserMessages from "./lists/ListUserMessages.vue";
+import UserChatSideBarVue from "./UserChatSideBar.vue";
+import UserChatCurrentContact from "./UserChatCurrentContact.vue";
+import UserChatContactMessages from "./UserChatContactMessages.vue";
+import UserChatOnboarding from "./UserChatOnboarding.vue";
 
 export default {
-  name: "Chatbox",
+  name: "Chat",
   components: {
     "list-users": ListUsers,
     "list-user-messages": ListUserMessages,
+    "side-bar": UserChatSideBarVue,
+    "contact-info": UserChatCurrentContact,
+    "contact-messages": UserChatContactMessages,
+    "user-onboarding": UserChatOnboarding,
   },
   mounted() {
     this.refreshLocalStorage();
@@ -206,6 +129,8 @@ export default {
       this.isActive = !this.isActive;
     },
     refreshLocalStorage() {
+      // this.$router.dispatch("fetchMessages");
+
       if (localStorage.getItem("storeUser")) {
         const user = JSON.parse(localStorage.getItem("storeUser"));
         this.$store.commit("storeUser", user);
@@ -235,6 +160,7 @@ export default {
           userChatContactMessages
         );
       }
+      this.$store.commit("messagesLoadedTrue");
     },
   },
 };
@@ -393,7 +319,7 @@ export default {
     grid-row: 3 / 4;
     overflow-y: scroll;
 
-  &__main-user
+  &__contact
     height: 100%;
     width: 100%;
     padding: 20px;

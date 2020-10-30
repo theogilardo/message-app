@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!isPathChatbox" class="navbar">
+  <div v-if="!isPathChat" class="navbar">
     <router-link to="/">
       <img class="navbar__img" src="../assets/logo.png" alt="logo-icon" />
     </router-link>
@@ -30,8 +30,8 @@ export default {
     },
   },
   computed: {
-    isPathChatbox() {
-      return this.$route.name === "Chatbox";
+    isPathChat() {
+      return this.$route.name === "Chat";
     },
     isAuth() {
       return this.$store.getters.isAuth;

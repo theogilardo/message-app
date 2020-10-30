@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import { eventBus } from "../../main.js";
+
 export default {
   name: "Messages",
   data() {
@@ -50,7 +52,7 @@ export default {
   },
   methods: {
     fetchMessages(user) {
-      this.$emit("chatWithContact");
+      eventBus.$emit("chatWithContact");
       this.$store.dispatch("chatWithContact", user);
     },
   },

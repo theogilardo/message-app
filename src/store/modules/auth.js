@@ -46,7 +46,7 @@ const actions = {
           tokenId: res.data.idToken,
           userId: res.data.localId,
         });
-        router.replace("/chatbox");
+        router.replace("/chat");
         dispatch("fetchUser");
       })
       .catch((error) => {
@@ -82,7 +82,7 @@ const actions = {
         authData.contacts = "";
         dispatch("storeUser", authData);
 
-        router.replace("/chatbox");
+        router.replace("/chat");
       })
       .catch((error) => {
         console.log(error);
