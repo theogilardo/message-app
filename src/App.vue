@@ -4,6 +4,7 @@
     <transition name="slide-fade">
       <router-view />
     </transition>
+    <the-footer></the-footer>
     <!-- <div class="logo">
       <router-link to="/login">
         <img class="logo__img" src="./assets/logo.png" alt="logo" />
@@ -32,8 +33,10 @@
 
 <script>
 import TheNavbar from "./components/TheNavbar";
+import TheFooter from "./components/TheFooter";
 
 export default {
+  name: "App",
   data() {
     return {
       isActive: true,
@@ -43,7 +46,8 @@ export default {
     this.$store.dispatch("autoLogin");
   },
   components: {
-    TheNavbar,
+    "the-navbar": TheNavbar,
+    "the-footer": TheFooter,
   },
   methods: {
     swithToEnglish() {
@@ -79,29 +83,6 @@ export default {
 .slide-fade-enter, .slide-fade-leave-to
   transform: translateY(25px);
   opacity: 0;
-
-.switch__trad
-  position fixed
-  z-index 1000
-  position: absolute;
-  top: 4%;
-  right: 2.5rem
-  display flex
-  align-items center
-  justify-content center
-
-  &--fr
-    margin-left 1rem
-
-  &__icon
-    opacity .5
-    width 24px
-
-.trad-active
-  opacity 1 !important
-  backgorund pink
-
-
 
 #app
   // font-family Avenir, Helvetica, Arial, sans-serif
