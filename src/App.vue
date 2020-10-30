@@ -30,6 +30,11 @@ export default {
 </script>
 
 <style lang="stylus">
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Paytone+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;1,100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Roboto&display=swap');
 
 .logo
@@ -62,35 +67,36 @@ export default {
   background-color #DEF2EC
   position relative
   // font-family: 'Abril Fatface', cursive;
-  font-family: 'Roboto', sans-serif;
-
-
-
+  font-family: 'Quicksand', sans-serif;
 
 html
   font-size: 62.5%; // 1rem = 10px
 
-
-
   h1
     font-size: 4.6rem;
-    font-family: 'Abril Fatface', cursive;
+    // font-family: 'Abril Fatface', cursive;
+    // font-family: 'Playfair Display', serif;
+    font-family: 'Paytone One', sans-serif;
+    // font-weight bold
 
   h2
     font-size: 2.2rem;
 
   h3
     font-size: 1.6rem;
-    font-family: 'Abril Fatface', cursive;
 
   h4
     font-size: 1rem;
 
   p
     font-size: 1.4rem;
+    font-weight 400
+
+
 
 button
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Quicksand', sans-serif;
+  font-weight 700
 
 
 *,

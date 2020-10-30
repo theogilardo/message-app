@@ -29,10 +29,13 @@ export default {
   methods: {
     swithToEnglish() {
       this.$i18n.locale = "en";
-      this.isActive = !this.isActive;
+      this.switchActive();
     },
     swithToFrench() {
       this.$i18n.locale = "fr";
+      this.switchActive();
+    },
+    switchActive() {
       this.isActive = !this.isActive;
     },
   },

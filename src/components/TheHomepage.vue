@@ -25,6 +25,7 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+
 .header
   max-width: 1366px;
   width: 85%;
@@ -58,20 +59,27 @@ export default {
       color: transparent;
       letter-spacing: 1px;
       font-size: 24px;
+      animation slide-up
+      animation-duration 2s
+
 
     h1
       color: #064e70;
       font-size: 54px;
-      margin-bottom: 25px;
+      margin-bottom: 15px;
 
     p
       font-size: 16px;
-      color: #959393;
+      font-weight 300
+      color: #424242;
       padding-right: 40px;
 
+    h1, p
+      animation fade-in
+      animation-duration 2s
+
   &__img
-    width: 100px;
-    flex: 1;
+    width: 460px;
 
 .btn
   margin-top: 25px;
@@ -85,6 +93,8 @@ export default {
   box-shadow: 0 3px 2px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   transition: all 0.5s;
+  animation slide-down
+  animation-duration 2s
 
   &:hover
     transform: translateY(-2px);
@@ -101,4 +111,39 @@ span::after
   width: 100%;
   height: 5px;
   background: linear-gradient(to right, rgba(74,210,149,1), rgba(77,125,225,1));
+
+
+@keyframes slide-up {
+  0% {
+    opacity 0
+    transform translateY(-50px)
+  }
+
+  100% {
+    opacity 1
+    transform translateX(0)
+  }
+}
+
+@keyframes slide-down {
+  0% {
+    opacity 0
+    transform translateY(50px)
+  }
+
+  100% {
+    opacity 1
+    transform translateX(0)
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity 0
+  }
+
+  100% {
+    opacity 1
+  }
+}
 </style>
