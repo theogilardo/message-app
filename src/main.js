@@ -6,28 +6,12 @@ import VeeValidate from "vee-validate";
 import firebase from "firebase";
 import i18n from "./i18n";
 import Toasted from "vue-toasted";
+import "./utils/filters.js";
 
 Vue.config.productionTip = false;
-
 Vue.use(VeeValidate);
 Vue.use(Toasted);
-
 export const eventBus = new Vue();
-
-Vue.filter("setTimeHourMinutes", (messageObj) => {
-  const objLength = messageObj.length - 1;
-  const lastTimestamp = messageObj[objLength].timestamp;
-  const date = new Date(lastTimestamp);
-  const hours = date.getHours();
-  const minutes = `0${date.getMinutes()}`;
-  const formattedTime = `${hours}:${minutes.substr(-2)}`;
-  return formattedTime;
-});
-
-Vue.filter("sliceMessage", (messageObj) => {
-  const objLength = messageObj.length - 1;
-  return messageObj[objLength].message.slice(0, 14) + "..";
-});
 
 // Your web app's Firebase configuration
 var firebaseConfig = {
