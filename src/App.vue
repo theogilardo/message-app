@@ -31,11 +31,7 @@ export default {
 
 <style lang="stylus">
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Paytone+One&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;1,100&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Roboto&display=swap');
 
 .logo
   position: absolute;
@@ -57,16 +53,14 @@ export default {
   opacity: 0;
 
 #app
-  // font-family Avenir, Helvetica, Arial, sans-serif
   -webkit-font-smoothing antialiased
   -moz-osx-font-smoothing grayscale
   text-align center
   color #2c3e50
   min-height 100vh
-  width 100%
+  min-width 1000px
   background-color #DEF2EC
   position relative
-  // font-family: 'Abril Fatface', cursive;
   font-family: 'Quicksand', sans-serif;
 
 html
@@ -74,10 +68,7 @@ html
 
   h1
     font-size: 4.6rem;
-    // font-family: 'Abril Fatface', cursive;
-    // font-family: 'Playfair Display', serif;
     font-family: 'Paytone One', sans-serif;
-    // font-weight bold
 
   h2
     font-size: 2.2rem;
