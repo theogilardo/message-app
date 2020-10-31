@@ -1,7 +1,7 @@
 <template>
   <div class="chat">
     <div class="background"></div>
-    <switch-trad></switch-trad>
+    <switch-trad :is-footer="false"></switch-trad>
     <side-bar></side-bar>
     <list-type></list-type>
     <component :is="listTypeTest" class="chat__lists"></component>
@@ -88,9 +88,6 @@ export default {
 
 <style lang="stylus">
 
-.trad-active
-  opacity 1 !important
-
 .toast-success
   background: linear-gradient(to right, rgba(74,210,149,1), rgba(77,125,225,1)) !important
 
@@ -111,21 +108,6 @@ export default {
   display: grid;
   grid-template-columns: 60px 25% 1fr;
   grid-template-rows: 80px 40px 1fr;
-
-  &__switch__trad
-    display: flex;
-    position: fixed;
-    z-index: 1000;
-    top: 2.5rem;
-    right: 3rem;
-    align-items: center;
-
-    &--fr
-      margin-left 1rem
-
-    &__icon
-      opacity .5
-      width 24px
 
   &__onboarding
     z-index 100

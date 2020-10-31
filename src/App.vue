@@ -4,13 +4,13 @@
     <transition name="slide-fade">
       <router-view />
     </transition>
-    <the-footer></the-footer>
+    <switch-trad></switch-trad>
   </div>
 </template>
 
 <script>
 import TheNavbar from "./components/TheNavbar";
-import TheFooter from "./components/TheFooter";
+import SwitchTrad from "./components/SwitchTrad";
 
 export default {
   name: "App",
@@ -24,7 +24,7 @@ export default {
   },
   components: {
     "the-navbar": TheNavbar,
-    "the-footer": TheFooter,
+    "switch-trad": SwitchTrad,
   },
 };
 </script>
