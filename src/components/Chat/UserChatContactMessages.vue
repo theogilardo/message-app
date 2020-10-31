@@ -32,9 +32,11 @@ export default {
     };
   },
   created() {
-    eventBus.$on("chatWithContact", () => {
-      this.selectTypeInput();
-    });
+    if (this.userChatContactMessages) {
+      eventBus.$on("chatWithContact", () => {
+        this.selectTypeInput();
+      });
+    }
   },
   computed: {
     userChatContact() {
