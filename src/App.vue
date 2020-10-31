@@ -112,4 +112,51 @@ button:focus
 
 input:focus
   outline 0
+
+// Keyframes
+@keyframes slide-up {
+  0% {
+    opacity 0
+    transform translateY(-50px)
+  }
+
+  100% {
+    opacity 1
+    transform translateX(0)
+  }
+}
+
+@keyframes slide-down {
+  0% {
+    opacity 0
+    transform translateY(50px)
+  }
+
+  100% {
+    opacity 1
+    transform translateX(0)
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity 0
+  }
+
+  100% {
+    opacity 1
+  }
+}
+
+@keyframes float {
+	0% {
+		transform: translateY(0px);
+	}
+	50% {
+		transform: translateY(-20px);
+	}
+	100% {
+		transform: translateY(0px);
+	}
+}
 </style>

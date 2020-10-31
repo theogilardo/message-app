@@ -79,7 +79,6 @@ const actions = {
         });
 
         authData.localId = res.data.localId;
-        authData.contacts = "";
         dispatch("storeUser", authData);
 
         router.replace("/chat");

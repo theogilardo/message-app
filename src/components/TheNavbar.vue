@@ -56,7 +56,7 @@ export default {
   transform: translateX(-50%);
 
   &__img
-    width: 60px;
+    width: 55px;
     transform: translateX(-7px);
 
   div

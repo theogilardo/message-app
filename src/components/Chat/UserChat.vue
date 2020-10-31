@@ -207,14 +207,6 @@ export default {
       border-radius: 5px;
       opacity: 0.65;
 
-    img
-      position absolute
-      filter: invert(83%) sepia(37%) saturate(0%) hue-rotate(148deg) brightness(82%) contrast(95%);
-      top 4rem
-      left 4.3rem
-      transform translateY(-50%)
-      width: 18px;
-
   &__category
     grid-column: 2 / 3;
     grid-row: 2 / 3;

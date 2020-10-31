@@ -37,6 +37,8 @@ export default {
 
 .chat__onboarding__header
   background #ffffffad
+  margin-top 5rem
   padding 2.5rem
   border-radius 5rem
+  animation: float 6s ease-in-out infinite;
 </style>
