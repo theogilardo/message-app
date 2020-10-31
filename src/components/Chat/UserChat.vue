@@ -3,8 +3,8 @@
     <div class="background"></div>
     <switch-trad :is-footer="false"></switch-trad>
     <side-bar></side-bar>
-    <list-type></list-type>
-    <component :is="listTypeTest" class="chat__lists"></component>
+    <list-type-label></list-type-label>
+    <component :is="listType" class="chat__lists"></component>
     <contact-info></contact-info>
     <contact-messages></contact-messages>
     <user-onboarding></user-onboarding>
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import ListType from "./../Lists/ListType.vue";
+import ListTypeLabel from "./../Lists/ListTypeLabel.vue";
 import ListTypeUsers from "./../Lists/ListTypeUsers.vue";
 import ListTypeUserMessages from "./../Lists/ListTypeUserMessages.vue";
 import UserChatSideBarVue from "./UserChatSideBar.vue";
@@ -25,7 +25,7 @@ import { mapGetters } from "vuex";
 export default {
   name: "UserChat",
   components: {
-    "list-type": ListType,
+    "list-type-label": ListTypeLabel,
     "list-users": ListTypeUsers,
     "list-user-messages": ListTypeUserMessages,
     "side-bar": UserChatSideBarVue,

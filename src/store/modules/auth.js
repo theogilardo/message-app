@@ -66,6 +66,9 @@ const actions = {
         }
       )
       .then((res) => {
+        delete authData.email;
+        delete authData.password;
+
         commit("storeLocalStorageUser", {
           tokenId: res.data.idToken,
           localId: res.data.localId,
