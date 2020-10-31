@@ -6,7 +6,7 @@ const getters = {
   listType(state) {
     return state.type;
   },
-  listTypeLabel(state) {
+  listLabel(state) {
     if (state.type === "list-user-messages") {
       return "Messages";
     }

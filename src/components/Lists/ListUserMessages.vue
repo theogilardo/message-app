@@ -1,12 +1,12 @@
 <template>
-  <div class="list-category">
-    <input
-      v-model="search"
-      :placeholder="$t('chat.list.placeholder')"
-      class="list-category__search-bar"
-      type="text"
-    />
-    <div v-for="user in filterUsers" :key="user.id" class="list-category__user">
+  <div class="list-category" v-if="userChatContact">
+    <div
+      v-for="user in userChatContactsSorted"
+      :key="user.id"
+      :class="{ activeChat: user.localId === userChatContact.localId }"
+      class="list-category__user"
+      @click="fetchMessages(user)"
+    >
       <img
         :src="user.profilePic"
         class="list-category__user__img"
@@ -16,45 +16,41 @@
         <h2 class="list-category__user__info__name">
           {{ user.name }} {{ user.surname }}
         </h2>
-        <p class="list-category__user__info__phone">
-          {{ user.phone }}
+        <p class="list-category__user__info__message">
+          {{ user.messages | sliceMessage }}
         </p>
       </div>
-      <button
-        @click="chatWithContact(user)"
-        class="list-category__user__btn list-category__user__btn__chat"
-      >
-        Chat
-      </button>
+
+      <h3 class="list-category__user__time">
+        {{ user.messages | setTimeHourMinutes }}
+      </h3>
     </div>
   </div>
 </template>
 
 <script>
 import { eventBus } from "../../main.js";
+import { mapGetters } from "vuex";
 
 export default {
-  name: "FindUsers",
+  name: "Messages",
   data() {
     return {
-      search: "",
+      test: {},
+      userContacts: [],
     };
   },
   computed: {
-    users() {
-      return this.$store.getters.users;
-    },
-    filterUsers() {
-      return this.users.filter((user) => user.phone.match(this.search.trim()));
-    },
-    listType() {
-      return this.$store.getters.listType;
-    },
+    ...mapGetters([
+      "userChatContacts",
+      "userChatContactsSorted",
+      "userChatContact",
+    ]),
   },
   methods: {
-    chatWithContact(contact) {
+    fetchMessages(user) {
       eventBus.$emit("chatWithContact");
-      return this.$store.dispatch("chatWithContact", contact);
+      this.$store.dispatch("chatWithContact", user);
     },
   },
 };
@@ -62,8 +58,13 @@ export default {
 
 <style lang="stylus" scoped>
 
+.activeChat
+  background #f8f8f8
+  color #333 !important
+
 .list-category
   width 100%
+  color white
 
   &__search-bar
     border none
@@ -80,18 +81,12 @@ export default {
     padding: 20px;
     height: 70px;
     width: 100%;
-    color: white;
+    color #E8E8E8
     transition all .6s
 
     &:hover
       background #F8F8F8
       color #333 !important
-
-      & > .list-category__user__btn__chat
-        border 1.5px solid #333
-
-      & > .list-category__user__btn
-        color #333 !important
 
     &__img
       object-fit: cover;
@@ -120,9 +115,7 @@ export default {
     &__btn
       margin-left auto
       background transparent
-      color #E8E8E8
       cursor pointer
-      transition all .6s
 
       &__add-contact
         font-weight bold

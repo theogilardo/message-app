@@ -3,7 +3,7 @@
     <div class="background"></div>
     <switch-trad :is-footer="false"></switch-trad>
     <side-bar></side-bar>
-    <list-type-label></list-type-label>
+    <list-label></list-label>
     <component :is="listType" class="chat__lists"></component>
     <contact-info></contact-info>
     <contact-messages></contact-messages>
@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import ListTypeLabel from "./../Lists/ListTypeLabel.vue";
-import ListTypeUsers from "./../Lists/ListTypeUsers.vue";
-import ListTypeUserMessages from "./../Lists/ListTypeUserMessages.vue";
+import ListLabel from "./../Lists/ListLabel.vue";
+import ListUsers from "./../Lists/ListUsers.vue";
+import ListUserMessages from "./../Lists/ListUserMessages.vue";
 import UserChatSideBarVue from "./UserChatSideBar.vue";
 import UserChatCurrentContact from "./UserChatCurrentContact.vue";
 import UserChatContactMessages from "./UserChatContactMessages.vue";
@@ -25,9 +25,9 @@ import { mapGetters } from "vuex";
 export default {
   name: "UserChat",
   components: {
-    "list-type-label": ListTypeLabel,
-    "list-users": ListTypeUsers,
-    "list-user-messages": ListTypeUserMessages,
+    "list-label": ListLabel,
+    "list-users": ListUsers,
+    "list-user-messages": ListUserMessages,
     "side-bar": UserChatSideBarVue,
     "contact-info": UserChatCurrentContact,
     "contact-messages": UserChatContactMessages,
