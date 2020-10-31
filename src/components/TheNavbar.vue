@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "Navbar",
   methods: {
@@ -30,11 +32,9 @@ export default {
     },
   },
   computed: {
+    ...mapGetters(["isAuth"]),
     isPathChat() {
       return this.$route.name === "Chat";
-    },
-    isAuth() {
-      return this.$store.getters.isAuth;
     },
   },
 };

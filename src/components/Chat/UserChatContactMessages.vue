@@ -23,6 +23,7 @@
 
 <script>
 import { eventBus } from "../../main.js";
+import { mapGetters } from "vuex";
 
 export default {
   name: "UserChatContactMessages",
@@ -39,12 +40,7 @@ export default {
     }
   },
   computed: {
-    userChatContact() {
-      return this.$store.getters.userChatContact;
-    },
-    userChatContactMessages() {
-      return this.$store.getters.userChatContactMessages;
-    },
+    ...mapGetters(["userChatContact", "userChatContactMessages"]),
   },
   methods: {
     sendMessage() {

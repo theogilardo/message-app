@@ -20,6 +20,7 @@ import UserChatCurrentContact from "./UserChatCurrentContact.vue";
 import UserChatContactMessages from "./UserChatContactMessages.vue";
 import UserChatOnboarding from "./UserChatOnboarding.vue";
 import SwitchTrad from "../SwitchTrad.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "UserChat",
@@ -45,9 +46,7 @@ export default {
     });
   },
   computed: {
-    listTypeTest() {
-      return this.$store.getters.listType;
-    },
+    ...mapGetters(["listType"]),
   },
   methods: {
     refreshLocalStorage() {

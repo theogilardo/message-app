@@ -12,15 +12,12 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "UserChatCurrentContact",
   computed: {
-    userChatContact() {
-      return this.$store.getters.userChatContact;
-    },
-    userChatContactMessages() {
-      return this.$store.getters.userChatContactMessages;
-    },
+    ...mapGetters(["userChatContact", "userChatContactMessages"]),
   },
 };
 </script>

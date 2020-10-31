@@ -162,9 +162,6 @@ export default {
         "state_changed",
         (snapshot) => {
           console.log(snapshot);
-          // let bytesTransferred = snapshot.bytesTransferred;
-          // let totalBytes = snapshot.totalBytes;
-          // this.loading = Math.round((bytesTransferred / totalBytes) * 100);
         },
         (error) => {
           console.log(error);

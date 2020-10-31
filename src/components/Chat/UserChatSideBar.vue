@@ -49,18 +49,12 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "UserChatSideBar",
   computed: {
-    user() {
-      return this.$store.getters.user;
-    },
-    userChatContacts() {
-      return this.$store.getters.userChatContacts;
-    },
-    listType() {
-      return this.$store.getters.listType;
-    },
+    ...mapGetters(["user", "userChatContacts", "listType"]),
   },
   methods: {
     logout() {

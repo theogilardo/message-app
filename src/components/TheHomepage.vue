@@ -9,11 +9,6 @@
           messages. Once you are signed in, find a friend thanks to its phone
           number and start chatting !
         </p>
-        <!-- <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsam,
-          tempore! Voluptate sunt temporibus atque debitis fugit amet optio
-          eligendi libero ullam est? Mollitia, adipisci laudantium.
-        </p> -->
         <router-link to="/signup">
           <button class="btn">{{ $t("button.onboarding") }}</button>
         </router-link>

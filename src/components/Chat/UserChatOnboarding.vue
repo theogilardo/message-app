@@ -17,12 +17,12 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "UserChatOnboarding",
   computed: {
-    userChatContact() {
-      return this.$store.getters.userChatContact;
-    },
+    ...mapGetters(["userChatContact"]),
   },
 };
 </script>
