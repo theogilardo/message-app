@@ -31,7 +31,7 @@ const mutations = {
 const actions = {
   // databaseUpdated({ state,  })
 
-  storeMessage({ state, rootState, commit, dispatch }, message) {
+  storeMessage({ state, rootState, commit }, message) {
     const timestamp = new Date().getTime();
 
     const messageFormatted = {
