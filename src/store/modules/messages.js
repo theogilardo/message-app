@@ -1,4 +1,4 @@
-import axios from "axios";
+// import axios from "axios";
 import firebase from "firebase";
 
 const state = {
@@ -28,6 +28,8 @@ const mutations = {
   },
 };
 const actions = {
+  // databaseUpdated({ state,  })
+
   storeMessage({ state, rootState, commit, dispatch }, message) {
     const timestamp = new Date().getTime();
 
@@ -60,15 +62,35 @@ const actions = {
   },
 
   fetchMessages({ rootState, commit, dispatch }) {
-    axios
-      .get("https://message-app-719f5.firebaseio.com/messages.json")
-      .then((res) => {
-        const data = res.data;
-        const messages = [];
+    const messages = [];
+
+    // axios
+    //   .get("https://message-app-719f5.firebaseio.com/messages.json")
+    //   .then((res) => {
+    //     const data = res.data;
+    //     const messages = [];
+    //     for (let key in data) {
+    //       const message = data[key];
+    //       messages.push(message);
+    //     }
+
+    // NEW
+    firebase
+      .database()
+      .ref("messages")
+      .on("value", (snapshot) => {
+        // console.log(snapshot.val());
+        const data = snapshot.val();
         for (let key in data) {
           const message = data[key];
           messages.push(message);
         }
+        // })
+
+        console.log("fetchMessages");
+        console.log(messages);
+
+        // NEW ENDS HERE
 
         const userId = rootState.users.user.localId;
         const _ = require("lodash");
@@ -173,10 +195,10 @@ const actions = {
           dispatch("chatWithContact", setMostRecentChat);
           state.messagesLoaded = true;
         }
-      })
-      .catch((err) => {
-        console.log(err);
       });
+    // .catch((err) => {
+    //   console.log(err);
+    // });
   },
 };
 
