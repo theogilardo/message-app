@@ -1,4 +1,4 @@
-// import axios from "axios";
+import axios from "axios";
 import firebase from "firebase";
 
 const state = {
@@ -6,7 +6,6 @@ const state = {
   messagesLoaded: false,
 };
 const getters = {
-  // NOT UPDATED
   userChatContactMessages(state) {
     return state.userChatContactMessages;
   },
@@ -29,9 +28,7 @@ const mutations = {
   },
 };
 const actions = {
-  // databaseUpdated({ state,  })
-
-  storeMessage({ state, rootState, commit }, message) {
+  storeMessage({ state, rootState, commit, dispatch }, message) {
     const timestamp = new Date().getTime();
 
     const messageFormatted = {
@@ -41,19 +38,7 @@ const actions = {
       timestamp: timestamp,
     };
 
-    firebase
-      .database()
-      .ref(`messages`)
-      .push(messageFormatted)
-      .then((res) => {
-        console.log(res);
-        // dispatch("fetchMessages");
-        commit("switchToUserMessages");
-      })
-      .catch((err) => console.log(err));
-
     const messageSent = messageFormatted;
-
     messageSent.type = "sent";
     commit("storeMessage", messageSent);
 
@@ -61,16 +46,25 @@ const actions = {
       "userChatContactMessages",
       JSON.stringify(state.userChatContactMessages)
     );
-  },
-
-  fetchMessages({ rootState, commit, dispatch }) {
-    const messages = [];
 
     firebase
       .database()
-      .ref("messages")
-      .on("value", (snapshot) => {
-        const data = snapshot.val();
+      .ref(`messages`)
+      .push(messageFormatted)
+      .then((res) => {
+        console.log(res);
+        dispatch("fetchMessages");
+        commit("switchToUserMessages");
+      })
+      .catch((err) => console.log(err));
+  },
+
+  fetchMessages({ rootState, commit, dispatch }) {
+    axios
+      .get("https://message-app-719f5.firebaseio.com/messages.json")
+      .then((res) => {
+        const data = res.data;
+        const messages = [];
         for (let key in data) {
           const message = data[key];
           messages.push(message);
@@ -155,32 +149,33 @@ const actions = {
         );
 
         // Redirect to last chat when user login
+        if (
+          !rootState.users.userChatContact &&
+          rootState.users.userChatContacts.length
+        ) {
+          // Find last user message
+          const findLastUserMessage = messages.filter(
+            (message) =>
+              message.receiverId === userId || message.senderId === userId
+          );
 
-        // Set active to the current user chat to apply this too
-        // if (
-        //   !rootState.users.userChatContact &&
-        //   rootState.users.userChatContacts.length
-        // ) {
-        // Find last user message
-        const findLastUserMessage = messages.filter(
-          (message) =>
-            message.receiverId === userId || message.senderId === userId
-        );
+          const lastUserMessage =
+            findLastUserMessage[findLastUserMessage.length - 1];
 
-        const lastUserMessage =
-          findLastUserMessage[findLastUserMessage.length - 1];
+          const contactId =
+            lastUserMessage.senderId === userId
+              ? lastUserMessage.receiverId
+              : lastUserMessage.senderId;
 
-        const contactId =
-          lastUserMessage.senderId === userId
-            ? lastUserMessage.receiverId
-            : lastUserMessage.senderId;
-
-        const setMostRecentChat = userChatContacts.find(
-          (contact) => contact.localId === contactId
-        );
-        dispatch("chatWithContact", setMostRecentChat);
-        state.messagesLoaded = true;
-        // }
+          const setMostRecentChat = userChatContacts.find(
+            (contact) => contact.localId === contactId
+          );
+          dispatch("chatWithContact", setMostRecentChat);
+          state.messagesLoaded = true;
+        }
+      })
+      .catch((err) => {
+        console.log(err);
       });
   },
 };

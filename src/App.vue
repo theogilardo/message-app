@@ -58,7 +58,7 @@ export default {
   text-align center
   color #2c3e50
   min-height 100vh
-  min-width 1000px
+  // min-width 1000px
   background-color #DEF2EC
   position relative
   font-family: 'Quicksand', sans-serif;
