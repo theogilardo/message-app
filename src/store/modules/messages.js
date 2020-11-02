@@ -51,7 +51,7 @@ const actions = {
       .catch((err) => console.log(err));
   },
 
-  fetchMessages({ state, rootState, commit, dispatch }) {
+  fetchMessages({ rootState, commit, dispatch }) {
     firebase
       .database()
       .ref("messages")
