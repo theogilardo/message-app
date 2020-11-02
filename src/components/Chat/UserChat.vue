@@ -79,7 +79,6 @@ export default {
           userChatContactMessages
         );
       }
-      this.$store.commit("messagesLoadedTrue");
     },
   },
 };

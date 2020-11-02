@@ -63,7 +63,6 @@ export default {
     formSubmitted() {
       this.$validator.validateAll().then((isValid) => {
         if (isValid) {
-          console.log(isValid);
           this.$store.dispatch("login", this.userData);
         } else {
           alert("Form not valid");

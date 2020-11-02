@@ -54,7 +54,6 @@ export default {
     },
     switchActive() {
       this.isActive = !this.isActive;
-      console.log(this.isActive);
     },
   },
 };

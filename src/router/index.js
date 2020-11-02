@@ -5,7 +5,6 @@ import Signup from "../components/Auth/UserSignup.vue";
 import Login from "../components/Auth/UserLogin.vue";
 import UserChat from "../components/Chat/UserChat.vue";
 import TheRouteError from "../components/TheRouteError.vue";
-import store from "../store/index.js";
 
 Vue.use(VueRouter);
 
@@ -31,7 +30,6 @@ const routes = [
     component: UserChat,
 
     beforeEnter(to, from, next) {
-      console.log(store.state.auth);
       if (localStorage.getItem("tokenId")) {
         next();
       } else {

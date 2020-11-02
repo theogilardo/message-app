@@ -1,16 +1,11 @@
-// import axios from "axios";
 import firebase from "firebase";
 
 const state = {
   userChatContactMessages: [],
-  messagesLoaded: false,
 };
 const getters = {
   userChatContactMessages(state) {
     return state.userChatContactMessages;
-  },
-  messagesLoaded(state) {
-    return state.messagesLoaded;
   },
 };
 const mutations = {
@@ -22,9 +17,6 @@ const mutations = {
   },
   storeMessage(state, messageObj) {
     state.userChatContactMessages.push(messageObj);
-  },
-  messagesLoadedTrue(state) {
-    state.messagesLoaded = true;
   },
 };
 const actions = {
@@ -60,22 +52,11 @@ const actions = {
   },
 
   fetchMessages({ state, rootState, commit, dispatch }) {
-    // axios
-    //   .get("https://message-app-719f5.firebaseio.com/messages.json")
-    //   .then((res) => {
-    //     const data = res.data;
-    //     const messages = [];
-    //     for (let key in data) {
-    //       const message = data[key];
-    //       messages.push(message);
-    //     }
-
     firebase
       .database()
       .ref("messages")
       .on("value", (snapshot) => {
         const messages = [];
-        console.log(snapshot.val());
         const data = snapshot.val();
         for (let key in data) {
           const message = data[key];
@@ -162,11 +143,6 @@ const actions = {
           );
 
           // Redirect to last chat when user login
-          // if (
-          //   !rootState.users.userChatContact &&
-          //   rootState.users.userChatContacts.length
-          // ) {
-          // Find last user message
           const findLastUserMessage = messages.filter(
             (message) =>
               message.receiverId === userId || message.senderId === userId
@@ -184,26 +160,8 @@ const actions = {
             (contact) => contact.localId === contactId
           );
           dispatch("chatWithContact", setMostRecentChat);
-          state.messagesLoaded = true;
-          // }
         }
-
-        // // console.log(rootState.users.userChatContact);
-        // // console.log(state.userChatContactMessages);
-        // if (rootState.users.userChatContact) {
-        //   console.log(state.userChatContactMessages);
-        //   dispatch("chatWithContact", rootState.users.userChatContact);
-        //   // commit("storeUserChatContactMessages", state.userChatContactMessages);
-        // }
-
-        // commit(
-        //   "storeUserChatContactMessages",
-        //   rootState.users.userChatContact.messages
-        // );
       });
-    // .catch((err) => {
-    //   console.log(err);
-    // });
   },
 };
 
