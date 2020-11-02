@@ -102,6 +102,7 @@ const actions = {
   },
 
   chatWithContact({ commit }, contact) {
+    console.log("chatWithContact");
     localStorage.setItem("userChatContact", JSON.stringify(contact));
     commit("storeUserChatContact", contact);
     commit("emptyMessages");
