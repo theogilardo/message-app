@@ -5,9 +5,7 @@
         <h3>{{ $t("homepage.communication") }}</h3>
         <h1 v-html="$t('homepage.header')"></h1>
         <p>
-          Bolt is a fresh platform to communicate with your friends with instant
-          messages. Once you are signed in, find a friend thanks to its phone
-          number and start chatting !
+          {{ $t("homepage.description") }}
         </p>
         <router-link to="/signup">
           <button class="btn">{{ $t("button.onboarding") }}</button>

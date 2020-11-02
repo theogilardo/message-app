@@ -1,7 +1,8 @@
 {
   "homepage": {
     "header": "Connect with friends <br> in real time",
-    "communication": "Fast. Simple. Free."
+    "communication": "Fast. Simple. Free.",
+    "description": "Bolt is a fresh platform to communicate with your friends with instant messages. Once you are signed in, find a friend thanks to its phone number and start chatting !"
   },
   "button": {
     "onboarding": "Get Started",

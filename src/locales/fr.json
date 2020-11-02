@@ -1,7 +1,8 @@
 {
   "homepage": {
     "header": "Connecte avec tes amis <br> en temps réel",
-    "communication": "Simple. Rapide. Gratuit."
+    "communication": "Simple. Rapide. Gratuit.",
+    "description": "Bolt est une plateforme pour communiquer avec tes amis avec des messages instantanés. Une fois connecté(e), trouve tes amis grâce à leur numéro mobile et commence à chatter !"
   },
   "button": {
     "onboarding": "Essaie maintenant",
