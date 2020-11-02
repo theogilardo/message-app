@@ -43,7 +43,7 @@ export default {
   },
   created() {
     eventBus.$on("chatWithContact", () => {
-      if (this.userChatContact && this.$refs.typeMessage) {
+      if (this.$refs.typeMessage) {
         this.selectTypeInput();
       }
     });
@@ -66,10 +66,7 @@ export default {
     },
     scrollToEnd() {
       var container = this.$refs.messages;
-      // if (container.scrollHeight) {
-      console.log("inside condition scrollheiht");
-      container.scrollTop = container.scrollHeight;
-      // }
+      container.scrollTop = container.scrollHeight + container.clientHeight;
     },
   },
 };
