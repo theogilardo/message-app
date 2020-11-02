@@ -1,6 +1,10 @@
 <template>
   <div class="chat__messages">
-    <div v-if="userChatContactMessages" class="chat__messages__conversation">
+    <div
+      v-if="userChatContactMessages"
+      ref="messages"
+      class="chat__messages__conversation"
+    >
       <p
         v-for="message in userChatContactMessages"
         :key="message.id"
@@ -32,27 +36,40 @@ export default {
       message: null,
     };
   },
+  watch: {
+    userChatContactMessages() {
+      this.scrollToEnd();
+    },
+  },
   created() {
-    if (this.userChatContactMessages) {
-      eventBus.$on("chatWithContact", () => {
+    eventBus.$on("chatWithContact", () => {
+      if (this.userChatContact && this.$refs.typeMessage) {
         this.selectTypeInput();
-      });
-    }
+      }
+    });
   },
   computed: {
     ...mapGetters(["userChatContact", "userChatContactMessages"]),
   },
   methods: {
     sendMessage() {
-      this.$store.dispatch("storeMessage", this.message);
-      this.clearTypeInput();
-      this.selectTypeInput();
+      if (this.message) {
+        this.$store.dispatch("storeMessage", this.message);
+        this.clearTypeInput();
+      }
     },
     clearTypeInput() {
       this.message = "";
     },
     selectTypeInput() {
       this.$refs.typeMessage.select();
+    },
+    scrollToEnd() {
+      var container = this.$refs.messages;
+      // if (container.scrollHeight) {
+      console.log("inside condition scrollheiht");
+      container.scrollTop = container.scrollHeight;
+      // }
     },
   },
 };
