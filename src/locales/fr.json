@@ -1,10 +1,10 @@
 {
   "homepage": {
-    "header": "Communique <span>Facilement</span>",
-    "communication": "Discute. Chat. Collabore."
+    "header": "Connecte avec tes amis <br> en temps réel",
+    "communication": "Simple. Rapide. Gratuit."
   },
   "button": {
-    "onboarding": "Essai maintenant",
+    "onboarding": "Essaie maintenant",
     "logout": "Déconnexion",
     "login": "Connexion",
     "signup": "S'inscire"
