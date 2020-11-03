@@ -30,7 +30,7 @@
   "chat": {
     "list": {
       "label": "Trouve de Nouveaux Contacts",
-      "placeholder": "Entrez votre numéro mobile.."
+      "placeholder": "Entrez un numéro mobile.."
     },
     "typing": "Ecrivez un message..",
     "onboarding": {
