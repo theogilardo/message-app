@@ -7,8 +7,11 @@
       <router-link v-if="!isAuth" class="link" to="/login">{{
         $t("button.login")
       }}</router-link>
-      <router-link v-if="!isAuth" class="link" to="/Signup">{{
+      <router-link v-if="!isAuth" class="link" to="/signup">{{
         $t("button.signup")
+      }}</router-link>
+      <router-link v-if="isAuth" class="link" to="/chat">{{
+        $t("button.chat")
       }}</router-link>
       <button v-if="isAuth" class="link" @click="logout">
         {{ $t("button.logout") }}

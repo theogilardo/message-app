@@ -8,7 +8,8 @@
     "onboarding": "Get Started",
     "logout": "Logout",
     "login": "Login",
-    "signup": "Signup"
+    "signup": "Signup",
+    "chat": "Chat"
   },
   "signup": {
     "title": "Please fill this form",

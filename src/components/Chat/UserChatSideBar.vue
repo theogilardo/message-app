@@ -37,13 +37,26 @@
       </a>
     </div>
     <div>
-      <a class="chat__side-bar__link" @click="logout">
-        <img
-          class="chat__side-bar__icon chat__side-bar__icon--last"
-          src="../../assets/logout.svg"
-          alt="Edit Button"
-        />
-      </a>
+      <router-link class="link" to="/">
+        <div>
+          <a class="chat__side-bar__link">
+            <img
+              class="chat__side-bar__icon chat__side-bar__icon"
+              src="../../assets/logo.png"
+              alt="Menu Button"
+            />
+          </a>
+        </div>
+      </router-link>
+      <div>
+        <a class="chat__side-bar__link" @click="logout">
+          <img
+            class="chat__side-bar__icon chat__side-bar__icon--last"
+            src="../../assets/logout.svg"
+            alt="Edit Button"
+          />
+        </a>
+      </div>
     </div>
   </div>
 </template>

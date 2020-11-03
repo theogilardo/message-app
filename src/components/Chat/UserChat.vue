@@ -158,6 +158,7 @@ export default {
 
     &__icon
       padding 0 1.5rem
+      cursor pointer
       width 100%
 
       &--last

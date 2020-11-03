@@ -8,7 +8,8 @@
     "onboarding": "Essaie maintenant",
     "logout": "Déconnexion",
     "login": "Connexion",
-    "signup": "S'inscire"
+    "signup": "S'inscire",
+    "chat": "Chat"
   },
   "signup": {
     "title": "Veuillez remplir ce formulaire",
