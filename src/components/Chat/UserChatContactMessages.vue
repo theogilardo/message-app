@@ -42,7 +42,7 @@ export default {
     },
   },
   created() {
-    eventBus.$on("chatWithContact", () => {
+    eventBus.$on("chat-with-contact", () => {
       if (this.$refs.typeMessage) {
         this.selectTypeInput();
       }

@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     fetchMessages(user) {
-      eventBus.$emit("chatWithContact");
+      eventBus.$emit("chat-with-contact");
       this.$store.dispatch("chatWithContact", user);
     },
   },
