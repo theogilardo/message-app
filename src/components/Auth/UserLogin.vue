@@ -6,26 +6,26 @@
         <input
           v-validate="'required|email'"
           v-model="userData.email"
-          :class="{ error: emailError }"
+          :class="{ error: errors.has('email') }"
           :placeholder="$t('login.placeholder.email')"
           name="email"
-          type="text"
-        />
-        <label> {{ errors.first("email") }} </label>
+          type="text"/>
+        <label>{{ errors.first("email") }}</label>
       </div>
       <div class="container__form__field">
         <input
           v-validate="'required|min:6'"
           v-model="userData.password"
-          :class="{ error: passwordError }"
+          :class="{ error: errors.has('password') }"
           :placeholder="$t('login.placeholder.password')"
           name="password"
-          type="text"
-        />
-        <label> {{ errors.first("password") }} </label>
+          type="text"/>
+        <label>{{ errors.first("password") }}</label>
       </div>
-      <button class="btn" @click.prevent="formSubmitted">
-        {{ $t("button.login") }}
+      <button 
+        class="btn" 
+        @click.prevent="formSubmitted">
+          {{ $t("button.login") }}
       </button>
     </form>
   </div>
@@ -42,25 +42,8 @@ export default {
       },
     };
   },
-  computed: {
-    emailError() {
-      return this.$validator.errors.items.some(
-        (error) => error.field === "email" && error.rule === "required"
-      );
-    },
-    phoneError() {
-      return this.$validator.errors.items.some(
-        (error) => error.field === "phone" && error.rule === "required"
-      );
-    },
-    passwordError() {
-      return this.$validator.errors.items.some(
-        (error) => error.field === "password" && error.rule === "required"
-      );
-    },
-  },
   methods: {
-    formSubmitted() {
+    formSubmitted () {
       this.$validator.validateAll().then((isValid) => {
         if (isValid) {
           this.$store.dispatch("login", this.userData);

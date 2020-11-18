@@ -1,20 +1,39 @@
 <template>
-  <div v-if="!isPathChat" class="navbar">
+  <div 
+    v-if="!isPathChat" 
+    class="navbar"
+  >
     <router-link to="/">
-      <img class="navbar__img" src="../assets/logo.png" alt="logo-icon" />
+      <img 
+        class="navbar__img" 
+        src="../assets/logo.png" 
+        alt="logo-icon" 
+      />
     </router-link>
     <div>
-      <router-link v-if="!isAuth" class="link" to="/login">{{
-        $t("button.login")
-      }}</router-link>
-      <router-link v-if="!isAuth" class="link" to="/signup">{{
-        $t("button.signup")
-      }}</router-link>
-      <router-link v-if="isAuth" class="link" to="/chat">{{
-        $t("button.chat")
-      }}</router-link>
-      <button v-if="isAuth" class="link" @click="logout">
-        {{ $t("button.logout") }}
+      <router-link 
+        v-if="!isAuth" 
+        class="link" 
+        to="/login">
+          {{ $t("button.login") }}
+      </router-link>
+      <router-link 
+        v-if="!isAuth" 
+        class="link" 
+        to="/signup">
+          {{ $t("button.signup") }}
+      </router-link>
+      <router-link 
+        v-if="isAuth" 
+        class="link" 
+        to="/chat">
+          {{ $t("button.chat") }}
+      </router-link>
+      <button 
+        v-if="isAuth" 
+        class="link" 
+        @click="logout">
+          {{ $t("button.logout") }}
       </button>
     </div>
   </div>
@@ -26,11 +45,11 @@ import { mapGetters } from "vuex";
 export default {
   name: "Navbar",
   methods: {
-    logout() {
+    logout () {
       this.redirectHome();
       return this.$store.commit("logout");
     },
-    redirectHome() {
+    redirectHome () {
       return this.$router.push("/");
     },
   },

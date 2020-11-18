@@ -65,29 +65,29 @@
           <input
             v-validate="'required|regex:^([0-9]+)$'"
             v-model="userData.phone"
-            :class="{ error: phoneError }"
+            :class="{ error: errors.has('phone') }"
             :placeholder="$t('signup.placeholder.phone')"
             name="phone"
             type="text"
           />
-          <label> {{ errors.first("phone") }} </label>
+          <label>{{ errors.first("phone") }}</label>
         </div>
         <div class="container__form__field">
           <input
             v-validate="'required|email'"
             v-model="userData.email"
-            :class="{ error: emailError }"
+            :class="{ error: errors.has('email') }"
             :placeholder="$t('signup.placeholder.email')"
             name="email"
             type="text"
           />
-          <label> {{ errors.first("email") }} </label>
+          <label>{{ errors.first("email") }}</label>
         </div>
         <div class="container__form__field">
           <input
             v-validate="'required|min:6'"
             v-model="userData.password"
-            :class="{ error: passwordError }"
+            :class="{ error: errors.has('password') }"
             :placeholder="$t('signup.placeholder.password')"
             name="password"
             type="text"
@@ -121,30 +121,15 @@ export default {
     };
   },
   computed: {
-    profilePicDOM() {
+    profilePicDOM () {
       if (!this.userData.profilePic) {
         return require("@/assets/default-user.png");
       }
       return this.userData.profilePic;
     },
-    emailError() {
-      return this.$validator.errors.items.some(
-        (error) => error.field === "email" && error.rule === "required"
-      );
-    },
-    phoneError() {
-      return this.$validator.errors.items.some(
-        (error) => error.field === "phone" && error.rule === "required"
-      );
-    },
-    passwordError() {
-      return this.$validator.errors.items.some(
-        (error) => error.field === "password" && error.rule === "required"
-      );
-    },
   },
   methods: {
-    formSubmitted() {
+    formSubmitted () {
       this.$validator.validateAll().then((isValid) => {
         if (isValid) {
           this.$store.dispatch("signup", this.userData);
@@ -153,7 +138,7 @@ export default {
         }
       });
     },
-    onFileSelected(event) {
+    onFileSelected (event) {
       let file = event.target.files[0];
       var storageRef = firebase.storage().ref("profile-pics/" + file.name);
       let uploadTask = storageRef.put(file);

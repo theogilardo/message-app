@@ -48,7 +48,7 @@ export default {
     ]),
   },
   methods: {
-    fetchMessages(user) {
+    fetchMessages (user) {
       eventBus.$emit("chat-with-contact");
       this.$store.dispatch("chatWithContact", user);
     },

@@ -1,5 +1,8 @@
 <template>
-  <div v-show="!userChatContact" class="chat__onboarding">
+  <div 
+    v-if="!userChatContact" 
+    class="chat__onboarding"
+  >
     <img
       class="chat__onboarding__photo"
       src="../../assets/hello.png"

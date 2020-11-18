@@ -11,7 +11,11 @@
           <button class="btn">{{ $t("button.onboarding") }}</button>
         </router-link>
       </div>
-      <img src="../assets/cloud-girl.png" alt="cloud girl" class="hero__img" />
+      <img 
+        src="../assets/cloud-girl.png" 
+        alt="cloud girl" 
+        class="hero__img" 
+      />
     </main>
   </div>
 </template>

@@ -1,7 +1,10 @@
 <template>
   <div class="chat__side-bar">
     <div class="chat__side-bar__container">
-      <a v-if="user" class="chat__side-bar__link">
+      <a 
+        v-if="user" 
+        class="chat__side-bar__link"
+      >
         <img
           :src="user.profilePic"
           class="chat__side-bar__profile-pic"
@@ -23,9 +26,7 @@
         />
       </a>
       <a
-        :class="{
-          'chat__side-bar__link--active': listType === 'list-users',
-        }"
+        :class="{'chat__side-bar__link--active': listType === 'list-users'}"
         class="chat__side-bar__link"
         @click="switchToUsers"
       >
@@ -49,7 +50,10 @@
         </div>
       </router-link>
       <div>
-        <a class="chat__side-bar__link" @click="logout">
+        <a 
+          class="chat__side-bar__link" 
+          @click="logout"
+        >
           <img
             class="chat__side-bar__icon chat__side-bar__icon--last"
             src="../../assets/logout.svg"
@@ -70,17 +74,17 @@ export default {
     ...mapGetters(["user", "userChatContacts", "listType"]),
   },
   methods: {
-    logout() {
+    logout () {
       this.redirectHome();
       return this.$store.commit("logout");
     },
-    switchToUserMessages() {
+    switchToUserMessages () {
       return this.$store.commit("switchToUserMessages");
     },
-    switchToUsers() {
+    switchToUsers () {
       return this.$store.commit("switchToUsers");
     },
-    redirectHome() {
+    redirectHome () {
       this.$router.push("/login");
       location.reload();
     },

@@ -44,15 +44,15 @@ export default {
     },
   },
   methods: {
-    swithToEnglish() {
+    swithToEnglish () {
       this.$i18n.locale = "en";
       this.switchActive();
     },
-    swithToFrench() {
+    swithToFrench () {
       this.$i18n.locale = "fr";
       this.switchActive();
     },
-    switchActive() {
+    switchActive () {
       this.isActive = !this.isActive;
     },
   },

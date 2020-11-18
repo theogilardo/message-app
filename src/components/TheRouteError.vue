@@ -1,6 +1,9 @@
 <template>
   <div class="container">
-    <img src="../assets/404.png" alt="404 error" />
+    <img 
+      src="../assets/404.png"
+       alt="404 error" 
+    />
     <h2>
       {{ $t("error.404") }}
     </h2>

@@ -6,7 +6,11 @@
       class="list-category__search-bar"
       type="text"
     />
-    <div v-for="user in filterUsers" :key="user.id" class="list-category__user">
+    <div 
+      v-for="user in filterUsers" 
+      :key="user.id" 
+      class="list-category__user"
+    >
       <img
         :src="user.profilePic"
         class="list-category__user__img"
@@ -48,7 +52,7 @@ export default {
     },
   },
   methods: {
-    chatWithContact(contact) {
+    chatWithContact (contact) {
       eventBus.$emit("chat-with-contact");
       return this.$store.dispatch("chatWithContact", contact);
     },

@@ -13,7 +13,10 @@
         {{ message.message }}
       </p>
     </div>
-    <div class="chat__messages__write" @keyup.enter="sendMessage">
+    <div 
+      class="chat__messages__write" 
+      @keyup.enter="sendMessage"
+    >
       <input
         v-model="message"
         ref="typeMessage"
@@ -52,19 +55,19 @@ export default {
     ...mapGetters(["userChatContact", "userChatContactMessages"]),
   },
   methods: {
-    sendMessage() {
+    sendMessage () {
       if (this.message) {
         this.$store.dispatch("storeMessage", this.message);
         this.clearTypeInput();
       }
     },
-    clearTypeInput() {
+    clearTypeInput () {
       this.message = "";
     },
-    selectTypeInput() {
+    selectTypeInput () {
       this.$refs.typeMessage.select();
     },
-    scrollToEnd() {
+    scrollToEnd () {
       var container = this.$refs.messages;
       container.scrollTop = container.scrollHeight + container.clientHeight;
     },

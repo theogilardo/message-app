@@ -4,7 +4,11 @@
     <switch-trad :is-footer="false"></switch-trad>
     <side-bar></side-bar>
     <list-label></list-label>
-    <component :is="listType" class="chat__lists"></component>
+    <component 
+      :is="listType" 
+      class="chat__lists"
+    >
+    </component>
     <contact-info></contact-info>
     <contact-messages></contact-messages>
     <user-onboarding></user-onboarding>
@@ -49,7 +53,7 @@ export default {
     ...mapGetters(["listType"]),
   },
   methods: {
-    refreshLocalStorage() {
+    refreshLocalStorage () {
       if (localStorage.getItem("storeUser")) {
         const user = JSON.parse(localStorage.getItem("storeUser"));
         this.$store.commit("storeUser", user);
