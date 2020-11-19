@@ -9,7 +9,8 @@
           :class="{ error: errors.has('email') }"
           :placeholder="$t('login.placeholder.email')"
           name="email"
-          type="text"/>
+          type="text"
+        />
         <label>{{ errors.first("email") }}</label>
       </div>
       <div class="container__form__field">
@@ -19,19 +20,20 @@
           :class="{ error: errors.has('password') }"
           :placeholder="$t('login.placeholder.password')"
           name="password"
-          type="text"/>
+          type="text"
+        />
         <label>{{ errors.first("password") }}</label>
       </div>
-      <button 
-        class="btn" 
-        @click.prevent="formSubmitted">
-          {{ $t("button.login") }}
+      <button class="btn" @click.prevent="formSubmitted">
+        {{ $t("button.login") }}
       </button>
     </form>
   </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: "Login",
   data() {
@@ -43,10 +45,13 @@ export default {
     };
   },
   methods: {
-    formSubmitted () {
+    ...mapActions([
+      "login"
+    ]),
+    formSubmitted() {
       this.$validator.validateAll().then((isValid) => {
         if (isValid) {
-          this.$store.dispatch("login", this.userData);
+          this.login(this.userData);
         } else {
           alert("Form not valid");
           return;

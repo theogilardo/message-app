@@ -25,7 +25,7 @@
         </p>
       </div>
       <button
-        @click="chatWithContact(user)"
+        @click="redirectToChatContact(user)"
         class="list-category__user__btn list-category__user__btn__chat"
       >
         Chat
@@ -37,6 +37,7 @@
 <script>
 import { eventBus } from "../../main.js";
 import { mapGetters } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   name: "FindUsers",
@@ -46,15 +47,21 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["users", "listType"]),
+    ...mapGetters([
+      "users", 
+      "listType"
+    ]),
     filterUsers() {
       return this.users.filter((user) => user.phone.match(this.search.trim()));
     },
   },
   methods: {
-    chatWithContact (contact) {
+    ...mapActions([
+      "chatWithContact"
+    ]),
+    redirectToChatContact (contact) {
       eventBus.$emit("chat-with-contact");
-      return this.$store.dispatch("chatWithContact", contact);
+      this.chatWithContact(contact);
     },
   },
 };

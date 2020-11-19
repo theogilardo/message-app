@@ -52,7 +52,7 @@
       <div>
         <a 
           class="chat__side-bar__link" 
-          @click="logout"
+          @click="logoutAndRedirect"
         >
           <img
             class="chat__side-bar__icon chat__side-bar__icon--last"
@@ -66,23 +66,26 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex"
 
 export default {
   name: "UserChatSideBar",
   computed: {
-    ...mapGetters(["user", "userChatContacts", "listType"]),
+    ...mapGetters([
+      "user", 
+      "userChatContacts", 
+      "listType"
+    ]),
   },
   methods: {
-    logout () {
+    ...mapMutations({
+      logout :'logout', 
+      switchToUserMessages: 'switchToUserMessages', 
+      switchToUsers: 'switchToUsers'
+    }),
+    logoutAndRedirect () {
       this.redirectHome();
-      return this.$store.commit("logout");
-    },
-    switchToUserMessages () {
-      return this.$store.commit("switchToUserMessages");
-    },
-    switchToUsers () {
-      return this.$store.commit("switchToUsers");
+      this.logout();
     },
     redirectHome () {
       this.$router.push("/login");

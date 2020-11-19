@@ -106,6 +106,7 @@
 
 <script>
 import firebase from "firebase";
+import { mapActions } from "vuex";
 
 export default {
   name: "Signup",
@@ -121,7 +122,7 @@ export default {
     };
   },
   computed: {
-    profilePicDOM () {
+    profilePicDOM() {
       if (!this.userData.profilePic) {
         return require("@/assets/default-user.png");
       }
@@ -129,16 +130,19 @@ export default {
     },
   },
   methods: {
-    formSubmitted () {
+    ...mapActions([
+      "signup"
+    ]),
+    formSubmitted() {
       this.$validator.validateAll().then((isValid) => {
         if (isValid) {
-          this.$store.dispatch("signup", this.userData);
+          this.signup(this.userData);
         } else {
           alert("Form not valid");
         }
       });
     },
-    onFileSelected (event) {
+    onFileSelected(event) {
       let file = event.target.files[0];
       var storageRef = firebase.storage().ref("profile-pics/" + file.name);
       let uploadTask = storageRef.put(file);

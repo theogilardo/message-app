@@ -32,7 +32,7 @@
       <button 
         v-if="isAuth" 
         class="link" 
-        @click="logout">
+        @click="logoutAndRedirect">
           {{ $t("button.logout") }}
       </button>
     </div>
@@ -40,23 +40,28 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "Navbar",
+  computed: {
+    ...mapGetters([
+      "isAuth"
+    ]),
+    isPathChat() {
+      return this.$route.name === "Chat";
+    },
+  },
   methods: {
-    logout () {
+    ...mapMutations({
+      logout: 'logout'
+    }),
+    logoutAndRedirect () {
       this.redirectHome();
-      return this.$store.commit("logout");
+      this.logout();
     },
     redirectHome () {
       return this.$router.push("/");
-    },
-  },
-  computed: {
-    ...mapGetters(["isAuth"]),
-    isPathChat() {
-      return this.$route.name === "Chat";
     },
   },
 };

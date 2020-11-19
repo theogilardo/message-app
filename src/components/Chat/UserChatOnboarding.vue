@@ -25,7 +25,9 @@ import { mapGetters } from "vuex";
 export default {
   name: "UserChatOnboarding",
   computed: {
-    ...mapGetters(["userChatContact"]),
+    ...mapGetters([
+      "userChatContact"
+    ]),
   },
 };
 </script>

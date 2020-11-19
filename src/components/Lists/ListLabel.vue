@@ -20,7 +20,10 @@ import { mapGetters } from "vuex";
 
 export default {
   computed: {
-    ...mapGetters(["listType", "listLabel"]),
+    ...mapGetters([
+      "listType", 
+      "listLabel"
+    ]),
   },
 };
 </script>

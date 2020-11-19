@@ -31,6 +31,7 @@
 <script>
 import { eventBus } from "../../main.js";
 import { mapGetters } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   name: "Messages",
@@ -48,9 +49,12 @@ export default {
     ]),
   },
   methods: {
+    ...mapActions([
+      'chatWithContact'
+    ]),
     fetchMessages (user) {
       eventBus.$emit("chat-with-contact");
-      this.$store.dispatch("chatWithContact", user);
+      this.chatWithContact(user);
     },
   },
 };

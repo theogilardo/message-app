@@ -23,7 +23,10 @@ import { mapGetters } from "vuex";
 export default {
   name: "UserChatCurrentContact",
   computed: {
-    ...mapGetters(["userChatContact", "userChatContactMessages"]),
+    ...mapGetters([
+      "userChatContact",
+      "userChatContactMessages"
+    ]),
   },
 };
 </script>

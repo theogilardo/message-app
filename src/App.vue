@@ -11,6 +11,7 @@
 <script>
 import TheNavbar from "./components/TheNavbar";
 import SwitchTrad from "./components/SwitchTrad";
+import { mapActions } from "vuex"
 
 export default {
   name: "App",
@@ -20,12 +21,17 @@ export default {
     };
   },
   created() {
-    this.$store.dispatch("autoLogin");
+    this.autoLogin();
   },
   components: {
     "the-navbar": TheNavbar,
     "switch-trad": SwitchTrad,
   },
+  methods: {
+    ...mapActions([
+      'autoLogin'
+    ])
+  }
 };
 </script>
 

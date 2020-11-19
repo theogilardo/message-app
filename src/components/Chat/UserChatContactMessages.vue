@@ -23,14 +23,18 @@
         :placeholder="$t('chat.typing')"
         type="text"
       />
-      <img @click="sendMessage" src="../../assets/send.svg" alt="Send Icon" />
+      <img 
+        @click="sendMessage" 
+        src="../../assets/send.svg" 
+        alt="Send Icon" 
+      />
     </div>
   </div>
 </template>
 
 <script>
 import { eventBus } from "../../main.js";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "UserChatContactMessages",
@@ -52,12 +56,18 @@ export default {
     });
   },
   computed: {
-    ...mapGetters(["userChatContact", "userChatContactMessages"]),
+    ...mapGetters([
+      "userChatContact", 
+      "userChatContactMessages"
+    ]),
   },
   methods: {
+    ...mapActions([
+      "storeMessage"
+    ]),
     sendMessage () {
       if (this.message) {
-        this.$store.dispatch("storeMessage", this.message);
+        this.storeMessage(this.message);
         this.clearTypeInput();
       }
     },

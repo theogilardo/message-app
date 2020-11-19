@@ -24,7 +24,7 @@ import UserChatCurrentContact from "./UserChatCurrentContact.vue";
 import UserChatContactMessages from "./UserChatContactMessages.vue";
 import UserChatOnboarding from "./UserChatOnboarding.vue";
 import SwitchTrad from "../SwitchTrad.vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations, mapActions } from "vuex";
 
 export default {
   name: "UserChat",
@@ -50,38 +50,46 @@ export default {
     });
   },
   computed: {
-    ...mapGetters(["listType"]),
+    ...mapGetters([
+      "listType"
+    ]),
   },
   methods: {
+    ...mapMutations({
+      storeUser: 'storeUser', 
+      storeUsers: 'storeUsers', 
+      storeUserChatContacts: 'storeUserChatContacts', 
+      storeUserChatContactMessages: 'storeUserChatContactMessages'
+    }),
+    ...mapActions([
+      "chatWithContact"
+    ]),
     refreshLocalStorage () {
       if (localStorage.getItem("storeUser")) {
         const user = JSON.parse(localStorage.getItem("storeUser"));
-        this.$store.commit("storeUser", user);
+        this.storeUser(user);
       }
       if (localStorage.getItem("storeUsers")) {
         const users = JSON.parse(localStorage.getItem("storeUsers"));
-        this.$store.commit("storeUsers", users);
+        this.storeUsers(users);
       }
       if (localStorage.getItem("userChatContact")) {
         const userChatContact = JSON.parse(
           localStorage.getItem("userChatContact")
         );
-        this.$store.dispatch("chatWithContact", userChatContact);
+        this.chatWithContact(userChatContact);
       }
       if (localStorage.getItem("userChatContacts")) {
         const userChatContacts = JSON.parse(
           localStorage.getItem("userChatContacts")
         );
-        this.$store.commit("storeUserChatContacts", userChatContacts);
+        this.storeUserChatContacts(userChatContacts);
       }
       if (localStorage.getItem("userChatContactMessages")) {
         const userChatContactMessages = JSON.parse(
           localStorage.getItem("userChatContactMessages")
         );
-        this.$store.commit(
-          "storeUserChatContactMessages",
-          userChatContactMessages
-        );
+        this.storeUserChatContactMessages(userChatContactMessages);
       }
     },
   },

@@ -63,6 +63,9 @@ const actions = {
           messages.push(message);
         }
 
+        console.log(messages)
+        
+
         const userId = rootState.users.user.localId;
         const _ = require("lodash");
 
@@ -96,6 +99,7 @@ const actions = {
             userChatContacts.push(contactDataFromUsers);
           });
 
+          console.log(userChatContacts)
           // Store and format the messages for each user chat contact
           userChatContacts.forEach((contact) => {
             const userChatContactMessages = messages.filter(
