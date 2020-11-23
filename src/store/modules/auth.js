@@ -47,7 +47,8 @@ const actions = {
           userId: res.data.localId,
         });
         router.replace("/chat");
-        dispatch("fetchUser");
+        dispatch("fetchUsers");
+        dispatch("fetchMessages");
       })
       .catch((error) => {
         console.log(error);

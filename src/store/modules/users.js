@@ -1,77 +1,23 @@
 import axios from "axios";
 
 const state = {
-  user: null,
-  userChatContact: null,
-  userChatContacts: [],
   users: [],
-};
+}
 
 const getters = {
-  user(state) {
-    return state.user;
-  },
-  userChatContact(state) {
-    return state.userChatContact;
-  },
-  userChatContacts(state) {
-    return state.userChatContacts;
-  },
-  userChatContactsSorted(state) {
-    return state.userChatContacts.sort(
-      (a, b) => b.lastTimestamp - a.lastTimestamp
-    );
-  },
   users(state) {
     return state.users;
   },
-  componentKey(state) {
-    return state.componentKey;
-  },
-};
+}
 
 const mutations = {
-  storeUser(state, userData) {
-    state.user = userData;
-  },
-  storeUserChatContact(state, receiver) {
-    state.userChatContact = receiver;
-  },
-  storeUserChatContacts(state, payload) {
-    state.userChatContacts = payload;
-  },
-  addUserContact(state, newContact) {
-    state.user.contacts.push(newContact);
-    state.users = state.users.filter(
-      (user) => user.localId !== newContact.localId
-    );
-  },
   storeUsers(state, userData) {
     state.users = userData;
   },
-  storeLocalStorageUser(_, authData) {
-    const now = new Date();
-    const expirationDate = new Date(now.getTime() + authData.expiresIn * 1000);
-    localStorage.setItem("tokenId", authData.tokenId);
-    localStorage.setItem("userId", authData.localId);
-    localStorage.setItem("userData", authData.userData);
-    localStorage.setItem("expiresIn", expirationDate);
-  },
-};
+}
 
 const actions = {
-  storeUser({ commit, dispatch }, authData) {
-    axios
-      .post("https://message-app-719f5.firebaseio.com/users.json", authData)
-      .then((res) => {
-        console.log(res);
-        commit("storeUser", authData);
-        dispatch("fetchUser");
-      })
-      .catch((err) => console.log(err));
-  },
-
-  fetchUser({ commit, dispatch, rootState }) {
+  fetchUsers({ commit, rootState }) {
     axios
       .get("https://message-app-719f5.firebaseio.com/users.json")
       .then((res) => {
@@ -96,26 +42,14 @@ const actions = {
         localStorage.setItem("storeUsers", JSON.stringify(otherUsers));
         commit("storeUser", activeUser);
         commit("storeUsers", otherUsers);
-        dispatch("fetchMessages");
       })
       .catch((err) => console.log(err));
   },
-
-  chatWithContact({ commit }, contact) {
-    localStorage.setItem("userChatContact", JSON.stringify(contact));
-    commit("storeUserChatContact", contact);
-    commit("emptyMessages");
-
-    if (contact.messages) {
-      commit("storeUserChatContactMessages", contact.messages);
-    }
-    commit("switchToUserMessages");
-  },
-};
+}
 
 export default {
-  state,
-  getters,
+  state, 
+  getters, 
   mutations,
-  actions,
-};
+  actions
+}

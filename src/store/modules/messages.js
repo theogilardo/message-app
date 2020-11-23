@@ -24,8 +24,8 @@ const actions = {
     const timestamp = new Date().getTime();
 
     const messageFormatted = {
-      senderId: rootState.users.user.localId,
-      receiverId: rootState.users.userChatContact.localId,
+      senderId: rootState.user.user.localId,
+      receiverId: rootState.contacts.userChatContact.localId,
       message: message,
       timestamp: timestamp,
     };
@@ -66,7 +66,7 @@ const actions = {
         console.log(messages)
         
 
-        const userId = rootState.users.user.localId;
+        const userId = rootState.user.user.localId;
         const _ = require("lodash");
 
         // Find all user chat contacts IDs from the messages in Firebase
