@@ -12,7 +12,7 @@
         />
       </a>
       <a
-        v-if="userChatContacts.length"
+        v-if="contacts.length"
         :class="{
           'chat__side-bar__link--active': listType === 'list-user-messages',
         }"
@@ -73,7 +73,7 @@ export default {
   computed: {
     ...mapGetters([
       "user", 
-      "userChatContacts", 
+      "contacts", 
       "listType"
     ]),
   },

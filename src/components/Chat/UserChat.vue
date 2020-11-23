@@ -58,8 +58,8 @@ export default {
     ...mapMutations({
       storeUser: 'storeUser', 
       storeUsers: 'storeUsers', 
-      storeUserChatContacts: 'storeUserChatContacts', 
-      storeUserChatContactMessages: 'storeUserChatContactMessages'
+      storeContacts: 'storeContacts', 
+      storeContactMessages: 'storeContactMessages'
     }),
     ...mapActions([
       "chatWithContact"
@@ -73,23 +73,23 @@ export default {
         const users = JSON.parse(localStorage.getItem("storeUsers"));
         this.storeUsers(users);
       }
-      if (localStorage.getItem("userChatContact")) {
-        const userChatContact = JSON.parse(
-          localStorage.getItem("userChatContact")
+      if (localStorage.getItem("contact")) {
+        const contact = JSON.parse(
+          localStorage.getItem("contact")
         );
-        this.chatWithContact(userChatContact);
+        this.chatWithContact(contact);
       }
-      if (localStorage.getItem("userChatContacts")) {
-        const userChatContacts = JSON.parse(
-          localStorage.getItem("userChatContacts")
+      if (localStorage.getItem("contacts")) {
+        const contacts = JSON.parse(
+          localStorage.getItem("contacts")
         );
-        this.storeUserChatContacts(userChatContacts);
+        this.storeContacts(contacts);
       }
-      if (localStorage.getItem("userChatContactMessages")) {
-        const userChatContactMessages = JSON.parse(
-          localStorage.getItem("userChatContactMessages")
+      if (localStorage.getItem("contactMessages")) {
+        const contactMessages = JSON.parse(
+          localStorage.getItem("contactMessages")
         );
-        this.storeUserChatContactMessages(userChatContactMessages);
+        this.storeContactMessages(contactMessages);
       }
     },
   },

@@ -1,9 +1,9 @@
 <template>
-  <div class="list-category" v-if="userChatContact">
+  <div class="list-category" v-if="contact">
     <div
-      v-for="user in userChatContactsSorted"
+      v-for="user in contactsSorted"
       :key="user.id"
-      :class="{ activeChat: user.localId === userChatContact.localId }"
+      :class="{ activeChat: user.localId === contact.localId }"
       class="list-category__user"
       @click="fetchMessages(user)"
     >
@@ -43,9 +43,9 @@ export default {
   },
   computed: {
     ...mapGetters([
-      "userChatContacts",
-      "userChatContactsSorted",
-      "userChatContact",
+      "contacts",
+      "contactsSorted",
+      "contact",
     ]),
   },
   methods: {

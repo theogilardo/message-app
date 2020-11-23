@@ -1,6 +1,6 @@
 <template>
   <div 
-    v-if="!userChatContact" 
+    v-if="!contact" 
     class="chat__onboarding"
   >
     <img
@@ -26,7 +26,7 @@ export default {
   name: "UserChatOnboarding",
   computed: {
     ...mapGetters([
-      "userChatContact"
+      "contact"
     ]),
   },
 };

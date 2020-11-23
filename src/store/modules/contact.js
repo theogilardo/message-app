@@ -1,27 +1,27 @@
 const state = {
-  userChatContact: null,
+  contact: null,
 };
 
 const getters = {
-  userChatContact(state) {
-    return state.userChatContact;
+  contact(state) {
+    return state.contact;
   },
 };
 
 const mutations = {
-  storeUserChatContact(state, receiver) {
-    state.userChatContact = receiver;
+  storeContact(state, receiver) {
+    state.contact = receiver;
   },
 };
 
 const actions = {
   chatWithContact({ commit }, contact) {
-    localStorage.setItem("userChatContact", JSON.stringify(contact));
-    commit("storeUserChatContact", contact);
+    localStorage.setItem("contact", JSON.stringify(contact));
+    commit("storeContact", contact);
     commit("emptyMessages");
 
     if (contact.messages) {
-      commit("storeUserChatContactMessages", contact.messages);
+      commit("storeContactMessages", contact.messages);
     }
     commit("switchToUserMessages");
   },

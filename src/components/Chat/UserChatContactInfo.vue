@@ -1,18 +1,18 @@
 <template>
   <div 
-    v-if="userChatContact" 
+    v-if="contact" 
     class="chat__contact"
   >
     <img 
-      :src="userChatContact.profilePic" 
+      :src="contact.profilePic" 
       alt="Main Profile Photo" 
     />
     <div class="chat__contact__information">
-      <h1>{{ userChatContact.name }} {{ userChatContact.surname }}</h1>
-      <p v-if="userChatContactMessages.length > 1">
-        {{ userChatContactMessages.length }} messages
+      <h1>{{ contact.name }} {{ contact.surname }}</h1>
+      <p v-if="contactMessages.length > 1">
+        {{ contactMessages.length }} messages
       </p>
-      <p v-else>{{ userChatContactMessages.length }} message</p>
+      <p v-else>{{ contactMessages.length }} message</p>
     </div>
   </div>
 </template>
@@ -21,11 +21,11 @@
 import { mapGetters } from "vuex";
 
 export default {
-  name: "UserChatContactInfo",
+  name: "contactInfo",
   computed: {
     ...mapGetters([
-      "userChatContact",
-      "userChatContactMessages"
+      "contact",
+      "contactMessages"
     ]),
   },
 };

@@ -1,21 +1,21 @@
 const state = {
-  userChatContacts: [],
+  contacts: [],
 }
 
 const getters = {
-  userChatContacts(state) {
-    return state.userChatContacts;
+  contacts(state) {
+    return state.contacts;
   },
-  userChatContactsSorted(state) {
-    return state.userChatContacts.sort(
+  contactsSorted(state) {
+    return state.contacts.sort(
       (a, b) => b.lastTimestamp - a.lastTimestamp
     );
   },
 }
 
 const mutations = {
-  storeUserChatContacts(state, payload) {
-    state.userChatContacts = payload;
+  storeContacts(state, payload) {
+    state.contacts = payload;
   },
 }
 

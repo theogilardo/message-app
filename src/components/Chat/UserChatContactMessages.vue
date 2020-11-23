@@ -1,12 +1,12 @@
 <template>
   <div class="chat__messages">
     <div
-      v-if="userChatContactMessages"
+      v-if="contactMessages"
       ref="messages"
       class="chat__messages__conversation"
     >
       <p
-        v-for="message in userChatContactMessages"
+        v-for="message in contactMessages"
         :key="message.id"
         :class="{ sent: message.type === 'sent' }"
       >
@@ -37,14 +37,14 @@ import { eventBus } from "../../main.js";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
-  name: "UserChatContactMessages",
+  name: "ContactMessages",
   data() {
     return {
       message: null,
     };
   },
   watch: {
-    userChatContactMessages() {
+    contactMessages() {
       this.scrollToEnd();
     },
   },
@@ -57,8 +57,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      "userChatContact", 
-      "userChatContactMessages"
+      "contact", 
+      "contactMessages"
     ]),
   },
   methods: {
