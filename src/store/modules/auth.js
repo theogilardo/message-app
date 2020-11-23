@@ -36,7 +36,7 @@ const actions = {
       )
       .then((res) => {
         console.log(res);
-        commit("storeLocalStorageUser", {
+        commit("storeUserLocalStorage", {
           tokenId: res.data.idToken,
           localId: res.data.localId,
           expiresIn: res.data.expiresIn,
@@ -70,7 +70,7 @@ const actions = {
         delete authData.email;
         delete authData.password;
 
-        commit("storeLocalStorageUser", {
+        commit("storeUserLocalStorage", {
           tokenId: res.data.idToken,
           localId: res.data.localId,
           expiresIn: res.data.expiresIn,

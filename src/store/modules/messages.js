@@ -12,11 +12,11 @@ const mutations = {
   storeUserChatContactMessages(state, userChatContactMessages) {
     state.userChatContactMessages = userChatContactMessages;
   },
-  emptyMessages(state) {
-    state.userChatContactMessages = [];
-  },
   storeMessage(state, messageObj) {
     state.userChatContactMessages.push(messageObj);
+  },
+  emptyMessages(state) {
+    state.userChatContactMessages = [];
   },
 };
 const actions = {
@@ -25,7 +25,7 @@ const actions = {
 
     const messageFormatted = {
       senderId: rootState.user.user.localId,
-      receiverId: rootState.contacts.userChatContact.localId,
+      receiverId: rootState.contact.userChatContact.localId,
       message: message,
       timestamp: timestamp,
     };

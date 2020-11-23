@@ -20,7 +20,7 @@ import ListLabel from "./../Lists/ListLabel.vue";
 import ListUsers from "./../Lists/ListUsers.vue";
 import ListUserMessages from "./../Lists/ListUserMessages.vue";
 import UserChatSideBarVue from "./UserChatSideBar.vue";
-import UserChatCurrentContact from "./UserChatCurrentContact.vue";
+import UserChatContactInfo from "./UserChatContactInfo.vue";
 import UserChatContactMessages from "./UserChatContactMessages.vue";
 import UserChatOnboarding from "./UserChatOnboarding.vue";
 import SwitchTrad from "../SwitchTrad.vue";
@@ -33,7 +33,7 @@ export default {
     "list-users": ListUsers,
     "list-user-messages": ListUserMessages,
     "side-bar": UserChatSideBarVue,
-    "contact-info": UserChatCurrentContact,
+    "contact-info": UserChatContactInfo,
     "contact-messages": UserChatContactMessages,
     "user-onboarding": UserChatOnboarding,
     "switch-trad": SwitchTrad,

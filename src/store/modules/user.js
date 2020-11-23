@@ -14,7 +14,7 @@ const mutations = {
   storeUser(state, userData) {
     state.user = userData;
   },
-  storeLocalStorageUser(_, authData) {
+  storeUserLocalStorage(_, authData) {
     const now = new Date();
     const expirationDate = new Date(now.getTime() + authData.expiresIn * 1000);
     localStorage.setItem("tokenId", authData.tokenId);
