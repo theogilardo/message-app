@@ -20,8 +20,14 @@
           :class="{ error: errors.has('password') }"
           :placeholder="$t('login.placeholder.password')"
           name="password"
-          type="text"
+          :type="inputType"
         />
+        <img 
+          :src="iconPasswordVisibility" 
+          class="container__form__field__icon" 
+          alt="Eye icon"
+          @click="togglePasswordVisibility"
+        >
         <label>{{ errors.first("password") }}</label>
       </div>
       <button class="btn" @click.prevent="formSubmitted">
@@ -38,6 +44,8 @@ export default {
   name: "Login",
   data() {
     return {
+      inputType: "password",
+      iconPasswordVisibility: require("@/assets/eye-password.svg"),
       userData: {
         email: "",
         password: "",
@@ -48,7 +56,7 @@ export default {
     ...mapActions([
       "login"
     ]),
-    formSubmitted() {
+    formSubmitted () {
       this.$validator.validateAll().then((isValid) => {
         if (isValid) {
           this.login(this.userData);
@@ -58,6 +66,10 @@ export default {
         }
       });
     },
+    togglePasswordVisibility () {
+      this.inputType = this.inputType === "password" ? "text" : "password"
+      this.iconPasswordVisibility = require(`@/assets/eye-${this.inputType}.svg`)
+    }
   },
 };
 </script>
@@ -110,6 +122,15 @@ export default {
         width 100%
         top 5.5rem
         left 0
+
+      &__icon
+        position: absolute;
+        width: 2.5rem;
+        height: 2.5rem;
+        top: 50%;
+        right: 12.5rem;
+        transform: translateY(-50%);
+        opacity: .8;
 
     .btn
       margin-top 1rem
