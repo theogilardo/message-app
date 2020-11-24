@@ -14,8 +14,8 @@ const getters = {
 }
 
 const mutations = {
-  storeContacts(state, payload) {
-    state.contacts = payload;
+  storeContacts(state, contacts) {
+    state.contacts = contacts;
   },
 }
 

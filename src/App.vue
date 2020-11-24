@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <the-navbar></the-navbar>
-    <transition name="slide-fade">
+    <!-- <transition name="slide-fade"> -->
       <router-view />
-    </transition>
+    <!-- </transition> -->
     <switch-trad></switch-trad>
   </div>
 </template>
@@ -109,6 +109,18 @@ button:focus
 
 input:focus
   outline 0
+
+// Toasted
+
+.toasted > svg:first-child 
+  margin-right: .7rem;
+  
+.toast-error
+  background: linear-gradient(to right, #cb2d3e, #ef473a) !important
+
+.toast-success
+  background: linear-gradient(to right, rgba(74,210,149,1), rgba(77,125,225,1)) !important
+
 
 // Keyframes
 @keyframes slide-up {

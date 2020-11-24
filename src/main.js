@@ -6,11 +6,14 @@ import VeeValidate from "vee-validate";
 import firebase from "firebase";
 import i18n from "./i18n";
 import Toasted from "vue-toasted";
-import "./utils/filters.js";
+import "./utils/filters";
 
 Vue.config.productionTip = false;
 Vue.use(VeeValidate);
-Vue.use(Toasted);
+Vue.use(Toasted, {
+  iconPack: 'fontawesome',
+});
+
 export const eventBus = new Vue();
 
 // Your web app's Firebase configuration

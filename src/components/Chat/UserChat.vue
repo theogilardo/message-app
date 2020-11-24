@@ -25,9 +25,11 @@ import UserChatContactMessages from "./UserChatContactMessages.vue";
 import UserChatOnboarding from "./UserChatOnboarding.vue";
 import SwitchTrad from "../SwitchTrad.vue";
 import { mapGetters, mapMutations, mapActions } from "vuex";
+import toastedMixin from '../../mixins/toasted'
 
 export default {
   name: "UserChat",
+  mixins: [toastedMixin],
   components: {
     "list-label": ListLabel,
     "list-users": ListUsers,
@@ -42,12 +44,7 @@ export default {
     this.refreshLocalStorage();
   },
   created() {
-    this.$toasted.success("Logged In", {
-      className: "toast-success",
-      theme: "bubble",
-      position: "top-right",
-      duration: 2000,
-    });
+    this.toastedSuccess()
   },
   computed: {
     ...mapGetters([
@@ -97,9 +94,6 @@ export default {
 </script>
 
 <style lang="stylus">
-
-.toast-success
-  background: linear-gradient(to right, rgba(74,210,149,1), rgba(77,125,225,1)) !important
 
 .sent
   background: #4c7de0 !important

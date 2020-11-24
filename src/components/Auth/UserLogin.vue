@@ -39,9 +39,11 @@
 
 <script>
 import { mapActions } from "vuex";
+import toastedMixin from '../../mixins/toasted'
 
 export default {
   name: "Login",
+  mixins: [toastedMixin],
   data() {
     return {
       inputType: "password",
@@ -59,11 +61,9 @@ export default {
     formSubmitted () {
       this.$validator.validateAll().then((isValid) => {
         if (isValid) {
-          this.login(this.userData);
-        } else {
-          alert("Form not valid");
-          return;
-        }
+          return this.login(this.userData);
+        } 
+        this.toastedError()
       });
     },
     togglePasswordVisibility () {

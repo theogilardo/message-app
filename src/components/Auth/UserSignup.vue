@@ -107,9 +107,11 @@
 <script>
 import firebase from "firebase";
 import { mapActions } from "vuex";
+import toastedMixin from '../../mixins/toasted'
 
 export default {
   name: "Signup",
+  mixins: [toastedMixin],
   data() {
     return {
       userData: {
@@ -136,10 +138,9 @@ export default {
     formSubmitted() {
       this.$validator.validateAll().then((isValid) => {
         if (isValid) {
-          this.signup(this.userData);
-        } else {
-          alert("Form not valid");
-        }
+          return this.signup(this.userData);
+        } 
+        this.toastedError()
       });
     },
     onFileSelected(event) {
