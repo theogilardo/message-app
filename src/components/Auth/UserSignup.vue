@@ -63,7 +63,7 @@
         </div>
         <div class="container__form__field">
           <input
-            v-validate="'required|regex:^([0-9]+)$'"
+            v-validate="{ required: true, regex: /^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$/ }"
             v-model="userData.phone"
             :class="{ error: errors.has('phone') }"
             :placeholder="$t('signup.placeholder.phone')"
