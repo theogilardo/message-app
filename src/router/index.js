@@ -1,10 +1,10 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import TheHomepage from "../components/TheHomepage.vue";
-import Signup from "../components/Auth/UserSignup.vue";
-import Login from "../components/Auth/UserLogin.vue";
-import UserChat from "../components/Chat/UserChat.vue";
-import TheRouteError from "../components/TheRouteError.vue";
+import Homepage from "../pages/Homepage.vue";
+import Signup from "../pages/auth/UserSignup.vue";
+import Login from "../pages/auth/UserLogin.vue";
+import UserChat from "../pages/chat/UserChat.vue";
+import NotFound from "../pages/NotFound.vue";
 
 Vue.use(VueRouter);
 
@@ -12,7 +12,7 @@ const routes = [
   {
     path: "/",
     name: "Homepage",
-    component: TheHomepage,
+    component: Homepage,
   },
   {
     path: "/signup",
@@ -40,7 +40,7 @@ const routes = [
   {
     path: "*",
     name: "404",
-    component: TheRouteError,
+    component: NotFound,
   },
 ];
 

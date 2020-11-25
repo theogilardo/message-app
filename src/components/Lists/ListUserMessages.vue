@@ -54,7 +54,8 @@ export default {
     ]),
     fetchMessages (user) {
       eventBus.$emit("chat-with-contact");
-      this.chatWithContact(user);
+      this.chatWithContact(user)
+      history.pushState({}, null, `/chat/${user.name}`)
     },
   },
 };

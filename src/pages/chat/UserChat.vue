@@ -16,14 +16,14 @@
 </template>
 
 <script>
-import ListLabel from "./../Lists/ListLabel.vue";
-import ListUsers from "./../Lists/ListUsers.vue";
-import ListUserMessages from "./../Lists/ListUserMessages.vue";
-import UserChatSideBarVue from "./UserChatSideBar.vue";
-import UserChatContactInfo from "./UserChatContactInfo.vue";
-import UserChatContactMessages from "./UserChatContactMessages.vue";
-import UserChatOnboarding from "./UserChatOnboarding.vue";
-import SwitchTrad from "../SwitchTrad.vue";
+import ListLabel from "../../components/lists/ListLabel.vue";
+import ListUsers from "../../components/lists/ListUsers.vue";
+import ListUserMessages from "../../components/lists/ListUserMessages.vue";
+import UserChatSideBarVue from "../../components/chat/UserChatSideBar.vue";
+import UserChatContactInfo from "../../components/chat/UserChatContactInfo.vue";
+import UserChatContactMessages from "../../components/chat/UserChatContactMessages.vue";
+import UserChatOnboarding from "../../components/chat/UserChatOnboarding.vue";
+import SwitchTrad from "../../components/SwitchTrad.vue";
 import { mapGetters, mapMutations, mapActions } from "vuex";
 import toastedMixin from '../../mixins/toasted'
 

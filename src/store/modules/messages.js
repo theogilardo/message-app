@@ -61,10 +61,7 @@ const actions = {
         for (let key in data) {
           const message = data[key];
           messages.push(message);
-        }
-
-        console.log(messages)
-        
+        }        
 
         const userId = rootState.user.user.localId;
         const _ = require("lodash");

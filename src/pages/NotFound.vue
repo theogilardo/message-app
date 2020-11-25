@@ -4,9 +4,9 @@
       src="../assets/404.png"
        alt="404 error" 
     />
-    <h2>
+    <h1>
       {{ $t("error.404") }}
-    </h2>
+    </h1>
   </div>
 </template>
 
@@ -25,7 +25,10 @@ export default {
   align-items center
   justify-content center
   flex-direction column
-  font-family: 'Abril Fatface', cursive;
+
+  h1
+    font-size 3rem
+    margin-top 3rem
 
   img
     width 60rem

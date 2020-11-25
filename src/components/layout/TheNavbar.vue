@@ -6,7 +6,7 @@
     <router-link to="/">
       <img 
         class="navbar__img" 
-        src="../assets/logo.png" 
+        src="../../assets/logo.png" 
         alt="logo-icon" 
       />
     </router-link>

@@ -57,11 +57,13 @@ export default {
   },
   methods: {
     ...mapActions([
-      "chatWithContact"
+      "chatWithContact",
+      "fetchMessages"
     ]),
     redirectToChatContact (contact) {
       eventBus.$emit("chat-with-contact");
       this.chatWithContact(contact);
+      history.pushState({}, null, `/chat/${contact.name}`)
     },
   },
 };
