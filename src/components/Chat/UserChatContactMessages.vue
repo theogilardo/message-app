@@ -1,4 +1,21 @@
 <template>
+<div class="chat__container">
+ <div 
+    v-if="contact" 
+    class="chat__contact"
+  >
+    <img 
+      :src="contact.profilePic" 
+      alt="Main Profile Photo" 
+    />
+    <div class="chat__contact__information">
+      <h1>{{ contact.name }} {{ contact.surname }}</h1>
+      <p v-if="contactMessages.length > 1">
+        {{ contactMessages.length }} messages
+      </p>
+      <p v-else>{{ contactMessages.length }} message</p>
+    </div>
+  </div>
   <div class="chat__messages">
     <div
       v-if="contactMessages"
@@ -30,6 +47,7 @@
       />
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -84,3 +102,14 @@ export default {
   },
 };
 </script>
+
+<style lang="stylus" scoped>
+
+.chat__container
+  grid-column 3/4
+  grid-row 1/4
+  display grid
+  grid-template-columns 1fr
+  grid-template-rows 80px 1fr
+
+</style>

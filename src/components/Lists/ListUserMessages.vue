@@ -1,11 +1,12 @@
 <template>
   <div class="list-category" v-if="contact">
-    <div
+    <router-link
       v-for="user in contactsSorted"
       :key="user.id"
       :class="{ activeChat: user.localId === contact.localId }"
       class="list-category__user"
-      @click="fetchMessages(user)"
+      :to="`/chat/${user.name}`"
+      @click.native="fetchMessages(user)"
     >
       <img
         :src="user.profilePic"
@@ -24,7 +25,7 @@
       <h3 class="list-category__user__time">
         {{ user.messages | setTimeHourMinutes }}
       </h3>
-    </div>
+    </router-link>
   </div>
 </template>
 
@@ -55,7 +56,6 @@ export default {
     fetchMessages (user) {
       eventBus.$emit("chat-with-contact");
       this.chatWithContact(user)
-      history.pushState({}, null, `/chat/${user.name}`)
     },
   },
 };

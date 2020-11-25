@@ -1,4 +1,5 @@
 import firebase from "firebase";
+import router from "../../router";
 
 const state = {
   contactMessages: [],
@@ -80,6 +81,8 @@ const actions = {
             return contactId;
           });
 
+        // router.replace("/chat");
+    
         if (findContacts.length) {
           const uniqueContactsIds = _.uniq(
             findContacts,
@@ -96,7 +99,6 @@ const actions = {
             contacts.push(contactDataFromUsers);
           });
 
-          console.log(contacts)
           // Store and format the messages for each user chat contact
           contacts.forEach((contact) => {
             const contactMessages = messages.filter(
@@ -161,6 +163,8 @@ const actions = {
             (contact) => contact.localId === contactId
           );
           dispatch("chatWithContact", setMostRecentChat);
+          const linkRecentChat = setMostRecentChat.name
+          router.push('/chat/' + linkRecentChat)
         }
       });
   },

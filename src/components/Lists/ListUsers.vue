@@ -24,11 +24,12 @@
           {{ user.phone }}
         </p>
       </div>
-      <button
-        @click="redirectToChatContact(user)"
-        class="list-category__user__btn list-category__user__btn__chat"
-      >
-        Chat
+      <button class="list-category__user__btn list-category__user__btn__chat" >
+        <router-link
+          :to="`/chat/${user.name}`"
+          @click.native="redirectToChatContact(user)">
+            Chat
+        </router-link>
       </button>
     </div>
   </div>
@@ -63,7 +64,6 @@ export default {
     redirectToChatContact (contact) {
       eventBus.$emit("chat-with-contact");
       this.chatWithContact(contact);
-      history.pushState({}, null, `/chat/${contact.name}`)
     },
   },
 };
@@ -102,6 +102,9 @@ export default {
       & > .list-category__user__btn
         color #333 !important
 
+      & > .list-category__user__link
+        color #333 !important
+
     &__img
       object-fit: cover;
       width: 45px;
@@ -132,6 +135,9 @@ export default {
       color #E8E8E8
       cursor pointer
       transition all .6s
+
+      a
+        color inherit
 
       &__add-contact
         font-weight bold

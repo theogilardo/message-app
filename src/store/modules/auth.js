@@ -46,9 +46,14 @@ const actions = {
           tokenId: res.data.idToken,
           userId: res.data.localId,
         });
-        router.replace("/chat");
         dispatch("fetchUsers");
         dispatch("fetchMessages");
+
+        // const recentChat = rootState.contact.contact.name
+        // if (recentChat) {
+        //   return router.push('/chat/' + recentChat)
+        // }
+        router.push("/chat");
       })
       .catch((error) => {
         console.log(error);

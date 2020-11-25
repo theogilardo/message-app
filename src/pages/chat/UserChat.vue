@@ -9,8 +9,9 @@
       class="chat__lists"
     >
     </component>
-    <contact-info></contact-info>
-    <contact-messages></contact-messages>
+    <!-- <contact-info></contact-info> -->
+    <router-view></router-view>
+    <!-- <contact-messages></contact-messages> -->
     <user-onboarding></user-onboarding>
   </div>
 </template>
@@ -112,6 +113,7 @@ export default {
   display: grid;
   grid-template-columns: 60px 25% 1fr;
   grid-template-rows: 80px 40px 1fr;
+  z-index 5000
 
   &__onboarding
     z-index 100
@@ -218,7 +220,7 @@ export default {
     height: 100%;
     width: 100%;
     padding: 20px;
-    grid-column: 3 / 4;
+    grid-column: 1 / 2;
     grid-row: 1 / 2;
     display: flex;
     align-items: center;
@@ -241,7 +243,7 @@ export default {
         font-size: 1.2rem;
 
   &__messages
-    grid-column: 3 / 4;
+    grid-column: 1 / 2;
     grid-row: 2 / 4;
     display: grid;
     grid-template-columns: 1fr;
