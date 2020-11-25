@@ -2,8 +2,8 @@
   <div
     class="switch__trad"
     :class="{
-      'switch__trad__top-right': !isFooter && isPathChat,
-      'switch__trad__bottom-right': isFooter && !isPathChat,
+      'switch__trad__top-right': positionTop,
+      'switch__trad__bottom-right': positionBottom,
     }"
   >
     <a class="switch__trad--en" @click="swithToEnglish">
@@ -33,16 +33,23 @@ export default {
     };
   },
   props: {
-    isFooter: {
-      type: Boolean,
-      default: true,
+    position: {
+      type: String,
+      default: null,
+      required: true,
+      validator: function(value) {
+        return ['bottom', 'top'].indexOf(value) !== -1
+      }
     },
   },
   computed: {
-    isPathChat() {
-      return this.$route.name === "chat" || "chat-contact"
+    positionTop() {
+      return this.position === 'top'
     },
-  },
+    positionBottom() {
+      return this.position === 'bottom'
+    }
+  }, 
   methods: {
     swithToEnglish () {
       this.$i18n.locale = "en";

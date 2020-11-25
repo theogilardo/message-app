@@ -1,12 +1,11 @@
 <template>
   <div 
-    v-if="!isPathChat" 
     class="navbar"
   >
     <router-link to="/">
       <img 
         class="navbar__img" 
-        src="../../assets/logo.png" 
+        src="../assets/logo.png" 
         alt="logo-icon" 
       />
     </router-link>
@@ -43,14 +42,11 @@
 import { mapGetters, mapMutations } from "vuex";
 
 export default {
-  name: "Navbar",
+  name: "TheNavbar",
   computed: {
     ...mapGetters([
       "isAuth"
     ]),
-    isPathChat() {
-      return this.$route.name === "chat";
-    },
   },
   methods: {
     ...mapMutations({
@@ -77,7 +73,7 @@ export default {
   height 5rem
   max-width: 1366px;
   position: fixed;
-  z-index: 1000;
+  z-index: 100000;
   top: 5%;
   left: 50%;
   transform: translateX(-50%);

@@ -1,31 +1,30 @@
 <template>
   <div id="app">
-    <the-navbar></the-navbar>
-    <!-- <transition name="slide-fade"> -->
-      <router-view />
-    <!-- </transition> -->
-    <switch-trad></switch-trad>
+    <transition name="slide-fade">
+      <component :is="layout">
+        <router-view />
+      </component>
+    </transition>
   </div>
 </template>
 
 <script>
-import TheNavbar from "./components/layout/TheNavbar";
-import SwitchTrad from "./components/SwitchTrad";
 import { mapActions } from "vuex"
 
 export default {
   name: "App",
   data() {
     return {
-      isActive: true,
+      defaultLayout: "default"
     };
   },
   created() {
     this.autoLogin();
   },
-  components: {
-    "the-navbar": TheNavbar,
-    "switch-trad": SwitchTrad,
+  computed: {
+    layout() {
+      return (this.$route.meta.layout || this.defaultLayout) + '-layout'
+    }
   },
   methods: {
     ...mapActions([
@@ -36,6 +35,7 @@ export default {
 </script>
 
 <style lang="stylus">
+
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Paytone+One&display=swap');
 

@@ -28,16 +28,18 @@ const routes = [
   {
     path: "/chat",
     name: "chat",
+    meta: { layout : 'chat'},
     component: UserChat,
     children: [
       {
-        name: "chat-contact",
         path:'/chat/:contact',
+        name: "chat-contact",
+        meta: { layout : 'chat'},
         component: UserChatContactMessages
       }
     ],
 
-    beforeEnter(to, from, next) {
+    beforeEnter(_, _2, next) {
       if (localStorage.getItem("tokenId")) {
         next();
       } else {
@@ -57,13 +59,5 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
-
-// router.beforeEach(function(to, from, next) {
-//   console.log(from, to)
-//   if (to.name === 'chat') {
-
-//   }
-//   next()
-// })
 
 export default router;

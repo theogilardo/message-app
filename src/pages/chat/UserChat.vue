@@ -1,7 +1,5 @@
 <template>
   <div class="chat">
-    <div class="background"></div>
-    <switch-trad :is-footer="false"></switch-trad>
     <side-bar></side-bar>
     <list-label></list-label>
     <component 
@@ -9,9 +7,7 @@
       class="chat__lists"
     >
     </component>
-    <!-- <contact-info></contact-info> -->
     <router-view></router-view>
-    <!-- <contact-messages></contact-messages> -->
     <user-onboarding></user-onboarding>
   </div>
 </template>
@@ -21,10 +17,8 @@ import ListLabel from "../../components/lists/ListLabel.vue";
 import ListUsers from "../../components/lists/ListUsers.vue";
 import ListUserMessages from "../../components/lists/ListUserMessages.vue";
 import UserChatSideBarVue from "../../components/chat/UserChatSideBar.vue";
-import UserChatContactInfo from "../../components/chat/UserChatContactInfo.vue";
 import UserChatContactMessages from "../../components/chat/UserChatContactMessages.vue";
 import UserChatOnboarding from "../../components/chat/UserChatOnboarding.vue";
-import SwitchTrad from "../../components/SwitchTrad.vue";
 import { mapGetters, mapMutations, mapActions } from "vuex";
 import toastedMixin from '../../mixins/toasted'
 
@@ -36,15 +30,11 @@ export default {
     "list-users": ListUsers,
     "list-user-messages": ListUserMessages,
     "side-bar": UserChatSideBarVue,
-    "contact-info": UserChatContactInfo,
     "contact-messages": UserChatContactMessages,
     "user-onboarding": UserChatOnboarding,
-    "switch-trad": SwitchTrad,
   },
   mounted() {
     this.refreshLocalStorage();
-  },
-  created() {
     this.toastedSuccess()
   },
   computed: {
@@ -101,19 +91,13 @@ export default {
   color: white !important
   align-self flex-end
 
-.background
-  background: linear-gradient(to right, rgba(74,210,149,1), rgba(77,125,225,1));
-  grid-column: 2 / 3;
-  grid-row: 1 / 4;
-
 .chat
   position: relative;
   height: 100vh;
   width: 100%;
   display: grid;
-  grid-template-columns: 60px 25% 1fr;
+  grid-template-columns: 60px 340px 1fr;
   grid-template-rows: 80px 40px 1fr;
-  z-index 5000
 
   &__onboarding
     z-index 100

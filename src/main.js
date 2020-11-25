@@ -7,12 +7,18 @@ import firebase from "firebase";
 import i18n from "./i18n";
 import Toasted from "vue-toasted";
 import "./utils/filters";
+import LayoutDefault from "./components/layout/LayoutDefault";
+import LayoutChat from "./components/layout/LayoutChat";
+
 
 Vue.config.productionTip = false;
 Vue.use(VeeValidate);
 Vue.use(Toasted, {
   iconPack: 'fontawesome',
 });
+
+Vue.component('default-layout', LayoutDefault)
+Vue.component('chat-layout', LayoutChat)
 
 export const eventBus = new Vue();
 
