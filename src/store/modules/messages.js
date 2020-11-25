@@ -163,9 +163,21 @@ const actions = {
             (contact) => contact.localId === contactId
           );
           dispatch("chatWithContact", setMostRecentChat);
-          const linkRecentChat = setMostRecentChat.name
-          router.push('/chat/' + linkRecentChat)
+
+          if (rootState.auth.initLogin) {
+            const linkRecentChat = setMostRecentChat.name
+            router.push('/chat/' + linkRecentChat)
+            rootState.auth.initLogin = false
+            console.log('old guy')
+          }
         }
+
+        if (rootState.auth.initLogin) {
+          router.push("/chat");
+          rootState.auth.initLogin = false
+          console.log('new guy')
+        }
+
       });
   },
 };

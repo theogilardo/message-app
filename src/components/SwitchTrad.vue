@@ -40,7 +40,7 @@ export default {
   },
   computed: {
     isPathChat() {
-      return this.$route.name === "Chat" || "ChatContact"
+      return this.$route.name === "chat" || "chat-contact"
     },
   },
   methods: {

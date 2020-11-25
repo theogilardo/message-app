@@ -12,26 +12,26 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "Homepage",
+    name: "homepage",
     component: Homepage,
   },
   {
     path: "/signup",
-    name: "Signup",
+    name: "signup",
     component: Signup,
   },
   {
     path: "/login",
-    name: "Login",
+    name: "login",
     component: Login,
   },
   {
     path: "/chat",
-    name: "Chat",
+    name: "chat",
     component: UserChat,
     children: [
       {
-        name: "ChatContact",
+        name: "chat-contact",
         path:'/chat/:contact',
         component: UserChatContactMessages
       }
@@ -57,5 +57,13 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
+
+// router.beforeEach(function(to, from, next) {
+//   console.log(from, to)
+//   if (to.name === 'chat') {
+
+//   }
+//   next()
+// })
 
 export default router;

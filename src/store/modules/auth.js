@@ -4,6 +4,7 @@ import router from "../../router";
 const state = {
   userId: null,
   tokenId: null,
+  initLogin: false
 };
 
 const getters = {
@@ -21,6 +22,9 @@ const mutations = {
     state.tokenId = null;
     localStorage.clear();
   },
+  setInitLogin(state) {
+    state.initLogin = true
+  }
 };
 
 const actions = {
@@ -46,14 +50,9 @@ const actions = {
           tokenId: res.data.idToken,
           userId: res.data.localId,
         });
+        commit("setInitLogin")
         dispatch("fetchUsers");
         dispatch("fetchMessages");
-
-        // const recentChat = rootState.contact.contact.name
-        // if (recentChat) {
-        //   return router.push('/chat/' + recentChat)
-        // }
-        router.push("/chat");
       })
       .catch((error) => {
         console.log(error);
@@ -91,7 +90,7 @@ const actions = {
         dispatch("storeUser", authData);
         dispatch("fetchUsers");
 
-        router.replace("/chat");
+        router.push("/chat");
       })
       .catch((error) => {
         console.log(error);

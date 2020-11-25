@@ -49,7 +49,7 @@ export default {
       "isAuth"
     ]),
     isPathChat() {
-      return this.$route.name === "Chat";
+      return this.$route.name === "chat";
     },
   },
   methods: {
