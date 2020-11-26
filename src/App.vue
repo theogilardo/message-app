@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <transition name="slide-fade">
       <component :is="layout">
-        <router-view />
+        <transition name="slide-fade">
+          <router-view />
+       </transition>
       </component>
-    </transition>
   </div>
 </template>
 
