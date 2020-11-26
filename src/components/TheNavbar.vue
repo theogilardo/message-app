@@ -22,8 +22,6 @@
         to="/signup">
           {{ $t("button.signup") }}
       </router-link>
-        <!-- @click.native="redirectChat" -->
-        <!-- :to="'/chat/' + this.contact.name"> -->
       <router-link 
         v-if="isAuth" 
         class="link" 
@@ -62,11 +60,7 @@ export default {
       logout: 'logout'
     }),
     logoutAndRedirect () {
-      this.redirectHome();
       this.logout();
-    },
-    redirectHome () {
-      return this.$router.push("/");
     },
   },
 };
