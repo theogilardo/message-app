@@ -19,18 +19,22 @@ const mutations = {
     const expirationDate = new Date(now.getTime() + authData.expiresIn * 1000);
     localStorage.setItem("tokenId", authData.tokenId);
     localStorage.setItem("userId", authData.localId);
-    localStorage.setItem("userData", authData.userData);
     localStorage.setItem("expiresIn", expirationDate);
+
+    if (authData.userData) { 
+      localStorage.setItem("userData", authData.userData);
+    }
   },
 };
 
 const actions = {
-  storeUser({ commit }, authData) {
+  storeUser({ commit, dispatch }, authData) {
     axios
       .post("https://message-app-719f5.firebaseio.com/users.json", authData)
       .then((res) => {
         console.log(res);
         commit("storeUser", authData);
+        dispatch("fetchUsers");
       })
       .catch((err) => console.log(err));
   },

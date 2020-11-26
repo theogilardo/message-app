@@ -22,10 +22,12 @@
         to="/signup">
           {{ $t("button.signup") }}
       </router-link>
+        <!-- @click.native="redirectChat" -->
+        <!-- :to="'/chat/' + this.contact.name"> -->
       <router-link 
         v-if="isAuth" 
         class="link" 
-        to="/chat">
+        :to="linkChat">
           {{ $t("button.chat") }}
       </router-link>
       <button 
@@ -45,8 +47,15 @@ export default {
   name: "TheNavbar",
   computed: {
     ...mapGetters([
-      "isAuth"
+      "isAuth",
+      "contact"
     ]),
+    linkChat() {
+      if (this.contact) {
+        return '/chat/' + this.contact.name 
+      }
+      return '/chat'
+    }
   },
   methods: {
     ...mapMutations({

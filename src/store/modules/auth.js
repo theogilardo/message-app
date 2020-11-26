@@ -88,8 +88,6 @@ const actions = {
 
         authData.localId = res.data.localId;
         dispatch("storeUser", authData);
-        dispatch("fetchUsers");
-
         router.push("/chat");
       })
       .catch((error) => {

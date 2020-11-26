@@ -34,8 +34,8 @@ export default {
     "user-onboarding": UserChatOnboarding,
   },
   mounted() {
-    this.refreshLocalStorage();
     this.toastedSuccess()
+    this.refreshLocalStorage();
   },
   computed: {
     ...mapGetters([
