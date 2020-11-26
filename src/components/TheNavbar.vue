@@ -25,7 +25,7 @@
       <router-link 
         v-if="isAuth" 
         class="link" 
-        :to="linkChat">
+        to="/chat">
           {{ $t("button.chat") }}
       </router-link>
       <button 
@@ -48,12 +48,6 @@ export default {
       "isAuth",
       "contact"
     ]),
-    linkChat() {
-      if (this.contact) {
-        return '/chat/' + this.contact.name 
-      }
-      return '/chat'
-    }
   },
   methods: {
     ...mapMutations({

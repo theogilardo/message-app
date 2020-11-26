@@ -10,7 +10,7 @@ import messages from "./modules/messages";
 
 Vue.use(Vuex);
 
-export const store = new Vuex.Store({
+const store = new Vuex.Store({
   modules: {
     auth,
     user,
