@@ -10,7 +10,6 @@ import "./utils/filters";
 import LayoutDefault from "./components/layout/LayoutDefault";
 import LayoutChat from "./components/layout/LayoutChat";
 
-
 Vue.config.productionTip = false;
 Vue.use(VeeValidate);
 Vue.use(Toasted, {

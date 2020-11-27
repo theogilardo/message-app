@@ -1,4 +1,4 @@
-import axios from "axios";
+import { axiosDatabaseFirebase } from "../../api/axios"
 
 const state = {
   user: null,
@@ -29,8 +29,8 @@ const mutations = {
 
 const actions = {
   storeUser({ commit, dispatch }, authData) {
-    axios
-      .post("https://message-app-719f5.firebaseio.com/users.json", authData)
+    axiosDatabaseFirebase
+      .post("/users.json", authData)
       .then((res) => {
         console.log(res);
         commit("storeUser", authData);

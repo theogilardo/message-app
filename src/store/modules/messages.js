@@ -81,8 +81,6 @@ const actions = {
             return contactId;
           });
 
-        // router.replace("/chat");
-    
         if (findContacts.length) {
           const uniqueContactsIds = _.uniq(
             findContacts,
@@ -162,6 +160,7 @@ const actions = {
           const setMostRecentChat = contacts.find(
             (contact) => contact.localId === contactId
           );
+          
           dispatch("chatWithContact", setMostRecentChat);
 
           if (rootState.auth.initLogin) {
@@ -175,7 +174,6 @@ const actions = {
           router.push("/chat");
           rootState.auth.initLogin = false
         }
-
       });
   },
 };

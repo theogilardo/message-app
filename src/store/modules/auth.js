@@ -1,5 +1,5 @@
-import axios from "axios";
 import router from "../../router";
+import { axiosAuthFirebase } from "../../api/axios"
 
 const state = {
   userId: null,
@@ -29,9 +29,9 @@ const mutations = {
 
 const actions = {
   login({ commit, dispatch }, authData) {
-    axios
+    axiosAuthFirebase
       .post(
-        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCGkv9-83v6LsQRhClROTowTL6rK5YcPI8",
+        "/accounts:signInWithPassword?key=AIzaSyCGkv9-83v6LsQRhClROTowTL6rK5YcPI8",
         {
           email: authData.email,
           password: authData.password,
@@ -50,20 +50,21 @@ const actions = {
           tokenId: res.data.idToken,
           userId: res.data.localId,
         });
+        
         commit("setInitLogin")
         dispatch("fetchUsers");
         dispatch("fetchMessages");
       })
       .catch((error) => {
         console.log(error);
-        alert("Invalid email");
+        alert("Your email/password is invalid");
       });
   },
 
   signup({ commit, dispatch }, authData) {
-    axios
+    axiosAuthFirebase
       .post(
-        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCGkv9-83v6LsQRhClROTowTL6rK5YcPI8",
+        "/accounts:signUp?key=AIzaSyCGkv9-83v6LsQRhClROTowTL6rK5YcPI8",
         {
           email: authData.email,
           password: authData.password,

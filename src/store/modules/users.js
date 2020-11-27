@@ -1,4 +1,4 @@
-import axios from "axios";
+import { axiosDatabaseFirebase } from "../../api/axios"
 
 const state = {
   users: [],
@@ -18,8 +18,8 @@ const mutations = {
 
 const actions = {
   fetchUsers({ commit, rootState }) {
-    axios
-      .get("https://message-app-719f5.firebaseio.com/users.json")
+    axiosDatabaseFirebase
+      .get("/users.json")
       .then((res) => {
         console.log(res);
         const data = res.data;
