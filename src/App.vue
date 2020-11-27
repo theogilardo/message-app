@@ -3,7 +3,7 @@
       <component :is="layout">
         <transition name="slide-fade">
           <router-view />
-       </transition>
+        </transition>
       </component>
   </div>
 </template>
