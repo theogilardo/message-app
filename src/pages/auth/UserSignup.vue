@@ -96,7 +96,7 @@
         </div>
       </div>
       <div class="container__form__btn">
-        <button class="btn" type="submit" @click.prevent="formSubmitted">
+        <button class="btn" type="submit" @click.prevent="submitForm">
           {{ $t("button.signup") }}
         </button>
       </div>
@@ -135,7 +135,7 @@ export default {
     ...mapActions([
       "signup"
     ]),
-    formSubmitted() {
+    submitForm() {
       this.$validator.validateAll().then((isValid) => {
         if (isValid) {
           return this.signup(this.userData);

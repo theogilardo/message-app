@@ -8,6 +8,7 @@ const axiosAuthFirebase = axios.create({
   baseURL: "https://identitytoolkit.googleapis.com/v1"  
 })
 
+// Need to be improved
 axiosDatabaseFirebase.interceptors.request.use((req) => {
   console.log(req)
   return req

@@ -1,11 +1,15 @@
 <template>
   <div class="container">
-    <form class="container__form">
+    <form 
+      ref="form"
+      class="container__form" 
+      >
       <h2>Please login</h2>
       <div class="container__form__field">
         <input
           v-validate="'required|email'"
           v-model="userData.email"
+          ref="email"
           :class="{ error: errors.has('email') }"
           :placeholder="$t('login.placeholder.email')"
           name="email"
@@ -30,7 +34,7 @@
         >
         <label>{{ errors.first("password") }}</label>
       </div>
-      <button class="btn" @click.prevent="formSubmitted">
+      <button class="btn" @click.prevent="submitForm">
         {{ $t("button.login") }}
       </button>
     </form>
@@ -40,6 +44,7 @@
 <script>
 import { mapActions } from "vuex";
 import toastedMixin from '../../mixins/toasted'
+import { eventBus } from "../../main.js";
 
 export default {
   name: "Login",
@@ -54,11 +59,17 @@ export default {
       },
     };
   },
+  mounted() {
+    eventBus.$on('auth-error', () => {
+      this.toastedError()
+      this.clearForm()
+    })
+  },
   methods: {
     ...mapActions([
       "login"
     ]),
-    formSubmitted () {
+    submitForm () {
       this.$validator.validateAll().then((isValid) => {
         if (isValid) {
           return this.login(this.userData);
@@ -66,10 +77,14 @@ export default {
         this.toastedError()
       });
     },
+    clearForm() {
+      this.$refs.form.reset()
+      this.$refs.email.focus()
+    },
     togglePasswordVisibility () {
       this.inputType = this.inputType === "password" ? "text" : "password"
       this.iconPasswordVisibility = require(`@/assets/eye-${this.inputType}.svg`)
-    }
+    },
   },
 };
 </script>

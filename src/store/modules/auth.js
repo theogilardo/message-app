@@ -1,5 +1,6 @@
 import router from "../../router";
 import { axiosAuthFirebase } from "../../api/axios"
+import { eventBus } from "../../main.js";
 
 const state = {
   userId: null,
@@ -50,14 +51,14 @@ const actions = {
           tokenId: res.data.idToken,
           userId: res.data.localId,
         });
-        
+
         commit("setInitLogin")
         dispatch("fetchUsers");
         dispatch("fetchMessages");
       })
       .catch((error) => {
         console.log(error);
-        alert("Your email/password is invalid");
+        eventBus.$emit("auth-error");
       });
   },
 
